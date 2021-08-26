@@ -42,6 +42,7 @@
                   <v-list-item 
                   v-for="(emp, i) in Object.keys(empStore)"
                   :key="i"
+                  @click="showPassport"
                   >
                     <v-list-item-content>
                       <v-list-item-title>{{ emp }}</v-list-item-title>
@@ -95,14 +96,13 @@
                       :value="computedDate"
                       clearable
                       label="Дата выдачи"
-                      readonly
                       v-bind="attrs"
                       v-on="on"
-                      @click:clear="date = null"
+                      @click:clear="employee.pass_dt = null"
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="date"
+                    v-model="employee.pass_dt"
                     @change="menu = false"
                     :max="curDate"
                   ></v-date-picker>
@@ -142,7 +142,6 @@ export default {
       pass_dt: "",
     },
     curDate: moment().format("YYYY-MM-DD"),
-    date: "",
     menu: false,
   }),
   mounted() {
@@ -154,17 +153,26 @@ export default {
   methods: {
     addEmp() {
       this.formVisable = true
+      this.employee.fio = ""
+      this.employee.pass_ser = ""
+      this.employee.pass_no = ""
+      this.employee.pass_dt = ""
     },
     saveEmp() {
-      this.employee.pass_dt = this.date
       this.empStore[this.employee.fio] = JSON.stringify(this.employee)
       const parsed = JSON.stringify(this.empStore)
       localStorage.setItem("empStore", parsed)
     },
+    showPassport(e) {
+      let tmp = this.empStore[e.target.innerText]
+      this.employee = JSON.parse(tmp)
+      console.log(this.empStore[e.target.innerText])
+      this.formVisable = true
+    }
   },
   computed: {
       computedDate() {
-        return this.date ? moment(this.date).format("YYYY-MM-DD") : ""
+        return this.employee.pass_dt ? moment(this.employee.pass_dt).format("YYYY-MM-DD") : ""
       },
     },
 };
