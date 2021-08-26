@@ -109,7 +109,7 @@
                 </v-menu>
 
                 <v-btn @click="saveEmp">Сохранить</v-btn>
-                <v-btn>Удалить</v-btn>
+                <v-btn @click="remEmp">Удалить</v-btn>
               </form>
             </v-card>
           </v-col>
@@ -153,21 +153,33 @@ export default {
   methods: {
     addEmp() {
       this.formVisable = true
-      this.employee.fio = ""
-      this.employee.pass_ser = ""
-      this.employee.pass_no = ""
-      this.employee.pass_dt = ""
+      this.clearEmp()
     },
     saveEmp() {
       this.empStore[this.employee.fio] = JSON.stringify(this.employee)
-      const parsed = JSON.stringify(this.empStore)
-      localStorage.setItem("empStore", parsed)
+      this.uploadEmpStore()
+    },
+    remEmp() {
+      delete this.empStore[this.employee.fio]
+      this.clearEmp()
+      this.uploadEmpStore()
+      this.formVisable = false
     },
     showPassport(e) {
       let tmp = this.empStore[e.target.innerText]
       this.employee = JSON.parse(tmp)
       console.log(this.empStore[e.target.innerText])
       this.formVisable = true
+    },
+    clearEmp() {
+      this.employee.fio = ""
+      this.employee.pass_ser = ""
+      this.employee.pass_no = ""
+      this.employee.pass_dt = ""
+    },
+    uploadEmpStore() {
+      const parsed = JSON.stringify(this.empStore)
+      localStorage.setItem("empStore", parsed)
     }
   },
   computed: {
