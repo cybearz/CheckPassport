@@ -100,6 +100,7 @@
                   <v-date-picker
                     v-model="date"
                     @change="menu = false"
+                    :max="curDate"
                   ></v-date-picker>
                 </v-menu>
 
@@ -129,7 +130,8 @@ export default {
 
   data: () => ({
     employees: ["Петров В.В.", "Боширов Г.Г.", "Иванов М.Ю.", "Семенов П.В."],
-    date: moment().format("YYYY-MM-DD"),
+    curDate: moment().format("YYYY-MM-DD"),
+    date: "",
     menu: false,
   }),
   computed: {
