@@ -40,8 +40,8 @@
                   color="primary"
                 >
                   <v-list-item 
-                  v-for="(emp, i) in Object.keys(empStore)"
-                  :key="i"
+                  v-for="emp in Object.keys(empStore)"
+                  :key="emp"
                   @click="showPassport"
                   >
                     <v-list-item-content>
