@@ -31,6 +31,7 @@
                     dark
                     color="blue-grey"
                     class="mx-4"
+                    @click="addEmp"
                   >
                     <v-icon size="16">mdi-plus</v-icon>
                   </v-btn>
@@ -56,6 +57,7 @@
             <v-card 
               elevation="4"
               tile
+              v-if="formVisable"
             >
             <v-subheader>Паспортные данные</v-subheader>
               <form
@@ -131,6 +133,7 @@ export default {
   },
 
   data: () => ({
+    formVisable: false,
     empStore: {},
     employee: {
       fio: "",
@@ -149,12 +152,15 @@ export default {
 
   },
   methods: {
+    addEmp() {
+      this.formVisable = true
+    },
     saveEmp() {
       this.employee.pass_dt = this.date
       this.empStore[this.employee.fio] = JSON.stringify(this.employee)
       const parsed = JSON.stringify(this.empStore)
       localStorage.setItem("empStore", parsed)
-    }
+    },
   },
   computed: {
       computedDate() {
