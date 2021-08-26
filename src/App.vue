@@ -39,7 +39,7 @@
                   color="primary"
                 >
                   <v-list-item 
-                  v-for="(emp, i) in employees"
+                  v-for="(emp, i) in Object.keys(empStore)"
                   :key="i"
                   >
                     <v-list-item-content>
@@ -64,20 +64,22 @@
                 <v-text-field
                   label="ФИО"
                   outlined
-                  dense
                   clearable
                   filled
+                  v-model="employee.fio"
                 ></v-text-field>
                 <div class="d-flex align-center">
                   <v-text-field
                     label="Серия"
                     outlined
                     class="flex-grow-0"
+                    v-model="employee.pass_ser"
                   ></v-text-field>
                   <v-text-field
                     label="Номер"
                     outlined
                     class="flex-grow-1"
+                    v-model="employee.pass_no"
                   ></v-text-field>
                 </div>
 
@@ -104,7 +106,7 @@
                   ></v-date-picker>
                 </v-menu>
 
-                <v-btn>Сохранить</v-btn>
+                <v-btn @click="saveEmp">Сохранить</v-btn>
                 <v-btn>Удалить</v-btn>
               </form>
             </v-card>
@@ -129,11 +131,31 @@ export default {
   },
 
   data: () => ({
-    employees: ["Петров В.В.", "Боширов Г.Г.", "Иванов М.Ю.", "Семенов П.В."],
+    empStore: {},
+    employee: {
+      fio: "",
+      pass_ser: "",
+      pass_no: "",
+      pass_dt: "",
+    },
     curDate: moment().format("YYYY-MM-DD"),
     date: "",
     menu: false,
   }),
+  mounted() {
+    if (localStorage.getItem("empStore")) {
+      this.empStore = JSON.parse(localStorage.getItem("empStore"))
+    }
+
+  },
+  methods: {
+    saveEmp() {
+      this.employee.pass_dt = this.date
+      this.empStore[this.employee.fio] = JSON.stringify(this.employee)
+      const parsed = JSON.stringify(this.empStore)
+      localStorage.setItem("empStore", parsed)
+    }
+  },
   computed: {
       computedDate() {
         return this.date ? moment(this.date).format("YYYY-MM-DD") : ""
