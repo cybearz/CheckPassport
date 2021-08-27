@@ -17,40 +17,11 @@
           <v-col
             cols="3"
           >
-            <v-card 
-              tile
-              flat
-            >
-              <v-list class="py-0">
-                <div class="d-flex align-center">
-                  <v-subheader>Сотрудники</v-subheader>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    x-small
-                    rounded
-                    dark
-                    color="blue-grey"
-                    class="mx-4"
-                    @click="addEmp"
-                  >
-                    <v-icon size="16">mdi-plus</v-icon>
-                  </v-btn>
-                </div>
-                <v-list-item-group
-                  color="primary"
-                >
-                  <v-list-item 
-                  v-for="emp in Object.keys(empStore)"
-                    :key="emp"
-                    @click="showPassport"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>{{ emp }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-card>
+            <empList
+              :emps="Object.keys(empStore)"
+              @addEmp="addEmp"
+              @showPassport="showPassport($event)"
+            />
           </v-col>
           <v-col
             cols="4"
@@ -76,11 +47,12 @@
 
 <script>
 import passportForm from "@/components/passportForm"
+import empList from "@/components/empList"
 
 export default {
   name: 'App',
   components: {
-    passportForm
+    passportForm, empList
   },
   data: () => ({
     formVisable: false,
