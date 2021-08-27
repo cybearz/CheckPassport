@@ -55,44 +55,16 @@
           <v-col
             cols="4"
           >
-            <v-card 
-              elevation="4"
-              tile
-              v-if="formVisable"
-            >
-            <v-subheader>Паспортные данные</v-subheader>
-              <form
-                class="pa-3"
-              >
-                <v-text-field
-                  label="ФИО"
-                  outlined
-                  clearable
-                  filled
-                  v-model="employee.fio"
-                ></v-text-field>
-                <div class="d-flex align-center">
-                  <v-text-field
-                    label="Серия"
-                    outlined
-                    class="flex-grow-0"
-                    v-model="employee.pass_ser"
-                  ></v-text-field>
-                  <v-text-field
-                    label="Номер"
-                    outlined
-                    class="flex-grow-1"
-                    v-model="employee.pass_no"
-                  ></v-text-field>
-                </div>
-                  <calendar 
-                    :pass_dt="employee.pass_dt"
-                    v-model="employee.pass_dt"
-                  />
-                <v-btn @click="saveEmp">Сохранить</v-btn>
-                <v-btn @click="remEmp">Удалить</v-btn>
-              </form>
-            </v-card>
+            <passportForm 
+              :formVisable="formVisable" 
+              :employee="employee"
+              @inputFio="employee.fio = $event"
+              @inputPass_ser="employee.pass_ser = $event"
+              @inputPass_no="employee.pass_no = $event"
+              @inputPass_dt="employee.pass_dt = $event"
+              @saveEmp="saveEmp"
+              @remEmp="remEmp"
+            />
           </v-col>
         </v-row>
 
@@ -103,12 +75,12 @@
 </template>
 
 <script>
-import calendar from "@/components/calendar"
+import passportForm from "@/components/passportForm"
 
 export default {
   name: 'App',
   components: {
-    calendar,
+    passportForm
   },
   data: () => ({
     formVisable: false,
@@ -158,9 +130,6 @@ export default {
       const parsed = JSON.stringify(this.empStore)
       localStorage.setItem("empStore", parsed)
     },
-    changeDate(date) {
-      this.employee.pass_dt = date
-    }
   },
 };
 </script>
