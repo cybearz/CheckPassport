@@ -41,8 +41,8 @@
                 >
                   <v-list-item 
                   v-for="emp in Object.keys(empStore)"
-                  :key="emp"
-                  @click="showPassport"
+                    :key="emp"
+                    @click="showPassport"
                   >
                     <v-list-item-content>
                       <v-list-item-title>{{ emp }}</v-list-item-title>
@@ -85,29 +85,10 @@
                     v-model="employee.pass_no"
                   ></v-text-field>
                 </div>
-
-                <v-menu
-                  v-model="menu"
-                  :close-on-content-click="false"
-                  max-width="290"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      :value="computedDate"
-                      clearable
-                      label="Дата выдачи"
-                      v-bind="attrs"
-                      v-on="on"
-                      @click:clear="employee.pass_dt = null"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker
-                    v-model="employee.pass_dt"
-                    @change="menu = false"
-                    :max="curDate"
-                  ></v-date-picker>
-                </v-menu>
-
+                  <calendar 
+                    :pass_dt="employee.pass_dt"
+                    @changeDate="changeDate"
+                  />
                 <v-btn @click="saveEmp">Сохранить</v-btn>
                 <v-btn @click="remEmp">Удалить</v-btn>
               </form>
@@ -122,16 +103,13 @@
 </template>
 
 <script>
-import moment from 'moment'
-
+import calendar from "@/components/calendar"
 
 export default {
   name: 'App',
-
   components: {
-
+    calendar,
   },
-
   data: () => ({
     formVisable: false,
     empStore: {},
@@ -141,8 +119,6 @@ export default {
       pass_no: "",
       pass_dt: "",
     },
-    curDate: moment().format("YYYY-MM-DD"),
-    menu: false,
   }),
   mounted() {
     if (localStorage.getItem("empStore")) {
@@ -168,24 +144,23 @@ export default {
     showPassport(e) {
       let tmp = this.empStore[e.target.innerText]
       this.employee = JSON.parse(tmp)
-      console.log(this.empStore[e.target.innerText])
       this.formVisable = true
     },
     clearEmp() {
-      this.employee.fio = ""
-      this.employee.pass_ser = ""
-      this.employee.pass_no = ""
-      this.employee.pass_dt = ""
+      this.employee = {
+        fio: "",
+        pass_ser: "",
+        pass_no: "",
+        pass_dt: "",
+      }
     },
     uploadEmpStore() {
       const parsed = JSON.stringify(this.empStore)
       localStorage.setItem("empStore", parsed)
+    },
+    changeDate(date) {
+      this.employee.pass_dt = date
     }
   },
-  computed: {
-      computedDate() {
-        return this.employee.pass_dt ? moment(this.employee.pass_dt).format("YYYY-MM-DD") : ""
-      },
-    },
 };
 </script>
