@@ -80,7 +80,10 @@ export default {
       this.uploadEmpStore()
     },
     remEmp() {
-      delete this.empStore[this.employee.fio]
+      let fio = this.employee.fio
+      if (this.empStore[fio]) {
+        delete this.empStore[fio]
+      }
       this.clearEmp()
       this.uploadEmpStore()
       this.formVisable = false

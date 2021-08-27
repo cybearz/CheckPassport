@@ -14,7 +14,7 @@
         clearable
         filled
         :value="employee.fio"
-        @input="$emit('inputFio', $event)"
+        @input="saveBtnVisable = true, $emit('inputFio', $event)"
       ></v-text-field>
       <div class="d-flex align-center">
         <v-text-field
@@ -36,7 +36,10 @@
           :pass_dt="employee.pass_dt"
           @input="$emit('inputPass_dt', $event)"
         />
-      <v-btn @click="$emit('saveEmp')">Сохранить</v-btn>
+      <v-btn 
+        v-if="saveBtnVisable"
+        @click="saveBtnVisable = false, $emit('saveEmp')"
+      >Сохранить</v-btn>
       <v-btn @click="$emit('remEmp')">Удалить</v-btn>
     </form>
   </v-card>
@@ -58,7 +61,10 @@ export default {
       type: Object,
       required: true
     }
-  }
+  },
+  data: () => ({
+    saveBtnVisable: false
+  })
 }
 </script>
 
