@@ -6,16 +6,17 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
-        :value="pass_dt"
+        :value="computedDate"
+        @input="changeDate"
         clearable
         label="Дата выдачи"
         v-bind="attrs"
         v-on="on"
-        @click:clear="date = null"
       ></v-text-field>
     </template>
     <v-date-picker
-      v-model="date"
+      :value="pass_dt"
+      @input="changeDate"
       @change="menu = false"
       :max="curDate"
     ></v-date-picker>
@@ -33,26 +34,21 @@ export default {
     }
   },
   data: ()=> ({
-    date: "",
     curDate: moment().format("YYYY-MM-DD"),
     menu: false
   }),
   methods: {
-    changeDate() {
-      this.$emit("changeDate", this.date)
+    changeDate(e) {
+      console.log(e)
+      this.$emit('input', e)
       
     }
   },
   computed: {
     computedDate() {
-      return this.date ? moment(this.date).format("YYYY-MM-DD") : ""
+      return this.pass_dt ? moment(this.pass_dt).format("YYYY-MM-DD") : ""
     },
   },
-  watch: {
-    date() {
-      this.changeDate()
-    }
-  }
 }
 </script>
 

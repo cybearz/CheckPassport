@@ -87,7 +87,7 @@
                 </div>
                   <calendar 
                     :pass_dt="employee.pass_dt"
-                    @changeDate="changeDate"
+                    v-model="employee.pass_dt"
                   />
                 <v-btn @click="saveEmp">Сохранить</v-btn>
                 <v-btn @click="remEmp">Удалить</v-btn>
