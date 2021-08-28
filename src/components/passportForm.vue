@@ -2,7 +2,7 @@
   <v-card 
     elevation="4"
     tile
-    v-if="formVisable"
+    v-if="formVisible"
   >
   <v-subheader>Паспортные данные</v-subheader>
     <form
@@ -14,7 +14,7 @@
         clearable
         filled
         :value="employee.fio"
-        @input="saveBtnVisable = true, $emit('input', 'fio', $event)"
+        @input="saveBtnVisible = true, $emit('input', 'fio', $event)"
       ></v-text-field>
       <div class="d-flex align-center">
         <v-text-field
@@ -37,10 +37,10 @@
           @input="$emit('input', 'pass_dt', $event)"
         />
       <v-btn 
-        v-if="saveBtnVisable"
-        @click="saveBtnVisable = false, $emit('saveEmp')"
+        v-if="saveBtnVisible"
+        @click="saveBtnVisible = false, $emit('saveEmp')"
       >Сохранить</v-btn>
-      <v-btn @click="$emit('remEmp')">Удалить</v-btn>
+      <v-btn @click="$emit('removeEmp')">Удалить</v-btn>
     </form>
   </v-card>
 </template>
@@ -53,7 +53,7 @@ export default {
     calendar,
   },
   props: {
-    formVisable: {
+    formVisible: {
       type: Boolean,
       required: true
     },
@@ -63,7 +63,7 @@ export default {
     }
   },
   data: () => ({
-    saveBtnVisable: false
+    saveBtnVisible: false
   }),
 }
 </script>

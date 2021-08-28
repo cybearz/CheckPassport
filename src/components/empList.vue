@@ -32,7 +32,7 @@
         <v-list-item 
         v-for="emp in emps"
           :key="emp"
-          @click="$emit('showPassport', $event)"
+          @click="$emit('showPassport', $event.target.innerText)"
         >
           <v-list-item-content>
             <v-list-item-title>{{ emp }}</v-list-item-title>

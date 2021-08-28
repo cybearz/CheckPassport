@@ -27,11 +27,11 @@
             cols="4"
           >
             <passportForm 
-              :formVisable="formVisable" 
+              :formVisible="formVisible" 
               :employee="employee"
               @input="inpChange"
               @saveEmp="saveEmp"
-              @remEmp="remEmp"
+              @removeEmp="removeEmp"
             />
           </v-col>
         </v-row>
@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 import passportForm from "@/components/passportForm"
 import empList from "@/components/empList"
 
@@ -52,7 +54,7 @@ export default {
     passportForm, empList
   },
   data: () => ({
-    formVisable: false,
+    formVisible: false,
     empKeys: [],
     empStore: {},
     employee: {
@@ -65,13 +67,13 @@ export default {
   mounted() {
     if (localStorage.getItem("empStore")) {
       this.empStore = JSON.parse(localStorage.getItem("empStore"))
-      this.empKeys = [...Object.keys(this.empStore)]
+      this.empKeys = _.keys(this.empStore)
     }
 
   },
   methods: {
     addEmp() {
-      this.formVisable = true
+      this.formVisible = true
       this.clearEmp()
     },
     inpChange(key, txt) {
@@ -82,19 +84,23 @@ export default {
       this.empKeys.push(this.employee.fio)
       this.uploadEmpStore()
     },
-    remEmp() {
-      let fio = this.employee.fio
+    removeEmp() {
+      const fio = this.employee.fio
       if (this.empStore[fio]) {
         delete this.empStore[fio]
+        // _.remove(this.empKeys, el =>  el == fio)
+        const ind = this.empKeys.findIndex(el => el === fio)
+        this.empKeys.splice(ind, 1)
       }
       this.clearEmp()
       this.uploadEmpStore()
-      this.formVisable = false
+      this.formVisible = false
     },
-    showPassport(e) {
-      let tmp = this.empStore[e.target.innerText]
-      this.employee = JSON.parse(tmp)
-      this.formVisable = true
+    showPassport(key) {
+      if (this.empStore[key]) {
+        this.employee = JSON.parse(this.empStore[key])
+        this.formVisible = true
+      }
     },
     clearEmp() {
       this.employee = {

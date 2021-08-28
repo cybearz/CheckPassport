@@ -39,9 +39,7 @@ export default {
   }),
   methods: {
     changeDate(e) {
-      console.log(e)
-      this.$emit('input', e)
-      
+      this.$emit('input', e)     
     }
   },
   computed: {
