@@ -80,6 +80,9 @@ export default {
       this.employee[key] = txt
     },
     saveEmp() {
+      _.forIn(this.employee, (value, key) => {
+        this.employee[key] = _.trim(value)
+      })
       this.empStore[this.employee.fio] = this.employee
       this.empKeys.push(this.employee.fio)
       this.uploadEmpStore()
