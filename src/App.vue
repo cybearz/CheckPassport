@@ -83,8 +83,10 @@ export default {
       _.forIn(this.employee, (value, key) => {
         this.employee[key] = _.trim(value)
       })
-      this.empStore[this.employee.fio] = this.employee
-      this.empKeys.push(this.employee.fio)
+      let [Surname, N, MN] = this.employee.fio.split(" ")
+      const empStoreKey = `${Surname} ${N[0].toUpperCase()}. ${MN[0].toUpperCase()}.`
+      this.empStore[empStoreKey] = this.employee
+      this.empKeys.push(empStoreKey)
       this.uploadEmpStore()
     },
     removeEmp() {
