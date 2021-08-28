@@ -18,7 +18,7 @@
             cols="3"
           >
             <empList
-              :emps="Object.keys(empStore)"
+              :emps="empKeys"
               @addEmp="addEmp"
               @showPassport="showPassport($event)"
             />
@@ -56,6 +56,7 @@ export default {
   },
   data: () => ({
     formVisable: false,
+    empKeys: [],
     empStore: {},
     employee: {
       fio: "",
@@ -67,6 +68,7 @@ export default {
   mounted() {
     if (localStorage.getItem("empStore")) {
       this.empStore = JSON.parse(localStorage.getItem("empStore"))
+      this.empKeys = [...Object.keys(this.empStore)]
     }
 
   },
@@ -77,6 +79,7 @@ export default {
     },
     saveEmp() {
       this.empStore[this.employee.fio] = JSON.stringify(this.employee)
+      this.empKeys.push(this.employee.fio)
       this.uploadEmpStore()
     },
     remEmp() {
