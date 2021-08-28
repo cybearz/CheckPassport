@@ -22,6 +22,14 @@
         color="primary"
       >
         <v-list-item 
+          v-if="emps.length === 0"
+          inactive
+        >
+          <v-list-item-content>
+            <v-list-item-subtitle class="text-center">Добавьте первого сотрудника</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item 
         v-for="emp in emps"
           :key="emp"
           @click="$emit('showPassport', $event)"
