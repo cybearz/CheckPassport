@@ -29,10 +29,7 @@
             <passportForm 
               :formVisable="formVisable" 
               :employee="employee"
-              @inputFio="employee.fio = $event"
-              @inputPass_ser="employee.pass_ser = $event"
-              @inputPass_no="employee.pass_no = $event"
-              @inputPass_dt="employee.pass_dt = $event"
+              @input="inpChange"
               @saveEmp="saveEmp"
               @remEmp="remEmp"
             />
@@ -76,6 +73,9 @@ export default {
     addEmp() {
       this.formVisable = true
       this.clearEmp()
+    },
+    inpChange(key, txt) {
+      this.employee[key] = txt
     },
     saveEmp() {
       this.empStore[this.employee.fio] = JSON.stringify(this.employee)

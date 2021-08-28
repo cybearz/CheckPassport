@@ -14,7 +14,7 @@
         clearable
         filled
         :value="employee.fio"
-        @input="saveBtnVisable = true, $emit('inputFio', $event)"
+        @input="saveBtnVisable = true, $emit('input', 'fio', $event)"
       ></v-text-field>
       <div class="d-flex align-center">
         <v-text-field
@@ -22,19 +22,19 @@
           outlined
           class="flex-grow-0"
           :value="employee.pass_ser"
-          @input="$emit('inputPass_ser', $event)"
+          @input="$emit('input', 'pass_ser', $event)"
         ></v-text-field>
         <v-text-field
           label="Номер"
           outlined
           class="flex-grow-1"
           :value="employee.pass_no"
-          @input="$emit('inputPass_no', $event)"
+          @input="$emit('input', 'pass_no', $event)"
         ></v-text-field>
       </div>
         <calendar 
           :pass_dt="employee.pass_dt"
-          @input="$emit('inputPass_dt', $event)"
+          @input="$emit('input', 'pass_dt', $event)"
         />
       <v-btn 
         v-if="saveBtnVisable"
@@ -64,7 +64,7 @@ export default {
   },
   data: () => ({
     saveBtnVisable: false
-  })
+  }),
 }
 </script>
 
