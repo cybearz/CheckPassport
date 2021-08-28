@@ -80,7 +80,7 @@ export default {
       this.employee[key] = txt
     },
     saveEmp() {
-      this.empStore[this.employee.fio] = JSON.stringify(this.employee)
+      this.empStore[this.employee.fio] = this.employee
       this.empKeys.push(this.employee.fio)
       this.uploadEmpStore()
     },
@@ -97,10 +97,8 @@ export default {
       this.formVisible = false
     },
     showPassport(key) {
-      if (this.empStore[key]) {
-        this.employee = JSON.parse(this.empStore[key])
-        this.formVisible = true
-      }
+      this.employee = this.empStore[key]
+      this.formVisible = true
     },
     clearEmp() {
       this.employee = {
