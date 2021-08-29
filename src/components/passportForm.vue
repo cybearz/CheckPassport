@@ -11,10 +11,8 @@
       <v-text-field
         label="ФИО"
         outlined
-        clearable
-        filled
         :value="employee.fio"
-        @input="saveBtnVisible = true, $emit('input', 'fio', $event)"
+        @input="$emit('input', 'fio', $event)"
       ></v-text-field>
       <div class="d-flex align-center">
         <v-text-field
@@ -38,7 +36,7 @@
         />
       <v-btn 
         v-if="saveBtnVisible"
-        @click="saveBtnVisible = false, $emit('saveEmp')"
+        @click="$emit('saveEmp')"
       >Сохранить</v-btn>
       <v-btn @click="$emit('removeEmp')">Удалить</v-btn>
     </form>
@@ -57,14 +55,15 @@ export default {
       type: Boolean,
       required: true
     },
+    saveBtnVisible: {
+      type: Boolean,
+      required: true
+    },
     employee: {
       type: Object,
       required: true
     }
-  },
-  data: () => ({
-    saveBtnVisible: false
-  }),
+  }
 }
 </script>
 

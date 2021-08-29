@@ -27,7 +27,8 @@
             cols="4"
           >
             <passportForm 
-              :formVisible="formVisible" 
+              :formVisible="formVisible"
+              :saveBtnVisible="saveBtnVisible" 
               :employee="employee"
               @input="inpChange"
               @saveEmp="saveEmp"
@@ -55,6 +56,7 @@ export default {
   },
   data: () => ({
     formVisible: false,
+    saveBtnVisible: false,
     currEmpStoreKey: "",
     empKeys: [],
     empStore: {},
@@ -79,6 +81,13 @@ export default {
     },
     inpChange(key, txt) {
       this.employee[key] = txt
+      const tmp = this.empStore[this.currEmpStoreKey]
+      if (_.isEqual(this.employee, tmp)) {
+        this.saveBtnVisible = false
+      } else {
+        this.saveBtnVisible = true
+      }
+      
     },
     saveEmp() {
       _.forIn(this.employee, (value, key) => {
@@ -96,6 +105,7 @@ export default {
         this.empKeys.push(empStoreKey)
       }  
       this.empStore[this.currEmpStoreKey] = _.assign({}, this.employee) 
+      this.saveBtnVisible = false
       this.uploadEmpStore()
     },
     removeEmp() {
