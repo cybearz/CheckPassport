@@ -55,6 +55,7 @@ export default {
   },
   data: () => ({
     formVisible: false,
+    currEmpStoreKey: "",
     empKeys: [],
     empStore: {},
     employee: {
@@ -69,11 +70,11 @@ export default {
       this.empStore = JSON.parse(localStorage.getItem("empStore"))
       this.empKeys = _.keys(this.empStore)
     }
-
   },
   methods: {
     addEmp() {
       this.formVisible = true
+      this.currEmpStoreKey = ""
       this.clearEmp()
     },
     inpChange(key, txt) {
@@ -83,26 +84,38 @@ export default {
       _.forIn(this.employee, (value, key) => {
         this.employee[key] = _.trim(value)
       })
+
       let [Surname, N, MN] = this.employee.fio.split(" ")
       const empStoreKey = `${Surname} ${N[0].toUpperCase()}. ${MN[0].toUpperCase()}.`
-      this.empStore[empStoreKey] = this.employee
-      this.empKeys.push(empStoreKey)
+
+      if (this.currEmpStoreKey && this.currEmpStoreKey !== empStoreKey) {
+        this.removeEmp()
+      }
+      if (!this.currEmpStoreKey) {
+        this.currEmpStoreKey = empStoreKey
+        this.empKeys.push(empStoreKey)
+      }  
+      this.empStore[this.currEmpStoreKey] = _.assign({}, this.employee) 
       this.uploadEmpStore()
     },
     removeEmp() {
-      const fio = this.employee.fio
+      const fio = this.currEmpStoreKey
+      
       if (this.empStore[fio]) {
         delete this.empStore[fio]
         // _.remove(this.empKeys, el =>  el == fio)
         const ind = this.empKeys.findIndex(el => el === fio)
         this.empKeys.splice(ind, 1)
+        this.currEmpStoreKey = ""
       }
-      this.clearEmp()
+
+      // this.clearEmp()
       this.uploadEmpStore()
       this.formVisible = false
     },
     showPassport(key) {
-      this.employee = this.empStore[key]
+      this.currEmpStoreKey = key
+      _.assign(this.employee, this.empStore[key])
       this.formVisible = true
     },
     clearEmp() {
@@ -115,6 +128,7 @@ export default {
     },
     uploadEmpStore() {
       const parsed = JSON.stringify(this.empStore)
+
       localStorage.setItem("empStore", parsed)
     },
   },
