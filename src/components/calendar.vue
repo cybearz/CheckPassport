@@ -7,8 +7,10 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         :value="computedDate"
+        :rules="rules"
         @input="changeDate"
-        clearable
+        outlined
+        readonly
         label="Дата выдачи"
         v-bind="attrs"
         v-on="on"
@@ -28,6 +30,9 @@ import moment from 'moment'
 
 export default {
   props: {
+    rules: {
+      required: true
+    },
     pass_dt: {
       type: String,
       required: true

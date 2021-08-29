@@ -90,10 +90,6 @@ export default {
       
     },
     saveEmp() {
-      _.forIn(this.employee, (value, key) => {
-        this.employee[key] = _.trim(value)
-      })
-
       let [Surname, N, MN] = this.employee.fio.split(" ")
       const empStoreKey = `${Surname} ${N[0].toUpperCase()}. ${MN[0].toUpperCase()}.`
 
@@ -119,7 +115,6 @@ export default {
         this.currEmpStoreKey = ""
       }
 
-      // this.clearEmp()
       this.uploadEmpStore()
       this.formVisible = false
     },
