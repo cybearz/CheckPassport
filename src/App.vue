@@ -17,7 +17,7 @@
           <v-col
             cols="3"
           >
-            <empList
+            <EmpList
               :emps="empKeys"
               @addEmp="addEmp"
               @showPassport="showPassport($event)"
@@ -26,7 +26,7 @@
           <v-col
             cols="4"
           >
-            <passportForm 
+            <PassportForm 
               :formVisible="formVisible"
               :saveBtnVisible="saveBtnVisible" 
               :employee="employee"
@@ -46,13 +46,13 @@
 <script>
 import _ from 'lodash'
 
-import passportForm from "@/components/passportForm"
-import empList from "@/components/empList"
+import PassportForm from "@/components/PassportForm"
+import EmpList from "@/components/EmpList"
 
 export default {
   name: 'App',
   components: {
-    passportForm, empList
+    PassportForm, EmpList
   },
   data: () => ({
     formVisible: false,

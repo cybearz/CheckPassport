@@ -34,7 +34,7 @@
           @input="$emit('input', 'pass_no', $event)"
         ></v-text-field>
       </div>
-        <calendar 
+        <Calendar 
           :pass_dt="employee.pass_dt"
           :rules="dtRules"
           @input="$emit('input', 'pass_dt', $event)"
@@ -49,11 +49,11 @@
 </template>
 
 <script>
-import calendar from "@/components/calendar"
+import Calendar from "@/components/Calendar"
 
 export default {
   components: {
-    calendar,
+    Calendar,
   },
   props: {
     formVisible: {
