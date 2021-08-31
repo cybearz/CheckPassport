@@ -4,20 +4,19 @@
     :close-on-content-click="false"
     max-width="290"
   >
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on }">
       <v-text-field
-        :value="computedDate"
+        :value="rusDate"
         :rules="rules"
         @input="changeDate"
         outlined
         readonly
         label="Дата выдачи"
-        v-bind="attrs"
         v-on="on"
       ></v-text-field>
     </template>
     <v-date-picker
-      :value="pass_dt"
+      :value="computedDate"
       @input="changeDate"
       @change="menu = false"
       :max="curDate"
@@ -48,9 +47,12 @@ export default {
     }
   },
   computed: {
+    rusDate() {
+      return this.pass_dt ? moment(this.pass_dt).format("DD-MM-YYYY") : ""
+    },
     computedDate() {
       return this.pass_dt ? moment(this.pass_dt).format("YYYY-MM-DD") : ""
-    },
+    }
   },
 }
 </script>
