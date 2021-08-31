@@ -143,7 +143,7 @@ export default {
       }
 
       this.uploadEmpStore()
-      this.formVisible = false
+      this.clearEmp()
     },
 
     showPassport(id) {

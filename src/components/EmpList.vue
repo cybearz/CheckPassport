@@ -67,7 +67,6 @@ export default {
           surname = surname[0].toUpperCase() + surname.slice(1)
           value[0] = `${surname} ${name[0].toUpperCase()}. ${midName[0].toUpperCase()}.`
         })
-
       },
       deep: true
     }

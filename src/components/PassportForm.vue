@@ -43,7 +43,21 @@
         v-if="saveBtnVisible"
         @click="saveEmp"
       >Сохранить</v-btn>
-      <v-btn @click="$emit('removeEmp')">Удалить</v-btn>
+      <v-btn @click="removeEmp">Удалить</v-btn>
+      
+      <v-snackbar v-model="snackbar">{{ text }}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
+
     </v-form>
   </v-card>
 </template>
@@ -84,13 +98,35 @@ export default {
     ],
     dtRules: [
       v => !!v || "Введите дату"
-    ]
+    ],
+    
+    snackbar: false,
+    toggleSnackbar: true,
+    text: ""
   }),
   methods: {
     saveEmp() {
       if (this.$refs.form.validate()) {
         this.$emit('saveEmp')
+        this.text = "Данные сохранены"
+        this.toggleSnackbar = !this.toggleSnackbar
       }
+    },
+    removeEmp() {
+      this.$emit('removeEmp')
+      this.text = "Данные удалены"
+      this.toggleSnackbar = !this.toggleSnackbar
+    },
+  },
+  computed: {},
+  watch: {
+    toggleSnackbar() {
+      console.log("we r watching u")
+      this.snackbar = true  
+      setTimeout(() => {
+        this.snackbar = false
+      }, 1000)
+      
     }
   }
 }
