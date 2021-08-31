@@ -18,7 +18,7 @@
             cols="3"
           >
             <EmpList
-              :emps="empKeys"
+              :namesAndIds="namesAndIds"
               @addEmp="addEmp"
               @showPassport="showPassport($event)"
             />
@@ -46,6 +46,7 @@
 <script>
 import _ from 'lodash'
 import moment from 'moment'
+import { v1 as uuidv1 } from 'uuid';
 
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
@@ -60,8 +61,8 @@ export default {
   data: () => ({
     formVisible: false,
     saveBtnVisible: false,
-    currEmpStoreKey: "",
-    empKeys: [],
+    empId: "",
+    namesAndIds: [],
     empStore: {},
     employee: {
       fio: "",
@@ -74,14 +75,17 @@ export default {
   mounted() {
     if (localStorage.getItem("empStore")) {
       this.empStore = JSON.parse(localStorage.getItem("empStore"))
-      this.empKeys = _.keys(this.empStore)
+
+      _.forEach(this.empStore, (value, ID) => {
+        this.namesAndIds.push([value["fio"], ID])
+      })
     }
   },
 
   methods: {
     addEmp() {
       this.formVisible = true
-      this.currEmpStoreKey = ""
+      this.empId = ""
       this.clearEmp()
     },
 
@@ -90,7 +94,7 @@ export default {
         txt = moment(txt).format("YYYY-MM-DDThh:mm:ssZ")
       }
       this.employee[key] = txt
-      const tmp = this.empStore[this.currEmpStoreKey]
+      const tmp = this.empStore[this.empId]
       if (_.isEqual(this.employee, tmp)) {
         this.saveBtnVisible = false
       } else {
@@ -99,39 +103,52 @@ export default {
     },
 
     saveEmp() {
-      //TO_DO: First letter of surname must be capitalized 
-      let [surname, name, midName] = this.employee.fio.split(" ")
-      const empStoreKey = `${surname} ${name[0].toUpperCase()}. ${midName[0].toUpperCase()}.`
+      if (!this.empId) {
+        const empStoreId = uuidv1()
+        this.empId = empStoreId
 
-      if (this.currEmpStoreKey && this.currEmpStoreKey !== empStoreKey) {
-        this.removeEmp()
+        this.namesAndIds.push([this.employee["fio"], empStoreId])
+      } else {
+        const oldFio = this.empStore[this.empId]["fio"]
+        
+        if (this.empId && this.employee["fio"] !== oldFio) {
+          _.forEach(this.namesAndIds, (value, ind) => {
+            if (value[1] === this.empId) {
+              this.namesAndIds[ind].splice(0, 1, this.employee["fio"])
+            }
+          })
+        }
+
       }
-      if (!this.currEmpStoreKey) {
-        this.currEmpStoreKey = empStoreKey
-        this.empKeys.push(empStoreKey)
-      }  
-      this.empStore[this.currEmpStoreKey] = _.assign({}, this.employee) 
+      
+      this.empStore[this.empId] = _.assign({}, this.employee) 
       this.saveBtnVisible = false
       this.uploadEmpStore()
     },
 
     removeEmp() {
-      const fio = this.currEmpStoreKey
+      const empStoreId = this.empId
       
-      if (this.empStore[fio]) {
-        delete this.empStore[fio]
-        const ind = this.empKeys.findIndex(el => el === fio)
-        this.empKeys.splice(ind, 1)
-        this.currEmpStoreKey = ""
+      if (this.empStore[empStoreId]) {
+        delete this.empStore[empStoreId]
+        let ind
+        _.forEach(this.namesAndIds, (value, idx) => {
+          if (value[1] === empStoreId) {
+            ind = idx
+          }
+        })
+        
+        this.namesAndIds.splice(ind, 1)
+        this.empId = ""
       }
 
       this.uploadEmpStore()
       this.formVisible = false
     },
 
-    showPassport(key) {
-      this.currEmpStoreKey = key
-      _.assign(this.employee, this.empStore[key])
+    showPassport(id) {
+      this.empId = id
+      _.assign(this.employee, this.empStore[id])
       this.formVisible = true
     },
 
@@ -149,5 +166,6 @@ export default {
       localStorage.setItem("empStore", parsed)
     },
   },
+
 };
 </script>

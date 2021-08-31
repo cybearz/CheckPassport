@@ -22,7 +22,7 @@
         color="primary"
       >
         <v-list-item 
-          v-if="emps.length === 0"
+          v-if="sortedNamesAndIds.length === 0"
           inactive
         >
           <v-list-item-content>
@@ -30,13 +30,12 @@
           </v-list-item-content>
         </v-list-item>
         <v-list-item 
-        v-for="emp in emps"
-          :key="emp"
-          
-          @click="$emit('showPassport', $event.target.innerText)"
+        v-for="i in sortedNamesAndIds"
+          :key="i[1]"
+          @click="$emit('showPassport', i[1])"
         >
           <v-list-item-content>
-            <v-list-item-title>{{ emp }}</v-list-item-title>
+            <v-list-item-title>{{ i[0] }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -45,14 +44,35 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   props: {
-    emps: {
+    namesAndIds: {
       type: Array,
       required: true
     }
+  },
+  data: () => ({
+    sortedNamesAndIds: []
+  }),
+  watch: {
+    namesAndIds: {
+      handler: function() {
+        this.sortedNamesAndIds = [...this.namesAndIds].sort( (curr, next) => curr[0]?.localeCompare(next[0]) )
+        _.forEach(this.sortedNamesAndIds, value => {
+          //TO_DO: First letter of surname must be capitalized
+          let [surname, name, midName] = value[0].split(" ")
+          surname = surname.toLowerCase()
+          surname = surname[0].toUpperCase() + surname.slice(1)
+          value[0] = `${surname} ${name[0].toUpperCase()}. ${midName[0].toUpperCase()}.`
+        })
+
+      },
+      deep: true
+    }
   }
-}
+  }
 </script>
 
 <style>
