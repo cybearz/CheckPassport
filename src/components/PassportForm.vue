@@ -14,6 +14,7 @@
         :value="employee.fio"
         :rules="nameRules"
         @input="$emit('input', 'fio', $event)"
+        @focus="$emit('focus')"
       ></v-text-field>
       <div class="d-flex align-center">
         <v-text-field
@@ -23,6 +24,7 @@
           :value="employee.pass_ser"
           :rules="serRules"
           @input="$emit('input', 'pass_ser', $event)"
+          @focus="$emit('focus')"
         ></v-text-field>
         <v-text-field
           label="Номер"
@@ -31,12 +33,14 @@
           :value="employee.pass_no"
           :rules="nomRules"
           @input="$emit('input', 'pass_no', $event)"
+          @focus="$emit('focus')"
         ></v-text-field>
       </div>
         <Calendar 
           :pass_dt="employee.pass_dt"
           :rules="dtRules"
           @input="$emit('input', 'pass_dt', $event)"
+          @focus="$emit('focus')"
         />
       <v-btn 
         v-if="saveBtnVisible"

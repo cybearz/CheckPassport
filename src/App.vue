@@ -33,6 +33,7 @@
               @input="inputChange"
               @saveEmp="saveEmp"
               @removeEmp="removeEmp"
+              @focus="saveBtnVisible = true"
             />
           </v-col>
         </v-row>
@@ -60,7 +61,7 @@ export default {
 
   data: () => ({
     formVisible: false,
-    saveBtnVisible: false,
+    saveBtnVisible: true,
     empId: "",
     namesAndIds: [],
     empStore: {},
@@ -99,14 +100,14 @@ export default {
         txt = moment(txt).format("YYYY-MM-DDThh:mm:ssZ")
       }
       this.employee[key] = txt
-      const tmp = this.empStore[this.empId]
-      if (_.isEqual(this.employee, tmp)) {
-        this.saveBtnVisible = false
-      } else {
-        this.saveBtnVisible = true
-      }
+      // const tmp = this.empStore[this.empId]
+      // if (_.isEqual(this.employee, tmp)) {
+      //   this.saveBtnVisible = false
+      // } else {
+      //   this.saveBtnVisible = true
+      // }
     },
-
+    
     saveEmp() {
       if (!this.empId) {
         const empStoreId = uuidv1()
@@ -174,8 +175,10 @@ export default {
     empId(newId) {
       if (this.empId) {
         _.assign(this.employee, this.empStore[newId])
+        this.saveBtnVisible = false
       } else {
         this.clearEmp()
+        this.saveBtnVisible = true
       }
       const urlId = this.$route.params.id ? this.$route.params.id : ""
       if (newId !== urlId){
