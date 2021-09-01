@@ -61,7 +61,6 @@ export default {
       handler: function() {
         this.sortedNamesAndIds = [...this.namesAndIds].sort( (curr, next) => curr[0]?.localeCompare(next[0]) )
         _.forEach(this.sortedNamesAndIds, value => {
-          //TO_DO: First letter of surname must be capitalized
           let [surname, name, midName] = value[0].split(" ")
           surname = surname.toLowerCase()
           surname = surname[0].toUpperCase() + surname.slice(1)

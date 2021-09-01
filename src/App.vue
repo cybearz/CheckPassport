@@ -19,8 +19,8 @@
           >
             <EmpList
               :namesAndIds="namesAndIds"
-              @addEmp="addEmp"
-              @showPassport="showPassport($event)"
+              @addEmp="empId = ''"
+              @showPassport="empId = $event"
             />
           </v-col>
           <v-col
@@ -72,6 +72,13 @@ export default {
     },
   }),
 
+  created() {
+    const urlId = this.$route.params.id
+    if (urlId && _.findIndex(this.namesAndIds, el => el[1] === urlId)) {
+      this.empId = urlId
+    }
+  },
+
   mounted() {
     if (localStorage.getItem("empStore")) {
       this.empStore = JSON.parse(localStorage.getItem("empStore"))
@@ -84,9 +91,7 @@ export default {
 
   methods: {
     addEmp() {
-      this.formVisible = true
       this.empId = ""
-      this.clearEmp()
     },
 
     inputChange(key, txt) {
@@ -146,12 +151,6 @@ export default {
       this.clearEmp()
     },
 
-    showPassport(id) {
-      this.empId = id
-      _.assign(this.employee, this.empStore[id])
-      this.formVisible = true
-    },
-
     clearEmp() {
       this.employee = {
         fio: "",
@@ -165,7 +164,35 @@ export default {
       const parsed = JSON.stringify(this.empStore)
       localStorage.setItem("empStore", parsed)
     },
+
+    findEmpById(id) {
+      return _.findIndex(this.namesAndIds, el => el[1] === id)
+    }
   },
 
+  watch: {
+    empId(newId) {
+      if (this.empId) {
+        _.assign(this.employee, this.empStore[newId])
+      } else {
+        this.clearEmp()
+      }
+      const urlId = this.$route.params.id ? this.$route.params.id : ""
+      if (newId !== urlId){
+        this.$router.push(`/${newId}`)
+      }
+    },
+
+    $route(to) {
+      let urlId = to.params.id ? to.params.id : ""
+      
+      if (urlId !== this.empId) {
+        if (urlId && this.findEmpById(urlId) === -1) {
+            urlId = ""
+        }
+        this.empId = urlId
+      }
+    }
+  }
 };
 </script>

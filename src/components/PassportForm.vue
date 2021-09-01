@@ -2,7 +2,6 @@
   <v-card 
     elevation="4"
     tile
-    v-if="formVisible"
   >
   <v-subheader>Паспортные данные</v-subheader>
     <v-form
@@ -70,10 +69,6 @@ export default {
     Calendar,
   },
   props: {
-    formVisible: {
-      type: Boolean,
-      required: true
-    },
     saveBtnVisible: {
       type: Boolean,
       required: true
