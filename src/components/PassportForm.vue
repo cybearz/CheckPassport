@@ -11,36 +11,33 @@
 			<v-text-field
 				label="ФИО"
 				outlined
-				:value="employee.fio"
+				v-model="employee.fio"
 				:rules="nameRules"
-				@input="$emit('input', 'fio', $event)"
-				@focus="$emit('focus')"
+				@focus="saveBtnVisible = true"
 			></v-text-field>
 			<div class="d-flex align-center">
 				<v-text-field
 					label="Серия"
 					outlined
 					class="flex-grow-0"
-					:value="employee.pass_ser"
+					v-model="employee.pass_ser"
 					:rules="serRules"
-					@input="$emit('input', 'pass_ser', $event)"
-					@focus="$emit('focus')"
+					@focus="saveBtnVisible = true"
 				></v-text-field>
 				<v-text-field
 					label="Номер"
 					outlined
 					class="flex-grow-1"
-					:value="employee.pass_no"
+					v-model="employee.pass_no"
 					:rules="nomRules"
-					@input="$emit('input', 'pass_no', $event)"
-					@focus="$emit('focus')"
+					@focus="saveBtnVisible = true"
 				></v-text-field>
 			</div>
 			<Calendar
-				:pass_dt="employee.pass_dt"
+				v-model="employee.pass_dt"
+				:recievedDate="employee.pass_dt"
 				:rules="dtRules"
-				@input="$emit('input', 'pass_dt', $event)"
-				@focus="$emit('focus')"
+				@focus="saveBtnVisible = true"
 			/>
 			<v-btn
 				v-if="saveBtnVisible"
@@ -68,65 +65,102 @@
 
 <script>
 import Calendar from "@/components/Calendar"
+import _ from "lodash";
+import moment from "moment";
 
 export default {
 	components: {
 		Calendar,
 	},
 	props: {
-		saveBtnVisible: {
-			type: Boolean,
-			required: true
-		},
-		employee: {
+		// saveBtnVisible: {
+		// 	type: Boolean,
+		// 	required: true
+		// },
+		receivedEmployee: {
 			type: Object,
 			required: true
 		}
 	},
-	data: () => ({
-		nameRules: [
-			v => !!v || "Введите имя",
-			v => /^( *[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} *)+$/.test(v) || "Пример: Иванов Иван Иванович."
-		],
-		serRules: [
-			v => !!v || "Введите серию",
-			v => /^( *\d{4} *)+$/.test(v) || "Пример: 1210."
-		],
-		nomRules: [
-			v => !!v || "Введите номер",
-			v => /^( *\d{6} *)+$/.test(v) || "Пример: 111111."
-		],
-		dtRules: [
-			v => !!v || "Введите дату"
-		],
+	data: function () {
+		return {
+			saveBtnVisible: true,
+			employee: {
+				fio: "",
+				pass_ser: "",
+				pass_no: "",
+				pass_dt: "",
+			},
+			nameRules: [
+				v => !!v || "Введите имя",
+				v => /^( *[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} *)+$/.test(v) || "Пример: Иванов Иван Иванович."
+			],
+			serRules: [
+				v => !!v || "Введите серию",
+				v => /^( *\d{4} *)+$/.test(v) || "Пример: 1210."
+			],
+			nomRules: [
+				v => !!v || "Введите номер",
+				v => /^( *\d{6} *)+$/.test(v) || "Пример: 111111."
+			],
+			dtRules: [
+				v => !!v || "Введите дату"
+			],
 
-		snackbar: false,
-		toggleSnackbar: true,
-		text: ""
-	}),
+			snackbar: false,
+			toggleSnackbar: true,
+			text: ""
+		}
+	},
+
 	methods: {
 		saveEmp() {
-			if (this.$refs.form.validate()) {
-				this.$emit('saveEmp')
-				this.text = "Данные сохранены"
-				this.toggleSnackbar = !this.toggleSnackbar
+			if (!this.$refs.form.validate()) {
+				return
 			}
+
+			this.text = "Данные сохранены"
+			this.toggleSnackbar = !this.toggleSnackbar
+
+			_.forIn(this.employee, (value, key) => {
+				this.employee[key] = _.trim(_.replace(value, /\s+/g, ' '))
+			})
+
+			this.employee["pass_dt"] = moment(this.employee["pass_dt"]).format("YYYY-MM-DDThh:mm:ssZ")
+
+			this.saveBtnVisible = false
+
+			this.$emit("saveEmp", this.employee)
 		},
+
 		removeEmp() {
-			this.$emit('removeEmp')
 			this.text = "Данные удалены"
 			this.toggleSnackbar = !this.toggleSnackbar
+
+			this.employee = {
+				fio: "",
+				pass_ser: "",
+				pass_no: "",
+				pass_dt: "",
+			}
+
+			this.$emit('removeEmp')
 		},
 	},
 	computed: {},
 	watch: {
+		receivedEmployee: {
+			handler: function() {
+				_.assign(this.employee, this.receivedEmployee)
+			},
+			deep: true
+		},
+
 		toggleSnackbar() {
-			console.log("we r watching u")
 			this.snackbar = true
 			setTimeout(() => {
 				this.snackbar = false
 			}, 1000)
-
 		}
 	}
 }

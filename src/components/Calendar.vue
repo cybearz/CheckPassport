@@ -16,7 +16,7 @@
 			></v-text-field>
 		</template>
 		<v-date-picker
-			:value="computedDate"
+			:value="date"
 			@input="changeDate"
 			@change="menu = false"
 			:max="curDate"
@@ -32,28 +32,35 @@ export default {
 		rules: {
 			required: true
 		},
-		pass_dt: {
+		recievedDate: {
 			type: String,
 			required: true
 		}
 	},
+
 	data: () => ({
+		date: "",
 		curDate: moment().format("YYYY-MM-DD"),
 		menu: false
 	}),
+
 	methods: {
 		changeDate(e) {
 			this.$emit('input', e)
 		}
 	},
+
 	computed: {
 		rusDate() {
-			return this.pass_dt ? moment(this.pass_dt).format("DD-MM-YYYY") : ""
+			return this.date ? moment(this.date).format("DD-MM-YYYY") : ""
 		},
-		computedDate() {
-			return this.pass_dt ? moment(this.pass_dt).format("YYYY-MM-DD") : ""
-		}
 	},
+
+	watch: {
+		recievedDate() {
+			this.date = this.recievedDate ? moment(this.recievedDate).format("YYYY-MM-DD") : ""
+		}
+	}
 }
 </script>
 
