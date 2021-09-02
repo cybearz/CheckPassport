@@ -77,7 +77,6 @@ export default {
 		},
 
 		saveEmp(newEmp) {
-			console.log(newEmp)
 			if (!this.empId || this.findEmpById(this.empId) == -1) {
 				const empStoreId = uuidv1()
 

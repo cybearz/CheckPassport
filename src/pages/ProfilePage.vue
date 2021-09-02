@@ -1,12 +1,9 @@
 <template>
 	<div>
 		<PassportForm
-			:saveBtnVisible="saveBtnVisible"
-			:employee="employee"
-			@input="inputChange"
-			@saveEmp="saveEmp"
+			:receivedEmployee="profile"
+			@saveEmp="saveEmp($event)"
 			@removeEmp="removeEmp"
-			@focus="saveBtnVisible = true"
 		/>
 	</div>
 </template>
@@ -20,12 +17,7 @@ export default {
 		PassportForm
 	},
 	data: () => ({
-		formVisible: false,
-		saveBtnVisible: true,
-		empId: "",
-		namesAndIds: [],
-		empStore: {},
-		employee: {
+		profile: {
 			fio: "",
 			pass_ser: "",
 			pass_no: "",
@@ -33,21 +25,32 @@ export default {
 		},
 	}),
 
-	created() {
-		const urlId = this.$route.params.id
-		if (urlId && _.findIndex(this.namesAndIds, el => el[1] === urlId)) {
-			this.empId = urlId
-		}
-	},
-
 	mounted() {
-		if (localStorage.getItem("empStore")) {
-			this.empStore = JSON.parse(localStorage.getItem("empStore"))
-
-			_.forEach(this.empStore, (value, ID) => {
-				this.namesAndIds.push([value["fio"], ID])
-			})
+		if (localStorage.getItem("empProfile")) {
+			this.profile = JSON.parse(localStorage.getItem("empProfile"))
 		}
 	},
+
+	methods: {
+		saveEmp(newEmp) {
+			_.assign(this.profile, newEmp)
+			this.uploadProfile()
+		},
+
+		removeEmp() {
+			this.profile = {
+				fio: "",
+					pass_ser: "",
+					pass_no: "",
+					pass_dt: "",
+			}
+			this.uploadProfile()
+		},
+
+		uploadProfile() {
+			const parsed = JSON.stringify(this.profile)
+			localStorage.setItem("empProfile", parsed)
+		},
+	}
 }
 </script>

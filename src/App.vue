@@ -12,9 +12,11 @@
 
 			<v-spacer></v-spacer>
 
-			<v-btn>
+			<v-btn
+				@click="$router.push('/profile')"
+			>
 				<v-icon left>mdi-account</v-icon>
-				Личный кабинет
+				{{ profileName }}
 			</v-btn>
 		</v-app-bar>
 
@@ -26,5 +28,22 @@
 </template>
 
 <script>
+
+export default {
+
+	data: () => ({
+		profileName: "Личный кабинет"
+	}),
+
+	mounted() {
+		if (localStorage.getItem("empProfile")) {
+			const fio = this.profileName = JSON.parse(localStorage.getItem("empProfile"))["fio"]
+			let [surname, name, midName] = fio.split(" ")
+			surname = surname.toLowerCase()
+			surname = surname[0].toUpperCase() + surname.slice(1)
+			this.profileName = `${surname} ${name[0].toUpperCase()}. ${midName[0].toUpperCase()}.`
+		}
+	},
+}
 
 </script>
