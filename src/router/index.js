@@ -5,16 +5,16 @@ import App from '@/App.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/:id',
-    component: App
-  }
+	{
+		path: '/:id',
+		component: App
+	}
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+	mode: 'history',
+	base: process.env.BASE_URL,
+	routes
 })
 
 // router.beforeEach((to, from, next) => next((to.path !== from.path)))

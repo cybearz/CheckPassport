@@ -1,5 +1,5 @@
 <template>
-  <v-card 
+  <v-card
     tile
     flat
   >
@@ -21,7 +21,7 @@
       <v-list-item-group
         color="primary"
       >
-        <v-list-item 
+        <v-list-item
           v-if="sortedNamesAndIds.length === 0"
           inactive
         >
@@ -29,8 +29,8 @@
             <v-list-item-subtitle class="text-center">Добавьте первого сотрудника</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item 
-        v-for="i in sortedNamesAndIds"
+        <v-list-item
+        	v-for="i in sortedNamesAndIds"
           :key="i[1]"
           @click="$emit('showPassport', i[1])"
         >
