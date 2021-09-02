@@ -96,7 +96,7 @@ export default {
 		},
 
 		inputChange(key, txt) {
-			if (key == "pass_dt") {
+			if (key === "pass_dt") {
 				txt = moment(txt).format("YYYY-MM-DDThh:mm:ssZ")
 			}
 			this.employee[key] = txt
@@ -109,10 +109,13 @@ export default {
 		},
 
 		saveEmp() {
+			_.forIn(this.employee, (value, key) => {
+				this.employee[key] = _.trim(_.replace(value, /\s+/g, ' '))
+			})
 			if (!this.empId) {
 				const empStoreId = uuidv1()
-				this.empId = empStoreId
 
+				this.empId = empStoreId
 				this.namesAndIds.push([this.employee["fio"], empStoreId])
 			} else {
 				const oldFio = this.empStore[this.empId]["fio"]
