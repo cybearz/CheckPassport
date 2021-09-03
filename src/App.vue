@@ -2,18 +2,21 @@
 	<v-app>
 		<v-app-bar
 			app
-			color="primary"
 			dark
 		>
-			<div class="d-flex align-center">
+			<v-btn
+				text
+				plain
+				@click="$router.push('/')">
 				<v-icon size="40">mdi-passport</v-icon>
 				<div class="text-h4">CheckPassport</div>
-			</div>
+			</v-btn>
 
 			<v-spacer></v-spacer>
 
 			<v-btn
 				@click="$router.push('/profile')"
+				outlined
 			>
 				<v-icon left>mdi-account</v-icon>
 				{{ profileName }}
@@ -21,7 +24,7 @@
 		</v-app-bar>
 
 		<v-main>
-			<v-container class="blue-grey lighten-5 py-16 fill-height">
+			<v-container class="py-16 fill-height">
 				<router-view
 					:value="profileName"
 					@saveProfile="saveProfile"

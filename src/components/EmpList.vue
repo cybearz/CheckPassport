@@ -11,7 +11,6 @@
 					x-small
 					rounded
 					dark
-					color="blue-grey"
 					class="mx-4"
 					@click="$emit('addEmp')"
 				>
