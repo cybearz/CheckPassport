@@ -73,18 +73,17 @@ export default {
 		Calendar,
 	},
 	props: {
-		// saveBtnVisible: {
-		// 	type: Boolean,
-		// 	required: true
-		// },
-		receivedEmployee: {
+		btn: {
+			type: Boolean,
+		},
+		value: {
 			type: Object,
 			required: true
 		}
 	},
 	data: function () {
 		return {
-			saveBtnVisible: true,
+			saveBtnVisible: false,
 			employee: {
 				fio: "",
 				pass_ser: "",
@@ -149,11 +148,15 @@ export default {
 	},
 	computed: {},
 	watch: {
-		receivedEmployee: {
+		value: {
 			handler: function() {
-				_.assign(this.employee, this.receivedEmployee)
+				_.assign(this.employee, this.value)
 			},
 			deep: true
+		},
+
+		btn(s) {
+			this.saveBtnVisible = s
 		},
 
 		toggleSnackbar() {

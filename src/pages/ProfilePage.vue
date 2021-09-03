@@ -1,11 +1,13 @@
 <template>
-	<div>
-		<PassportForm
-			:receivedEmployee="profile"
-			@saveEmp="saveProfile"
-			@removeEmp="removeProfile"
-		/>
-	</div>
+	<v-row no-gutters justify="center">
+		<v-col cols="4">
+			<PassportForm
+				:value="profile"
+				@saveEmp="saveProfile"
+				@removeEmp="removeProfile"
+			/>
+		</v-col>
+	</v-row>
 </template>
 
 <script>

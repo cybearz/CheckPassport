@@ -1,29 +1,25 @@
 <template>
-	<div>
-		<v-container class="blue-grey lighten-5 py-16 fill-height">
-			<v-row no-gutters justify="center">
-				<v-col
-					cols="3"
-				>
-					<EmpList
-						:namesAndIds="namesAndIds"
-						@addEmp="empId = ''"
-						@showPassport="empId = $event"
-					/>
-				</v-col>
-				<v-col
-					cols="4"
-				>
-					<PassportForm
-						:receivedEmployee="employee"
-						@saveEmp="saveEmp($event)"
-						@removeEmp="removeEmp"
-					/>
-				</v-col>
-			</v-row>
-
-		</v-container>
-	</div>
+	<v-row no-gutters justify="center">
+		<v-col
+			cols="3"
+		>
+			<EmpList
+				:namesAndIds="namesAndIds"
+				@addEmp="empId = ''"
+				@showPassport="empId = $event"
+			/>
+		</v-col>
+		<v-col
+			cols="4"
+		>
+			<PassportForm
+				:value="employee"
+				:btn="saveBtnVisible"
+				@saveEmp="saveEmp($event)"
+				@removeEmp="removeEmp"
+			/>
+		</v-col>
+	</v-row>
 </template>
 
 <script>
@@ -41,7 +37,6 @@ export default {
 	},
 
 	data: () => ({
-		formVisible: false,
 		saveBtnVisible: true,
 		empId: "",
 		namesAndIds: [],

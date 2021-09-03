@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import nameShortener from "../utils/nameShortener";
+
 import _ from 'lodash'
 
 export default {
@@ -61,10 +63,7 @@ export default {
 			handler: function () {
 				this.sortedNamesAndIds = [...this.namesAndIds].sort((curr, next) => curr[0]?.localeCompare(next[0]))
 				_.forEach(this.sortedNamesAndIds, value => {
-					let [surname, name, midName] = value[0].split(" ")
-					surname = surname.toLowerCase()
-					surname = surname[0].toUpperCase() + surname.slice(1)
-					value[0] = `${surname} ${name[0].toUpperCase()}. ${midName[0].toUpperCase()}.`
+					value[0] = nameShortener(value[0])
 				})
 			},
 			deep: true

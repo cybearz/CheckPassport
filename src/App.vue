@@ -21,10 +21,12 @@
 		</v-app-bar>
 
 		<v-main>
-			<router-view
-				:value="profileName"
-				@saveProfile="saveProfile"
-			></router-view>
+			<v-container class="blue-grey lighten-5 py-16 fill-height">
+				<router-view
+					:value="profileName"
+					@saveProfile="saveProfile"
+				></router-view>
+			</v-container>
 		</v-main>
 
 	</v-app>
