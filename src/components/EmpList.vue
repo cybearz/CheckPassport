@@ -60,7 +60,7 @@ export default {
 	watch: {
 		namesAndIds: {
 			handler: function () {
-				this.sortedNamesAndIds = [...this.namesAndIds].sort((curr, next) => curr[0]?.localeCompare(next[0]))
+				this.sortedNamesAndIds = _.cloneDeep(this.namesAndIds).sort((curr, next) => curr[0]?.localeCompare(next[0]))
 				_.forEach(this.sortedNamesAndIds, value => {
 					value[0] = nameShortener(value[0])
 				})

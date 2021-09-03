@@ -15,6 +15,7 @@
 			<PassportForm
 				:value="employee"
 				:btn="saveBtnVisible"
+				:statusText="statusText"
 				@saveEmp="saveEmp($event)"
 				@removeEmp="removeEmp"
 			/>
@@ -47,6 +48,7 @@ export default {
 			pass_no: "",
 			pass_dt: "",
 		},
+		statusText: "",
 	}),
 
 	created() {
@@ -60,8 +62,8 @@ export default {
 		if (localStorage.getItem("empStore")) {
 			this.empStore = JSON.parse(localStorage.getItem("empStore"))
 
-			_.forEach(this.empStore, (value, ID) => {
-				this.namesAndIds.push([value["fio"], ID])
+			_.forEach(this.empStore, (value, id) => {
+				this.namesAndIds.push([value["fio"], id])
 			})
 		}
 	},
@@ -72,6 +74,11 @@ export default {
 		},
 
 		saveEmp(newEmp) {
+			console.log(newEmp["fio"])
+			if (this.findEmpByName(newEmp["fio"]) !== -1) {
+				this.statusText = "ОШИБКА: Пользователь с таким именем уже существует"
+				return
+			}
 			const ind = this.findEmpById(this.empId)
 			if (!this.empId || ind == -1) {
 				const empStoreId = uuidv1()

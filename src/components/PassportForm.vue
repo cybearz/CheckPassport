@@ -79,6 +79,9 @@ export default {
 		value: {
 			type: Object,
 			required: true
+		},
+		statusText: {
+			type: String,
 		}
 	},
 	data: function () {
@@ -118,9 +121,6 @@ export default {
 				return
 			}
 
-			this.text = "Данные сохранены"
-			this.toggleSnackbar = !this.toggleSnackbar
-
 			_.forIn(this.employee, (value, key) => {
 				this.employee[key] = _.trim(_.replace(value, /\s+/g, ' '))
 			})
@@ -130,6 +130,10 @@ export default {
 			this.saveBtnVisible = false
 
 			this.$emit("saveEmp", this.employee)
+
+			this.text = this.statusText ? this.statusText : "Данные сохранены"
+			this.toggleSnackbar = !this.toggleSnackbar
+
 		},
 
 		removeEmp() {
