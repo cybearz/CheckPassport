@@ -5,7 +5,6 @@
 			dark
 		>
 			<v-btn
-				text
 				plain
 				@click="$router.push('/')">
 				<v-icon size="40">mdi-passport</v-icon>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Main from '../pages/MainPage'
-import ProfilePage from "../pages/ProfilePage";
+import Main from '../pages/PageMain'
+import ProfilePage from "../pages/PageProfile";
 
 Vue.use(VueRouter)
 
