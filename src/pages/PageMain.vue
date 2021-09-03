@@ -72,20 +72,17 @@ export default {
 		},
 
 		saveEmp(newEmp) {
-			if (!this.empId || this.findEmpById(this.empId) == -1) {
+			const ind = this.findEmpById(this.empId)
+			if (!this.empId || ind == -1) {
 				const empStoreId = uuidv1()
 
 				this.empId = empStoreId
 				this.namesAndIds.push([newEmp["fio"], empStoreId])
 			} else {
-				const oldFio = this.empStore[this.empId]["fio"]
+				const oldFio = this.employee["fio"]
 
 				if (this.empId && newEmp["fio"] !== oldFio) {
-					_.forEach(this.namesAndIds, (value, ind) => {
-						if (value[1] === this.empId) {
-							this.namesAndIds[ind].splice(0, 1, newEmp["fio"])
-						}
-					})
+					this.namesAndIds[ind].splice(0, 1, newEmp["fio"])
 				}
 			}
 
@@ -129,6 +126,10 @@ export default {
 
 		findEmpById(id) {
 			return _.findIndex(this.namesAndIds, el => el[1] === id)
+		},
+
+		findEmpByName(name) {
+			return _.findIndex(this.namesAndIds, el => el[0] === name)
 		}
 	},
 

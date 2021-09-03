@@ -1,26 +1,6 @@
 <template>
 	<v-app>
-		<v-app-bar
-			app
-			dark
-		>
-			<v-btn
-				plain
-				@click="$router.push('/')">
-				<v-icon size="40">mdi-passport</v-icon>
-				<div class="text-h4">CheckPassport</div>
-			</v-btn>
-
-			<v-spacer></v-spacer>
-
-			<v-btn
-				@click="$router.push('/profile')"
-				outlined
-			>
-				<v-icon left>mdi-account</v-icon>
-				{{ profileName }}
-			</v-btn>
-		</v-app-bar>
+		<AppBar :value="profileName"/>
 
 		<v-main>
 			<v-container class="py-16 fill-height">
@@ -36,9 +16,10 @@
 
 <script>
 import nameShortener from "./utils/nameShortener"
+import AppBar from "./components/AppBar";
 
 export default {
-
+	components: {AppBar},
 	data: () => ({
 		profileName: "Личный кабинет"
 	}),
@@ -46,10 +27,7 @@ export default {
 	mounted() {
 		if (localStorage.getItem("empProfile")) {
 			const fio = this.profileName = JSON.parse(localStorage.getItem("empProfile"))["fio"]
-			let [surname, name, midName] = fio.split(" ")
-			surname = surname.toLowerCase()
-			surname = surname[0].toUpperCase() + surname.slice(1)
-			this.profileName = `${surname} ${name[0].toUpperCase()}. ${midName[0].toUpperCase()}.`
+			this.profileName = nameShortener(fio)
 		}
 	},
 	methods: {
