@@ -2,8 +2,8 @@
 	<div>
 		<PassportForm
 			:receivedEmployee="profile"
-			@saveEmp="saveEmp($event)"
-			@removeEmp="removeEmp"
+			@saveEmp="saveProfile"
+			@removeEmp="removeProfile"
 		/>
 	</div>
 </template>
@@ -32,12 +32,13 @@ export default {
 	},
 
 	methods: {
-		saveEmp(newEmp) {
+		saveProfile(newEmp) {
 			_.assign(this.profile, newEmp)
 			this.uploadProfile()
+			this.$emit('saveProfile', this.profile.fio)
 		},
 
-		removeEmp() {
+		removeProfile() {
 			this.profile = {
 				fio: "",
 					pass_ser: "",

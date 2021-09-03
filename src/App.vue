@@ -21,13 +21,17 @@
 		</v-app-bar>
 
 		<v-main>
-			<router-view></router-view>
+			<router-view
+				:value="profileName"
+				@saveProfile="saveProfile"
+			></router-view>
 		</v-main>
 
 	</v-app>
 </template>
 
 <script>
+import nameShortener from "./utils/nameShortener"
 
 export default {
 
@@ -44,6 +48,11 @@ export default {
 			this.profileName = `${surname} ${name[0].toUpperCase()}. ${midName[0].toUpperCase()}.`
 		}
 	},
+	methods: {
+		saveProfile(fio) {
+			this.profileName = nameShortener(fio)
+		}
+	}
 }
 
 </script>
