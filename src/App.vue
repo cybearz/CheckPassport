@@ -6,7 +6,7 @@
 			<v-container class="py-16 fill-height">
 				<router-view
 					:value="profileName"
-					@saveProfile="saveProfile"
+					@updateProfileName="updateProfileName"
 				/>
 			</v-container>
 		</v-main>
@@ -25,14 +25,14 @@ export default {
 	}),
 
 	mounted() {
-		if (localStorage.getItem("empProfile")) {
+		if (localStorage.getItem("empProfile")["fio"]) {
 			const fio = this.profileName = JSON.parse(localStorage.getItem("empProfile"))["fio"]
 			this.profileName = nameShortener(fio)
 		}
 	},
 	methods: {
-		saveProfile(fio) {
-			this.profileName = nameShortener(fio)
+		updateProfileName(fio) {
+			this.profileName = fio ? nameShortener(fio) : "Личный кабинет"
 		}
 	}
 }

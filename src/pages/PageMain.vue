@@ -32,7 +32,12 @@ import EmpList from "@/components/EmpList"
 
 export default {
 	name: 'App',
-
+	props: {
+		urlId: {
+			type: String,
+			default: ""
+		}
+	},
 	components: {
 		PassportForm, EmpList
 	},
@@ -52,9 +57,8 @@ export default {
 	}),
 
 	created() {
-		const urlId = this.$route.params.id
-		if (urlId && _.findIndex(this.namesAndIds, el => el[1] === urlId)) {
-			this.empId = urlId
+		if (this.urlId && _.findIndex(this.namesAndIds, el => el[1] === this.urlId)) {
+			this.empId = this.urlId
 		}
 	},
 
@@ -141,31 +145,27 @@ export default {
 	},
 
 	watch: {
-		empId(newId) {
+		empId(newEmpId) {
 			if (this.empId) {
-				_.assign(this.employee, this.empStore[newId])
+				_.assign(this.employee, this.empStore[newEmpId])
 				this.saveBtnVisible = false
 			} else {
 				this.clearEmp()
 				this.saveBtnVisible = true
 			}
 
-			const urlId = this.$route.params.id ? this.$route.params.id : ""
-
-			if (newId !== urlId) {
-				this.$router.push(`/${newId}`)
+			if (newEmpId !== this.urlId) {
+				this.$router.push(`/${newEmpId}`)
 			}
 		},
 
-		$route(to) {
-			let urlId = to.params.id ? to.params.id : ""
-
-			if (urlId !== this.empId) {
-				if (urlId && this.findEmpById(urlId) === -1) {
-					urlId = ""
+		urlId(newUrlId) {
+			if (this.empId !== newUrlId) {
+				if (newUrlId && this.findEmpById(newUrlId) === -1) {
+					this.empId = ""
+				} else {
+					this.empId = newUrlId
 				}
-
-				this.empId = urlId
 			}
 		}
 	}

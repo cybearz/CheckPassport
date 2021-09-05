@@ -37,7 +37,7 @@ export default {
 		saveProfile(newEmp) {
 			_.assign(this.profile, newEmp)
 			this.uploadProfile()
-			this.$emit('saveProfile', this.profile.fio)
+			this.$emit('updateProfileName', this.profile.fio)
 		},
 
 		removeProfile() {
@@ -53,6 +53,7 @@ export default {
 		uploadProfile() {
 			const parsed = JSON.stringify(this.profile)
 			localStorage.setItem("empProfile", parsed)
+			this.$emit('updateProfileName', this.profile.fio)
 		},
 	}
 }

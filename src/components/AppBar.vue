@@ -3,22 +3,24 @@
 		app
 		dark
 	>
-		<v-btn
-			plain
-			@click="$router.push('/')">
-			<v-icon size="40">mdi-passport</v-icon>
-			<div class="text-h4">CheckPassport</div>
-		</v-btn>
+		<router-link to="/">
+			<v-btn
+				plain
+				>
+				<v-icon size="40">mdi-passport</v-icon>
+				<div class="text-h4">CheckPassport</div>
+			</v-btn>
+		</router-link>
 
 		<v-spacer/>
-
-		<v-btn
-			@click="$router.push('/profile')"
-			outlined
-		>
-			<v-icon left>mdi-account</v-icon>
-			{{ value}}
-		</v-btn>
+		<router-link to="/profile">
+			<v-btn
+				outlined
+			>
+				<v-icon left>mdi-account</v-icon>
+				{{ value}}
+			</v-btn>
+		</router-link>
 	</v-app-bar>
 </template>
 
