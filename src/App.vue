@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import nameShortener from "./utils/nameShortener"
+import { nameShortener } from "@/utils/nameShortener"
 import AppBar from "./components/AppBar";
 
 export default {

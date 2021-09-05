@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import nameShortener from "../utils/nameShortener";
+import { nameShortener } from "@/utils/nameShortener"
 
 import _ from 'lodash'
 

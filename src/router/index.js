@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Main from '../pages/PageMain'
+import PageMain from '../pages/PageMain'
 import ProfilePage from "../pages/PageProfile";
 
 Vue.use(VueRouter)
@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: '/',
-		component: Main,
+		component: PageMain,
 	},
 	{
 		path: '/profile',
@@ -16,7 +16,7 @@ const routes = [
 	},
 	{
 		path: '/:id',
-		component: Main,
+		component: PageMain,
 	},
 
 ]
