@@ -13,14 +13,14 @@
 				readonly
 				label="Дата выдачи"
 				v-on="on"
-			></v-text-field>
+			/>
 		</template>
 		<v-date-picker
 			:value="date"
 			@input="changeDate"
 			@change="menu = false"
 			:max="curDate"
-		></v-date-picker>
+		/>
 	</v-menu>
 </template>
 

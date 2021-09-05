@@ -14,7 +14,7 @@
 				v-model="employee.fio"
 				:rules="nameRules"
 				@focus="saveBtnVisible = true"
-			></v-text-field>
+			/>
 			<div class="d-flex align-center">
 				<v-text-field
 					label="Серия"
@@ -23,7 +23,7 @@
 					v-model="employee.pass_ser"
 					:rules="serRules"
 					@focus="saveBtnVisible = true"
-				></v-text-field>
+				/>
 				<v-text-field
 					label="Номер"
 					outlined
@@ -31,7 +31,7 @@
 					v-model="employee.pass_no"
 					:rules="nomRules"
 					@focus="saveBtnVisible = true"
-				></v-text-field>
+				/>
 			</div>
 			<Calendar
 				v-model="employee.pass_dt"

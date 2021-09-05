@@ -10,7 +10,7 @@
 			<div class="text-h4">CheckPassport</div>
 		</v-btn>
 
-		<v-spacer></v-spacer>
+		<v-spacer/>
 
 		<v-btn
 			@click="$router.push('/profile')"

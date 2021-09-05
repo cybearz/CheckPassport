@@ -7,7 +7,7 @@
 				<router-view
 					:value="profileName"
 					@saveProfile="saveProfile"
-				></router-view>
+				/>
 			</v-container>
 		</v-main>
 
@@ -16,7 +16,7 @@
 
 <script>
 import { nameShortener } from "@/utils/nameShortener"
-import AppBar from "./components/AppBar";
+import AppBar from "@/components/AppBar";
 
 export default {
 	components: {AppBar},
