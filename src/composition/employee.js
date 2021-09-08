@@ -1,6 +1,6 @@
-import { ref, watch, toRefs } from '@vue/composition-api'
-import _ from "lodash";
-import moment from "moment";
+import { ref, watch, toRefs } from "@vue/composition-api"
+import _ from "lodash"
+import moment from "moment"
 
 export function useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisible) {
 	const { value, statusText } = toRefs(props)
@@ -14,7 +14,8 @@ export function useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisi
 	watch(value, newValue => {
 		_.assign(employee.value, newValue)
 	},
-		{deep: true})
+		{deep: true}
+	)
 
 	const saveEmp = () => {
 		if (!refs.form.validate()) {

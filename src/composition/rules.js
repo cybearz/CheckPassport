@@ -1,3 +1,4 @@
+//TODO вынести первый элемент массива в отдельную переменную
 export function useRules() {
 	return {
 		nameRules: [
