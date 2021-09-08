@@ -2,8 +2,8 @@ import { ref, watch, toRefs } from '@vue/composition-api'
 import _ from "lodash";
 import moment from "moment";
 
-export function useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisible, statusText) {
-	const { value } = toRefs(props)
+export function useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisible) {
+	const { value, statusText } = toRefs(props)
 	let employee = ref({
 		fio: "",
 		pass_ser: "",
@@ -27,18 +27,18 @@ export function useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisi
 
 		employee.value["pass_dt"] = moment(employee.value["pass_dt"]).format("YYYY-MM-DDThh:mm:ssZ")
 
-		saveBtnVisible = false
+		saveBtnVisible.value = false
 
 		emit("saveEmp", employee.value)
-
-		text = statusText ? statusText : "Данные сохранены"
-		toggleSnackbar = !toggleSnackbar
+		console.log(statusText.value)
+		text.value = statusText.value ? statusText.value : "Данные сохранены"
+		toggleSnackbar.value = !toggleSnackbar.value
 
 	}
 
 	const removeEmp = () => {
-		text = "Данные удалены"
-		toggleSnackbar = !toggleSnackbar
+		text.value = "Данные удалены"
+		toggleSnackbar.value = !toggleSnackbar.value
 
 		employee.value = {
 			fio: "",

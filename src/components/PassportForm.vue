@@ -64,8 +64,6 @@
 </template>
 
 <script>
-import {toRefs} from "@vue/composition-api"
-
 import Calendar from "@/components/Calendar"
 
 import {useBtnVisible} from "@/composition/btnVisible"
@@ -91,15 +89,13 @@ export default {
 	},
 
 	setup(props, {emit, refs}) {
-		const {statusText} = toRefs(props)
-
 		let {text, snackbar, toggleSnackbar} = useSnackbar()
 		const {saveBtnVisible} = useBtnVisible(props)
 
 		return {
 			snackbar, toggleSnackbar, text,
 			saveBtnVisible,
-			...useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisible, statusText),
+			...useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisible),
 			...useRules()
 		}
 	}

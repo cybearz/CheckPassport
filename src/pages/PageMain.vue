@@ -78,7 +78,6 @@ export default {
 		},
 
 		saveEmp(newEmp) {
-			console.log(newEmp["fio"])
 			if (this.findEmpByName(newEmp["fio"]) !== -1) {
 				this.statusText = "ОШИБКА: Пользователь с таким именем уже существует"
 				return
