@@ -12,7 +12,7 @@
 
 <script>
 import PassportForm from "@/components/PassportForm"
-import _ from "lodash";
+import _ from "lodash"
 
 export default {
 	components: {
@@ -28,8 +28,10 @@ export default {
 	}),
 
 	mounted() {
-		if (localStorage.getItem("empProfile")) {
-			this.profile = JSON.parse(localStorage.getItem("empProfile"))
+		//FIXME
+		const empProfile = localStorage.getItem("empProfile")
+		if (empProfile) {
+			this.profile = JSON.parse(empProfile)
 			this.$emit('updateProfileName', this.profile.fio)
 		}
 	},
