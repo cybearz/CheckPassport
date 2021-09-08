@@ -64,9 +64,14 @@
 </template>
 
 <script>
+import {toRefs} from "@vue/composition-api"
+
 import Calendar from "@/components/Calendar"
-import _ from "lodash";
-import moment from "moment";
+
+import {useBtnVisible} from "@/composition/btnVisible"
+import {useEmployee} from "@/composition/employee"
+import {useSnackbar} from "@/composition/snackbar"
+import {useRules} from "@/composition/rules"
 
 export default {
 	components: {
@@ -84,93 +89,22 @@ export default {
 			type: String,
 		}
 	},
-	data: function () {
+
+	setup(props, {emit, refs}) {
+		const {statusText} = toRefs(props)
+
+		let {text, snackbar, toggleSnackbar} = useSnackbar()
+		const {saveBtnVisible} = useBtnVisible(props)
+
 		return {
-			saveBtnVisible: false,
-			employee: {
-				fio: "",
-				pass_ser: "",
-				pass_no: "",
-				pass_dt: "",
-			},
-			nameRules: [
-				v => !!v || "Введите имя",
-				v => /^( *[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} *)+$/.test(v) || "Пример: Иванов Иван Иванович."
-			],
-			serRules: [
-				v => !!v || "Введите серию",
-				v => /^( *\d{4} *)+$/.test(v) || "Пример: 1210."
-			],
-			nomRules: [
-				v => !!v || "Введите номер",
-				v => /^( *\d{6} *)+$/.test(v) || "Пример: 111111."
-			],
-			dtRules: [
-				v => !!v || "Введите дату"
-			],
-
-			snackbar: false,
-			toggleSnackbar: true,
-			text: ""
-		}
-	},
-
-	methods: {
-		saveEmp() {
-			if (!this.$refs.form.validate()) {
-				return
-			}
-
-			_.forIn(this.employee, (value, key) => {
-				this.employee[key] = _.trim(_.replace(value, /\s+/g, ' '))
-			})
-
-			this.employee["pass_dt"] = moment(this.employee["pass_dt"]).format("YYYY-MM-DDThh:mm:ssZ")
-
-			this.saveBtnVisible = false
-
-			this.$emit("saveEmp", this.employee)
-
-			this.text = this.statusText ? this.statusText : "Данные сохранены"
-			this.toggleSnackbar = !this.toggleSnackbar
-
-		},
-
-		removeEmp() {
-			this.text = "Данные удалены"
-			this.toggleSnackbar = !this.toggleSnackbar
-
-			this.employee = {
-				fio: "",
-				pass_ser: "",
-				pass_no: "",
-				pass_dt: "",
-			}
-
-			this.$emit('removeEmp')
-		},
-	},
-	computed: {},
-	watch: {
-		value: {
-			handler: function() {
-				_.assign(this.employee, this.value)
-			},
-			deep: true
-		},
-
-		btn(s) {
-			this.saveBtnVisible = s
-		},
-
-		toggleSnackbar() {
-			this.snackbar = true
-			setTimeout(() => {
-				this.snackbar = false
-			}, 1000)
+			snackbar, toggleSnackbar, text,
+			saveBtnVisible,
+			...useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisible, statusText),
+			...useRules()
 		}
 	}
 }
+
 </script>
 
 <style>

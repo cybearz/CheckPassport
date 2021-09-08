@@ -30,6 +30,7 @@ export default {
 	mounted() {
 		if (localStorage.getItem("empProfile")) {
 			this.profile = JSON.parse(localStorage.getItem("empProfile"))
+			this.$emit('updateProfileName', this.profile.fio)
 		}
 	},
 
