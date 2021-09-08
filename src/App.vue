@@ -25,9 +25,9 @@ export default {
 	}),
 
 	mounted() {
-		if (localStorage.getItem("empProfile")["fio"]) {
-			const fio = this.profileName = JSON.parse(localStorage.getItem("empProfile"))["fio"]
-			this.profileName = nameShortener(fio)
+		const empProfile = JSON.parse(localStorage.getItem("empProfile"))
+		if (empProfile["fio"]) {
+			this.profileName = nameShortener(empProfile["fio"])
 		}
 	},
 	methods: {
