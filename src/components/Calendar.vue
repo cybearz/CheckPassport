@@ -32,7 +32,7 @@ export default {
 		rules: {
 			required: true
 		},
-		recievedDate: {
+		receivedDate: {
 			type: String,
 			required: true
 		}
@@ -57,8 +57,8 @@ export default {
 	},
 
 	watch: {
-		recievedDate() {
-			this.date = this.recievedDate ? moment(this.recievedDate).format("YYYY-MM-DD") : ""
+		receivedDate() {
+			this.date = this.receivedDate ? moment(this.receivedDate).format("YYYY-MM-DD") : ""
 		}
 	}
 }

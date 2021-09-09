@@ -1,12 +1,12 @@
 <template>
 	<v-app>
-		<AppBar :value="profileName"/>
+		<AppBar :value="nameProfile"/>
 
 		<v-main>
 			<v-container class="py-16 fill-height">
 				<router-view
-					:value="profileName"
-					@updateProfileName="updateProfileName"
+					:value="nameProfile"
+					@updateNameProfile="updateNameProfile"
 				/>
 			</v-container>
 		</v-main>
@@ -21,7 +21,7 @@ import AppBar from "@/components/AppBar";
 export default {
 	components: {AppBar},
 	data: () => ({
-		profileName: "Личный кабинет"
+		nameProfile: "Личный кабинет"
 	}),
 
 	mounted() {
@@ -29,13 +29,13 @@ export default {
 		if (empProfile) {
 			const parsed = JSON.parse(empProfile)
 			if (parsed["fio"]) {
-				this.profileName = nameShortener(parsed["fio"])
+				this.nameProfile = nameShortener(parsed["fio"])
 			}
 		}
 	},
 	methods: {
-		updateProfileName(fio) {
-			this.profileName = fio ? nameShortener(fio) : "Личный кабинет"
+		updateNameProfile(fio) {
+			this.nameProfile = fio ? nameShortener(fio) : "Личный кабинет"
 		}
 	}
 }

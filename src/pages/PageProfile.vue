@@ -18,6 +18,7 @@ export default {
 	components: {
 		PassportForm
 	},
+
 	data: () => ({
 		profile: {
 			fio: "",
@@ -32,7 +33,7 @@ export default {
 		const empProfile = localStorage.getItem("empProfile")
 		if (empProfile) {
 			this.profile = JSON.parse(empProfile)
-			this.$emit('updateProfileName', this.profile.fio)
+			this.$emit('updateNameProfile', this.profile.fio)
 		}
 	},
 
@@ -40,7 +41,7 @@ export default {
 		saveProfile(newEmp) {
 			_.assign(this.profile, newEmp)
 			this.uploadProfile()
-			this.$emit('updateProfileName', this.profile.fio)
+			this.$emit('updateNameProfile', this.profile.fio)
 		},
 
 		removeProfile() {
@@ -56,7 +57,7 @@ export default {
 		uploadProfile() {
 			const parsed = JSON.stringify(this.profile)
 			localStorage.setItem("empProfile", parsed)
-			this.$emit('updateProfileName', this.profile.fio)
+			this.$emit('updateNameProfile', this.profile.fio)
 		},
 	}
 }

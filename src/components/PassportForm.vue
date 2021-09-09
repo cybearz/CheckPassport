@@ -35,7 +35,7 @@
 			</div>
 			<Calendar
 				v-model="employee.pass_dt"
-				:recievedDate="employee.pass_dt"
+				:receivedDate="employee.pass_dt"
 				:rules="dtRules"
 				@focus="isBtnDisabled = false"
 			/>
@@ -89,13 +89,13 @@ export default {
 	},
 
 	setup(props, {emit, refs}) {
-		let {text, snackbar, toggleSnackbar} = useSnackbar()
+		let {snackbar, text, showSnackbar} = useSnackbar()
 		const {isBtnDisabled} = useBtnVisability(props)
 
 		return {
-			snackbar, toggleSnackbar, text,
+			snackbar, text,
 			isBtnDisabled,
-			...useEmployee(props, text, toggleSnackbar, emit, refs, isBtnDisabled),
+			...useEmployee(props, showSnackbar, emit, refs, isBtnDisabled),
 			...useRules()
 		}
 	}
