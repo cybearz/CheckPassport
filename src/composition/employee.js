@@ -33,8 +33,7 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 
 		emit("saveEmp", employee.value)
 
-		let text
-		text = statusText.value ? statusText.value : "Данные сохранены"
+		let text = statusText.value ? statusText.value : "Данные сохранены"
 		showSnackbar(text)
 	}
 
