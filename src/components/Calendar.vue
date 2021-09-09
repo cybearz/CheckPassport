@@ -13,6 +13,7 @@
 				readonly
 				label="Дата выдачи"
 				v-on="on"
+				@focus="menu = true"
 			/>
 		</template>
 		<v-date-picker
