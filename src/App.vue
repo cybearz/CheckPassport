@@ -1,7 +1,10 @@
 <template>
 	<v-app>
-		<AppBar :value="nameProfile"/>
-
+		<AppBar>
+			<template #profile>
+				{{ nameProfile }}
+			</template>
+		</AppBar>
 		<v-main>
 			<v-container class="py-16 fill-height">
 				<router-view

@@ -18,20 +18,12 @@
 				outlined
 			>
 				<v-icon left>mdi-account</v-icon>
-				{{ value}}
+				<slot name="profile"></slot>
 			</v-btn>
 		</router-link>
 	</v-app-bar>
 </template>
 
 <script>
-export default {
-	props: {
-		value: {
-			type: String,
-			required: true
-		}
-	},
 
-}
 </script>
