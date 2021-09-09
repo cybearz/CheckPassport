@@ -14,7 +14,7 @@
 		>
 			<PassportForm
 				:value="employee"
-				:btn="saveBtnVisible"
+				:btn="isBtnDisabled"
 				:statusText="statusText"
 				@saveEmp="saveEmp($event)"
 				@removeEmp="removeEmp"
@@ -43,7 +43,7 @@ export default {
 	},
 
 	data: () => ({
-		saveBtnVisible: true,
+		isBtnDisabled: false,
 		empId: "",
 		namesAndIds: [],
 		empStore: {},
@@ -147,10 +147,10 @@ export default {
 		empId(newEmpId) {
 			if (this.empId) {
 				_.assign(this.employee, this.empStore[newEmpId])
-				this.saveBtnVisible = false
+				this.isBtnDisabled = true
 			} else {
 				this.clearEmp()
-				this.saveBtnVisible = true
+				this.isBtnDisabled = false
 			}
 
 			if (newEmpId !== this.urlId) {

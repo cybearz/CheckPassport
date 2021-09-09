@@ -13,7 +13,7 @@
 				outlined
 				v-model="employee.fio"
 				:rules="nameRules"
-				@focus="saveBtnVisible = true"
+				@focus="isBtnDisabled = false"
 			/>
 			<div class="d-flex align-center">
 				<v-text-field
@@ -22,7 +22,7 @@
 					class="flex-grow-0"
 					v-model="employee.pass_ser"
 					:rules="serRules"
-					@focus="saveBtnVisible = true"
+					@focus="isBtnDisabled = false"
 				/>
 				<v-text-field
 					label="Номер"
@@ -30,17 +30,17 @@
 					class="flex-grow-1"
 					v-model="employee.pass_no"
 					:rules="nomRules"
-					@focus="saveBtnVisible = true"
+					@focus="isBtnDisabled = false"
 				/>
 			</div>
 			<Calendar
 				v-model="employee.pass_dt"
 				:recievedDate="employee.pass_dt"
 				:rules="dtRules"
-				@focus="saveBtnVisible = true"
+				@focus="isBtnDisabled = false"
 			/>
 			<v-btn
-				v-if="saveBtnVisible"
+				:disabled="isBtnDisabled"
 				@click="saveEmp"
 			>Сохранить
 			</v-btn>
@@ -66,7 +66,7 @@
 <script>
 import Calendar from "@/components/Calendar"
 
-import {useBtnVisible} from "@/composition/btnVisible"
+import {useBtnVisability} from "@/composition/btnVisability"
 import {useEmployee} from "@/composition/employee"
 import {useSnackbar} from "@/composition/snackbar"
 import {useRules} from "@/composition/rules"
@@ -90,12 +90,12 @@ export default {
 
 	setup(props, {emit, refs}) {
 		let {text, snackbar, toggleSnackbar} = useSnackbar()
-		const {saveBtnVisible} = useBtnVisible(props)
+		const {isBtnDisabled} = useBtnVisability(props)
 
 		return {
 			snackbar, toggleSnackbar, text,
-			saveBtnVisible,
-			...useEmployee(props, text, toggleSnackbar, emit, refs, saveBtnVisible),
+			isBtnDisabled,
+			...useEmployee(props, text, toggleSnackbar, emit, refs, isBtnDisabled),
 			...useRules()
 		}
 	}
