@@ -5,8 +5,6 @@
 		>
 			<EmpList
 				:namesAndIds="namesAndIds"
-				@addEmp="empId = ''"
-				@showPassport="empId = $event"
 			/>
 		</v-col>
 		<v-col
@@ -73,17 +71,15 @@ export default {
 	},
 
 	methods: {
-		addEmp() {
-			this.empId = ""
-		},
-
 		saveEmp(newEmp) {
 			if (this.findEmpByName(newEmp["fio"]) !== -1) {
 				this.statusText = "ОШИБКА: Пользователь с таким именем уже существует"
 				return
+			} else {
+				this.statusText = "Данные сохранены"
 			}
-			const ind = this.findEmpById(this.empId)
-			if (!this.empId || ind == -1) {
+
+			if (!this.empId) {
 				const empStoreId = uuidv1()
 
 				this.empId = empStoreId
@@ -91,11 +87,13 @@ export default {
 			} else {
 				const oldFio = this.employee["fio"]
 
-				if (this.empId && newEmp["fio"] !== oldFio) {
+				if (newEmp["fio"] !== oldFio) {
+					console.log(`newEmp["fio"]: ${newEmp["fio"]} oldFio: ${oldFio}`)
+					const ind = this.findEmpById(this.empId)
 					this.namesAndIds[ind].splice(0, 1, newEmp["fio"])
 				}
 			}
-
+			this.employee = _.assign({}, newEmp)
 			this.empStore[this.empId] = _.assign({}, newEmp)
 			this.uploadEmpStore()
 		},
@@ -141,25 +139,27 @@ export default {
 		findEmpByName(name) {
 			return _.findIndex(this.namesAndIds, el => el[0] === name)
 		}
+
 	},
 
 	watch: {
 		empId(newEmpId) {
 			if (this.empId) {
 				_.assign(this.employee, this.empStore[newEmpId])
-				this.isBtnDisabled = true
+
 			} else {
 				this.clearEmp()
-				this.isBtnDisabled = false
 			}
 
 		},
 
 		urlId(newUrlId) {
 			if (newUrlId && this.findEmpById(newUrlId) !== -1) {
+				this.isBtnDisabled = true
 				this.empId = newUrlId
 			} else {
 				this.empId = ""
+				this.isBtnDisabled = false
 			}
 		}
 	}
