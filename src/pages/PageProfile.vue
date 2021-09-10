@@ -1,13 +1,15 @@
 <template>
-	<v-row no-gutters justify="center">
-		<v-col cols="4">
-			<PassportForm
-				:value="profile"
-				@saveEmp="saveProfile"
-				@removeEmp="removeProfile"
-			/>
-		</v-col>
-	</v-row>
+	<v-container class="py-16 fill-height">
+		<v-row no-gutters justify="center">
+			<v-col cols="4">
+				<PassportForm
+					:value="profile"
+					@saveEmp="saveProfile"
+					@removeEmp="removeProfile"
+				/>
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
 
 <script>

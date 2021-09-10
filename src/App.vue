@@ -6,12 +6,10 @@
 			</template>
 		</AppBar>
 		<v-main>
-			<v-container class="py-16 fill-height">
 				<router-view
 					:value="nameProfile"
 					@updateNameProfile="updateNameProfile"
 				/>
-			</v-container>
 		</v-main>
 
 	</v-app>

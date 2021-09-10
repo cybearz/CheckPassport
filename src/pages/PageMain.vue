@@ -1,24 +1,26 @@
 <template>
-	<v-row no-gutters justify="center">
-		<v-col
-			cols="3"
-		>
-			<EmpList
-				:namesAndIds="namesAndIds"
-			/>
-		</v-col>
-		<v-col
-			cols="4"
-		>
-			<PassportForm
-				:value="employee"
-				:btn="isBtnDisabled"
-				:statusText="statusText"
-				@saveEmp="saveEmp($event)"
-				@removeEmp="removeEmp"
-			/>
-		</v-col>
-	</v-row>
+	<v-container class="py-16 fill-height">
+		<v-row no-gutters justify="center">
+			<v-col
+				cols="3"
+			>
+				<EmpList
+					:namesAndIds="namesAndIds"
+				/>
+			</v-col>
+			<v-col
+				cols="4"
+			>
+				<PassportForm
+					:value="employee"
+					:btn="isBtnDisabled"
+					:statusText="statusText"
+					@saveEmp="saveEmp($event)"
+					@removeEmp="removeEmp"
+				/>
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
 
 <script>

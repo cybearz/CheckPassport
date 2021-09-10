@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import PageMain from '@/pages/PageMain'
-import ProfilePage from "@/pages/PageProfile";
+import PageProfile from "@/pages/PageProfile";
+import PageNotFound from "@/pages/PageNotFound";
 
 Vue.use(VueRouter)
 
@@ -11,11 +12,13 @@ const routes = [
 		name: 'main',
 		component: PageMain,
 	},
+
 	{
 		path: '/profile',
 		name: 'profile',
-		component: ProfilePage
+		component: PageProfile
 	},
+
 	{
 		path: '/:urlId',
 		name: 'empPassport',
@@ -23,6 +26,11 @@ const routes = [
 		props: true
 	},
 
+	{
+		path: '*',
+		name: 'notFound',
+		component: PageNotFound,
+	},
 ]
 
 const router = new VueRouter({
