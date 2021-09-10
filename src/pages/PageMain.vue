@@ -153,18 +153,13 @@ export default {
 				this.isBtnDisabled = false
 			}
 
-			if (newEmpId !== this.urlId) {
-				this.$router.push(`/${newEmpId}`)
-			}
 		},
 
 		urlId(newUrlId) {
-			if (this.empId !== newUrlId) {
-				if (newUrlId && this.findEmpById(newUrlId) === -1) {
-					this.empId = ""
-				} else {
-					this.empId = newUrlId
-				}
+			if (newUrlId && this.findEmpById(newUrlId) !== -1) {
+				this.empId = newUrlId
+			} else {
+				this.empId = ""
 			}
 		}
 	}

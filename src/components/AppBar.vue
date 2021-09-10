@@ -3,7 +3,10 @@
 		app
 		dark
 	>
-		<router-link to="/">
+		<router-link
+			style="text-decoration: none; color: inherit;"
+			to="/"
+		>
 			<v-btn
 				plain
 				>
@@ -13,7 +16,10 @@
 		</router-link>
 
 		<v-spacer/>
-		<router-link to="/profile">
+		<router-link
+			style="text-decoration: none; color: inherit;"
+			to="/profile"
+		>
 			<v-btn
 				outlined
 			>

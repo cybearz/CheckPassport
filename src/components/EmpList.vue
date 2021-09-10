@@ -7,15 +7,19 @@
 			<div class="d-flex align-center">
 				<v-subheader>Сотрудники</v-subheader>
 				<v-spacer></v-spacer>
-				<v-btn
-					x-small
-					rounded
-					dark
-					class="mx-4"
-					@click="$emit('addEmp')"
+				<router-link
+					style="text-decoration: none; color: inherit;"
+					to="/"
 				>
-					<v-icon size="16">mdi-plus</v-icon>
-				</v-btn>
+					<v-btn
+						x-small
+						rounded
+						dark
+						class="mx-4"
+					>
+						<v-icon size="16">mdi-plus</v-icon>
+					</v-btn>
+				</router-link>
 			</div>
 			<v-list-item-group
 				color="primary"
@@ -28,15 +32,18 @@
 						<v-list-item-subtitle class="text-center">Добавьте первого сотрудника</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
-				<v-list-item
+				<router-link
+					style="text-decoration: none; color: inherit;"
 					v-for="i in sortedNamesAndIds"
 					:key="i[1]"
-					@click="$emit('showPassport', i[1])"
+					:to="{path: `/${i[1]}`}"
 				>
-					<v-list-item-content>
-						<v-list-item-title>{{ i[0] }}</v-list-item-title>
-					</v-list-item-content>
-				</v-list-item>
+					<v-list-item>
+						<v-list-item-content>
+							<v-list-item-title>{{ i[0] }}</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</router-link>
 			</v-list-item-group>
 		</v-list>
 	</v-card>
