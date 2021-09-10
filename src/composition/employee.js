@@ -3,7 +3,7 @@ import _ from "lodash"
 import moment from "moment"
 
 export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
-	const { value, statusText } = toRefs(props)
+	const { value } = toRefs(props)
 
 	let employee = ref({
 		fio: "",
@@ -33,7 +33,7 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 
 		emit("saveEmp", employee.value)
 
-		showSnackbar(statusText.value)
+		showSnackbar()
 	}
 
 	const removeEmp = () => {
@@ -45,7 +45,8 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		}
 
 		emit('removeEmp')
-		showSnackbar("Данные удалены")
+
+		showSnackbar()
 	}
 
 	return {employee, saveEmp, removeEmp}

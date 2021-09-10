@@ -99,6 +99,7 @@ export default {
 		},
 
 		removeEmp() {
+			this.statusText = "Данные удалены"
 			const empStoreId = this.empId
 
 			if (this.empStore[empStoreId]) {

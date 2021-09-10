@@ -1,11 +1,16 @@
-import {ref} from "@vue/composition-api";
+import {ref, toRefs, watch} from "@vue/composition-api";
 
-export function useSnackbar() {
+export function useSnackbar(props) {
+	const { statusText } = toRefs(props)
 	let snackbar = ref(false)
 	let text = ref("")
 
-	const showSnackbar = txt => {
-		text.value = txt
+	watch(statusText, newText => {
+		console.log("watch", newText)
+		text.value = newText
+	})
+
+	const showSnackbar = () => {
 		snackbar.value = true
 		setTimeout(() => {
 			snackbar.value = false

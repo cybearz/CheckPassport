@@ -89,7 +89,7 @@ export default {
 	},
 
 	setup(props, {emit, refs}) {
-		let {snackbar, text, showSnackbar} = useSnackbar()
+		let {snackbar, text, showSnackbar} = useSnackbar(props)
 		const {isBtnDisabled} = useBtnVisability(props)
 
 		return {
