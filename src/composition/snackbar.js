@@ -6,7 +6,6 @@ export function useSnackbar(props) {
 	let text = ref("")
 
 	watch(statusText, newText => {
-		console.log("watch", newText)
 		text.value = newText
 	})
 

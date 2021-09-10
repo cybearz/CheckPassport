@@ -88,7 +88,6 @@ export default {
 				const oldFio = this.employee["fio"]
 
 				if (newEmp["fio"] !== oldFio) {
-					console.log(`newEmp["fio"]: ${newEmp["fio"]} oldFio: ${oldFio}`)
 					const ind = this.findEmpById(this.empId)
 					this.namesAndIds[ind].splice(0, 1, newEmp["fio"])
 				}

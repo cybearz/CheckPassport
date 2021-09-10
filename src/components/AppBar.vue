@@ -5,7 +5,7 @@
 	>
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			to="/"
+			:to="{name:'main'}"
 		>
 			<v-btn
 				plain
@@ -18,7 +18,7 @@
 		<v-spacer/>
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			to="/profile"
+			:to="{name:'profile'}"
 		>
 			<v-btn
 				outlined

@@ -8,14 +8,17 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: '/',
+		name: 'main',
 		component: PageMain,
 	},
 	{
 		path: '/profile',
+		name: 'profile',
 		component: ProfilePage
 	},
 	{
 		path: '/:urlId',
+		name: 'empPassport',
 		component: PageMain,
 		props: true
 	},
