@@ -56,11 +56,23 @@ export default {
 		statusText: "",
 	}),
 
+	beforeRouteEnter(to, from, next) {
+		if (localStorage.getItem("empStore")) {
+			const json = JSON.parse(localStorage.getItem("empStore"))
+			if (_.find(json, (value, key) => to.params.urlId == key)) {
+				console.log("gg")
+				next()
+			} else {
+				next({name: 'notFound', params: {}})
+			}
+		}
+		console.log(to.params)
+
+		next()
+	},
 	mounted() {
-		console.log("mount")
 		if (localStorage.getItem("empStore")) {
 			this.empStore = JSON.parse(localStorage.getItem("empStore"))
-
 			_.forEach(this.empStore, (value, id) => {
 				if (id === this.urlId) {
 					this.empId = id
