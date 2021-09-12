@@ -56,19 +56,19 @@ export default {
 		statusText: "",
 	}),
 
-	created() {
-		if (this.urlId && _.findIndex(this.namesAndIds, el => el[1] === this.urlId)) {
-			this.empId = this.urlId
-		}
-	},
-
 	mounted() {
+		console.log("mount")
 		if (localStorage.getItem("empStore")) {
 			this.empStore = JSON.parse(localStorage.getItem("empStore"))
 
 			_.forEach(this.empStore, (value, id) => {
+				if (id === this.urlId) {
+					this.empId = id
+				}
 				this.namesAndIds.push([value["fio"], id])
 			})
+
+
 		}
 	},
 
