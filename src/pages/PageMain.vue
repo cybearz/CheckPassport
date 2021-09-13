@@ -25,7 +25,7 @@
 
 <script>
 import _ from 'lodash'
-import {v1 as uuidv1} from 'uuid';
+import {v1 as uuidv1} from 'uuid'
 
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
@@ -57,17 +57,14 @@ export default {
 	}),
 
 	beforeRouteEnter(to, from, next) {
-		if (localStorage.getItem("empStore")) {
+		if (to.name ===  "empPassport" && localStorage.getItem("empStore")) {
 			const json = JSON.parse(localStorage.getItem("empStore"))
 			if (_.find(json, (value, key) => to.params.urlId == key)) {
-				console.log("gg")
 				next()
 			} else {
 				next({name: 'notFound', params: {}})
 			}
 		}
-		console.log(to.params)
-
 		next()
 	},
 	mounted() {
@@ -77,7 +74,7 @@ export default {
 				if (id === this.urlId) {
 					this.empId = id
 				}
-				this.namesAndIds.push([value["fio"], id])
+				this.namesAndIds.push([value.fio, id])
 			})
 
 
@@ -86,7 +83,7 @@ export default {
 
 	methods: {
 		saveEmp(newEmp) {
-			if (this.findEmpByName(newEmp["fio"]) !== -1) {
+			if (this.findEmpByName(newEmp.fio) !== -1) {
 				this.statusText = "ОШИБКА: Пользователь с таким именем уже существует"
 				return
 			} else {
@@ -97,13 +94,13 @@ export default {
 				const empStoreId = uuidv1()
 
 				this.empId = empStoreId
-				this.namesAndIds.push([newEmp["fio"], empStoreId])
+				this.namesAndIds.push([newEmp.fio, empStoreId])
 			} else {
-				const oldFio = this.employee["fio"]
+				const oldFio = this.employee.fio
 
-				if (newEmp["fio"] !== oldFio) {
+				if (newEmp.fio !== oldFio) {
 					const ind = this.findEmpById(this.empId)
-					this.namesAndIds[ind].splice(0, 1, newEmp["fio"])
+					this.namesAndIds[ind].splice(0, 1, newEmp.fio)
 				}
 			}
 			this.employee = _.assign({}, newEmp)

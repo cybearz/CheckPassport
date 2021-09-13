@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import PageMain from '@/pages/PageMain'
-import PageProfile from "@/pages/PageProfile";
-import PageNotFound from "@/pages/PageNotFound";
+import PageProfile from "@/pages/PageProfile"
+import PageNotFound from "@/pages/PageNotFound"
 
 Vue.use(VueRouter)
 
@@ -27,7 +27,7 @@ const routes = [
 	},
 
 	{
-		path: '*',
+		path: '/notFound',
 		name: 'notFound',
 		component: PageNotFound,
 	},

@@ -17,7 +17,7 @@
 
 <script>
 import { nameShortener } from "@/utils/nameShortener"
-import AppBar from "@/components/AppBar";
+import AppBar from "@/components/AppBar"
 
 export default {
 	components: {AppBar},
@@ -29,8 +29,8 @@ export default {
 		const empProfile = localStorage.getItem("empProfile")
 		if (empProfile) {
 			const parsed = JSON.parse(empProfile)
-			if (parsed["fio"]) {
-				this.nameProfile = nameShortener(parsed["fio"])
+			if (parsed.fio) {
+				this.nameProfile = nameShortener(parsed.fio)
 			}
 		}
 	},

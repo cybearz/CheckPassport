@@ -31,7 +31,6 @@ export default {
 	}),
 
 	mounted() {
-		//FIXME
 		const empProfile = localStorage.getItem("empProfile")
 		if (empProfile) {
 			this.profile = JSON.parse(empProfile)
