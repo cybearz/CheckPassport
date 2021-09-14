@@ -62,14 +62,15 @@ export default {
 	},
 
 	mounted() {
+		console.log("mount")
 		this.empId = this.urlId
 		this.downloadEmpStore()
-		this.updateNamesAndIds()
+		this.addNamesAndIds()
 	},
 
 	methods: {
-		...mapActions(["downloadEmpStore", "uploadEmpStore"]),
-		...mapMutations(["updateNamesAndIds", "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey" , "deleteNamesAndIdsEl"]),
+		...mapActions(["downloadEmpStore", "uploadEmpStore", "addNamesAndIds"]),
+		...mapMutations(["clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl"]),
 
 		saveEmp(newEmp) {
 			if (this.findEmpByName(newEmp.fio) !== -1) {
@@ -80,10 +81,8 @@ export default {
 			}
 
 			if (!this.empId) {
-				const empStoreId = uuidv1()
-
-				this.empId = empStoreId
-				this.pushNamesAndIds([newEmp.fio, empStoreId])
+				this.empId == uuidv1()
+				this.addNamesAndIds([newEmp.fio, this.empId])
 			} else {
 				const oldFio = this.employee.fio
 

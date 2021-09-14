@@ -49,15 +49,6 @@ export default {
 			delete state.empStore[empStoreId]
 		},
 
-		updateNamesAndIds(state) {
-			if (!_.isEmpty(state.namesAndIds)) {
-				return
-			}
-			_.forEach(state.empStore, (value, id) => {
-				state.namesAndIds.push([value.fio, id])
-			})
-		},
-
 		pushNamesAndIds(state, newVal) {
 			state.namesAndIds.push(newVal)
 		},
@@ -103,5 +94,14 @@ export default {
 			localStorage.setItem("empStore", parsed)
 		},
 
+		addNamesAndIds(ctx, newVal) {
+			if (newVal) {
+				ctx.commit("pushNamesAndIds", newVal)
+			} else if (_.isEmpty(ctx.getters.namesAndIds)) {
+				_.forEach(ctx.getters.empStore, (value, id) => {
+					ctx.commit("pushNamesAndIds", [value.fio, id])
+				})
+			}
+		},
 	},
 }

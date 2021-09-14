@@ -1,9 +1,9 @@
-import { ref, watch, toRefs } from "@vue/composition-api"
+import {ref, watch, toRefs} from "@vue/composition-api"
 import _ from "lodash"
 import moment from "moment"
 
 export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
-	const { value } = toRefs(props)
+	const {value} = toRefs(props)
 
 	let employee = ref({
 		fio: "",
@@ -13,8 +13,8 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 	})
 
 	watch(value, newValue => {
-		_.assign(employee.value, newValue)
-	},
+			employee.value = _.assign({}, newValue)
+		},
 		{deep: true}
 	)
 
