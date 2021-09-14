@@ -50,6 +50,9 @@ export default {
 		},
 
 		updateNamesAndIds(state) {
+			if (!_.isEmpty(state.namesAndIds)) {
+				return
+			}
 			_.forEach(state.empStore, (value, id) => {
 				state.namesAndIds.push([value.fio, id])
 			})
@@ -83,6 +86,11 @@ export default {
 
 	actions: {
 		downloadEmpStore(ctx) {
+			//FIXME проверка isEmpty нужна для предотвращения повторного
+			// обновления данных при одностраничном роутинге. Тем не менее должен быть способ получше
+			if (!_.isEmpty(ctx.state.empStore)) {
+				return
+			}
 			if (localStorage.getItem("empStore")) {
 				const empStore = JSON.parse(localStorage.getItem("empStore"))
 
