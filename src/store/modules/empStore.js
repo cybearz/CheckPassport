@@ -37,15 +37,16 @@ export default {
 	},
 
 	mutations: {
-		updateEmpStore(state, newEmpStore) {
-			console.log("updateEmpStore", newEmpStore)
-
+		downloadEmpStore(state, newEmpStore) {
 			state.empStore = newEmpStore
 		},
 
 		changeEmpStore(state, {id, newEmp}) {
-			console.log("changeEmpStore", newEmp.fio)
 			state.empStore[id] = _.assign({}, newEmp)
+		},
+
+		deleteEmpStoreKey(state, empStoreId) {
+			delete state.empStore[empStoreId]
 		},
 
 		updateNamesAndIds(state) {
@@ -58,9 +59,16 @@ export default {
 			state.namesAndIds.push(newVal)
 		},
 
+		changeNamesAndIds(state, {ind, newFullname}) {
+			state.namesAndIds[ind].splice(0, 1, newFullname)
+		},
+
+		deleteNamesAndIdsEl(state, ind) {
+			state.namesAndIds.splice(ind, 1)
+		},
+
 		updateEmp(state, newEmp) {
 			state.employee = newEmp
-			console.log("updateEmp", newEmp)
 		},
 
 		clearEmp(state) {
@@ -74,18 +82,16 @@ export default {
 	},
 
 	actions: {
-		updateEmpStore(ctx) {
+		downloadEmpStore(ctx) {
 			if (localStorage.getItem("empStore")) {
 				const empStore = JSON.parse(localStorage.getItem("empStore"))
 
-				ctx.commit("updateEmpStore", empStore)
+				ctx.commit("downloadEmpStore", empStore)
 			}
 		},
 
 		uploadEmpStore(ctx) {
 			const parsed = JSON.stringify(ctx.getters.empStore)
-
-			console.log("uploadEmpStore", parsed)
 			localStorage.setItem("empStore", parsed)
 		},
 

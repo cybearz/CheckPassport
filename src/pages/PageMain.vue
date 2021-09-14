@@ -62,13 +62,14 @@ export default {
 	},
 
 	mounted() {
-		this.updateEmpStore()
+		this.empId = this.urlId
+		this.downloadEmpStore()
 		this.updateNamesAndIds()
 	},
 
 	methods: {
-		...mapActions(["updateEmpStore", "uploadEmpStore"]),
-		...mapMutations(["updateNamesAndIds", "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore"]),
+		...mapActions(["downloadEmpStore", "uploadEmpStore"]),
+		...mapMutations(["updateNamesAndIds", "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey" , "deleteNamesAndIdsEl"]),
 
 		saveEmp(newEmp) {
 			if (this.findEmpByName(newEmp.fio) !== -1) {
@@ -84,13 +85,13 @@ export default {
 				this.empId = empStoreId
 				this.pushNamesAndIds([newEmp.fio, empStoreId])
 			} else {
-				// const oldFio = this.employee.fio
+				const oldFio = this.employee.fio
 
-				// if (newEmp.fio !== oldFio) {
-				// 	const ind = this.findEmpById(this.empId)
-				//
-				// 	this.namesAndIds[ind].splice(0, 1, newEmp.fio)
-				// }
+				if (newEmp.fio !== oldFio) {
+					const ind = this.findEmpById(this.empId)
+
+					this.changeNamesAndIds({ind, newFullname: newEmp.fio})
+				}
 			}
 
 			this.updateEmp(newEmp)
@@ -103,15 +104,10 @@ export default {
 			const empStoreId = this.empId
 
 			if (this.empStore[empStoreId]) {
-				delete this.empStore[empStoreId]
-				let ind
-				_.forEach(this.namesAndIds, (value, idx) => {
-					if (value[1] === empStoreId) {
-						ind = idx
-					}
-				})
+				this.deleteEmpStoreKey(empStoreId)
+				const ind = this.findEmpById(empStoreId)
 
-				this.namesAndIds.splice(ind, 1)
+				this.deleteNamesAndIdsEl(ind)
 				this.empId = ""
 			}
 
