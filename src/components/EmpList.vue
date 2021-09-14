@@ -50,29 +50,34 @@
 </template>
 
 <script>
-import { nameShortener } from "@/utils/nameShortener"
-
-import _ from 'lodash'
+// import { nameShortener } from "@/utils/nameShortener"
+//
+// import _ from 'lodash'
 
 export default {
-	props: {
-		namesAndIds: {
-			type: Array,
-			required: true
-		}
-	},
-	data: () => ({
-		sortedNamesAndIds: []
-	}),
-	watch: {
-		namesAndIds: {
-			handler: function () {
-				this.sortedNamesAndIds = _.cloneDeep(this.namesAndIds).sort((curr, next) => curr[0]?.localeCompare(next[0]))
-				_.forEach(this.sortedNamesAndIds, value => {
-					value[0] = nameShortener(value[0])
-				})
-			},
-			deep: true
+	// props: {
+	// 	namesAndIds: {
+	// 		type: Array,
+	// 		required: true
+	// 	}
+	// },
+	// data: () => ({
+	// 	sortedNamesAndIds: []
+	// }),
+	// watch: {
+	// 	namesAndIds: {
+	// 		handler: function () {
+	// 			this.sortedNamesAndIds = _.cloneDeep(this.namesAndIds).sort((curr, next) => curr[0]?.localeCompare(next[0]))
+	// 			_.forEach(this.sortedNamesAndIds, value => {
+	// 				value[0] = nameShortener(value[0])
+	// 			})
+	// 		},
+	// 		deep: true
+	// 	}
+	// }
+	computed: {
+		sortedNamesAndIds() {
+			return this.$store.getters.sortedNamesAndIds
 		}
 	}
 }

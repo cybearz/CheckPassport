@@ -34,6 +34,7 @@ export default {
 			}
 		}
 	},
+
 	methods: {
 		updateNameProfile(fio) {
 			this.nameProfile = fio ? nameShortener(fio) : "Личный кабинет"

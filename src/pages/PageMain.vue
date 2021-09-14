@@ -4,9 +4,7 @@
 			<v-col
 				cols="3"
 			>
-				<EmpList
-					:namesAndIds="namesAndIds"
-				/>
+				<EmpList/>
 			</v-col>
 			<v-col
 				cols="4"
@@ -25,6 +23,7 @@
 
 <script>
 import _ from 'lodash'
+import {mapActions, mapGetters, mapMutations} from 'vuex'
 import {v1 as uuidv1} from 'uuid'
 
 import PassportForm from "@/components/PassportForm"
@@ -32,12 +31,14 @@ import EmpList from "@/components/EmpList"
 
 export default {
 	name: 'App',
+
 	props: {
 		urlId: {
 			type: String,
 			default: ""
 		}
 	},
+
 	components: {
 		PassportForm, EmpList
 	},
@@ -45,43 +46,30 @@ export default {
 	data: () => ({
 		isBtnDisabled: false,
 		empId: "",
-		namesAndIds: [],
-		empStore: {},
-		employee: {
-			fio: "",
-			pass_ser: "",
-			pass_no: "",
-			pass_dt: "",
-		},
 		statusText: "",
 	}),
 
 	beforeRouteEnter(to, from, next) {
-		if (to.name ===  "empPassport" && localStorage.getItem("empStore")) {
+		if (to.name === "empPassport" && localStorage.getItem("empStore")) {
 			const json = JSON.parse(localStorage.getItem("empStore"))
-			if (_.find(json, (value, key) => to.params.urlId == key)) {
+			if (_.find(json, (value, key) => to.params.urlId === key)) {
 				next()
 			} else {
-				next({name: 'notFound', params: {}})
+				next({name: "notFound"})
 			}
 		}
 		next()
 	},
+
 	mounted() {
-		if (localStorage.getItem("empStore")) {
-			this.empStore = JSON.parse(localStorage.getItem("empStore"))
-			_.forEach(this.empStore, (value, id) => {
-				if (id === this.urlId) {
-					this.empId = id
-				}
-				this.namesAndIds.push([value.fio, id])
-			})
-
-
-		}
+		this.updateEmpStore()
+		this.updateNamesAndIds()
 	},
 
 	methods: {
+		...mapActions(["updateEmpStore", "uploadEmpStore"]),
+		...mapMutations(["updateNamesAndIds", "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore"]),
+
 		saveEmp(newEmp) {
 			if (this.findEmpByName(newEmp.fio) !== -1) {
 				this.statusText = "ОШИБКА: Пользователь с таким именем уже существует"
@@ -94,17 +82,19 @@ export default {
 				const empStoreId = uuidv1()
 
 				this.empId = empStoreId
-				this.namesAndIds.push([newEmp.fio, empStoreId])
+				this.pushNamesAndIds([newEmp.fio, empStoreId])
 			} else {
-				const oldFio = this.employee.fio
+				// const oldFio = this.employee.fio
 
-				if (newEmp.fio !== oldFio) {
-					const ind = this.findEmpById(this.empId)
-					this.namesAndIds[ind].splice(0, 1, newEmp.fio)
-				}
+				// if (newEmp.fio !== oldFio) {
+				// 	const ind = this.findEmpById(this.empId)
+				//
+				// 	this.namesAndIds[ind].splice(0, 1, newEmp.fio)
+				// }
 			}
-			this.employee = _.assign({}, newEmp)
-			this.empStore[this.empId] = _.assign({}, newEmp)
+
+			this.updateEmp(newEmp)
+			this.changeEmpStore({id: this.empId, newEmp})
 			this.uploadEmpStore()
 		},
 
@@ -129,20 +119,6 @@ export default {
 			this.clearEmp()
 		},
 
-		clearEmp() {
-			this.employee = {
-				fio: "",
-				pass_ser: "",
-				pass_no: "",
-				pass_dt: "",
-			}
-		},
-
-		uploadEmpStore() {
-			const parsed = JSON.stringify(this.empStore)
-			localStorage.setItem("empStore", parsed)
-		},
-
 		findEmpById(id) {
 			return _.findIndex(this.namesAndIds, el => el[1] === id)
 		},
@@ -153,15 +129,17 @@ export default {
 
 	},
 
+	computed: {
+		...mapGetters(["empStore", "namesAndIds", "employee"])
+	},
+
 	watch: {
 		empId(newEmpId) {
 			if (this.empId) {
-				_.assign(this.employee, this.empStore[newEmpId])
-
+				this.updateEmp(this.empStore[newEmpId])
 			} else {
 				this.clearEmp()
 			}
-
 		},
 
 		urlId(newUrlId) {
