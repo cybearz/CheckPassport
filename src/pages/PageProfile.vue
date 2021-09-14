@@ -4,6 +4,7 @@
 			<v-col cols="4">
 				<PassportForm
 					:value="profile"
+					:statusText="statusText"
 					@saveEmp="saveProfile"
 					@removeEmp="removeProfile"
 				/>
@@ -28,6 +29,7 @@ export default {
 			pass_no: "",
 			pass_dt: "",
 		},
+		statusText: "",
 	}),
 
 	mounted() {
@@ -43,6 +45,7 @@ export default {
 			_.assign(this.profile, newEmp)
 			this.uploadProfile()
 			this.$emit('updateNameProfile', this.profile.fio)
+			this.statusText = "Данные сохранены"
 		},
 
 		removeProfile() {
@@ -53,6 +56,7 @@ export default {
 					pass_dt: "",
 			}
 			this.uploadProfile()
+			this.statusText = "Данные удалены"
 		},
 
 		uploadProfile() {
