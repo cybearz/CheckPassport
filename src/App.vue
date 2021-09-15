@@ -17,6 +17,8 @@
 
 <script>
 import { nameShortener } from "@/utils/nameShortener"
+import { myLocalStorage } from "@/utils/api"
+
 import AppBar from "@/components/AppBar"
 
 export default {
@@ -26,11 +28,9 @@ export default {
 	}),
 
 	mounted() {
-		const empProfile = localStorage.getItem("empProfile")
-		if (empProfile) {
-			const parsed = JSON.parse(empProfile)
-			if (parsed.fio) {
-				this.nameProfile = nameShortener(parsed.fio)
+		if (myLocalStorage.empProfile) {
+			if (myLocalStorage.empProfile.fio) {
+				this.nameProfile = nameShortener(myLocalStorage.empProfile.fio)
 			}
 		}
 	},

@@ -17,6 +17,8 @@
 import PassportForm from "@/components/PassportForm"
 import _ from "lodash"
 
+import { myLocalStorage } from "@/utils/api"
+
 export default {
 	components: {
 		PassportForm
@@ -33,9 +35,9 @@ export default {
 	}),
 
 	mounted() {
-		const empProfile = localStorage.getItem("empProfile")
+		const empProfile = myLocalStorage.empProfile
 		if (empProfile) {
-			this.profile = JSON.parse(empProfile)
+			this.profile = myLocalStorage.empProfile
 			this.$emit('updateNameProfile', this.profile.fio)
 		}
 	},
@@ -60,8 +62,7 @@ export default {
 		},
 
 		uploadProfile() {
-			const parsed = JSON.stringify(this.profile)
-			localStorage.setItem("empProfile", parsed)
+			myLocalStorage.setEmpProfile(this.profile)
 			this.$emit('updateNameProfile', this.profile.fio)
 		},
 	}

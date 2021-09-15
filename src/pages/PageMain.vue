@@ -26,6 +26,8 @@ import _ from 'lodash'
 import {mapActions, mapGetters, mapMutations} from 'vuex'
 import {v1 as uuidv1} from 'uuid'
 
+import { myLocalStorage } from "@/utils/api"
+
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
 
@@ -50,9 +52,8 @@ export default {
 	}),
 
 	beforeRouteEnter(to, from, next) {
-		if (to.name === "empPassport" && localStorage.getItem("empStore")) {
-			const json = JSON.parse(localStorage.getItem("empStore"))
-			if (_.find(json, (value, key) => to.params.urlId === key)) {
+		if (to.name === "empPassport" && myLocalStorage.empStore) {
+			if (_.find(myLocalStorage.empStore, (value, key) => to.params.urlId === key)) {
 				next()
 			} else {
 				next({name: "notFound"})

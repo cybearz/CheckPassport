@@ -1,6 +1,7 @@
 import _ from "lodash"
 
 import { nameShortener } from "@/utils/nameShortener"
+import { myLocalStorage } from "@/utils/api"
 
 export default {
 	state: {
@@ -82,16 +83,13 @@ export default {
 			if (!_.isEmpty(ctx.state.empStore)) {
 				return
 			}
-			if (localStorage.getItem("empStore")) {
-				const empStore = JSON.parse(localStorage.getItem("empStore"))
-
-				ctx.commit("downloadEmpStore", empStore)
+			if (myLocalStorage.empStore) {
+				ctx.commit("downloadEmpStore", myLocalStorage.empStore)
 			}
 		},
 
 		uploadEmpStore(ctx) {
-			const parsed = JSON.stringify(ctx.getters.empStore)
-			localStorage.setItem("empStore", parsed)
+			myLocalStorage.setEmpStore(ctx.getters.empStore)
 		},
 
 		addNamesAndIds(ctx, newVal) {
