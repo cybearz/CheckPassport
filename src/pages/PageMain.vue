@@ -81,7 +81,7 @@ export default {
 			}
 
 			if (!this.empId) {
-				this.empId == uuidv1()
+				this.empId = uuidv1()
 				this.addNamesAndIds([newEmp.fio, this.empId])
 			} else {
 				const oldFio = this.employee.fio
