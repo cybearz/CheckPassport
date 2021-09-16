@@ -8,11 +8,14 @@ class LocalStorageData {
 
 	get() {
 		const v = localStorage.getItem(this.key)
-		return v ? JSON.parse(v) : null
+		const rs = v ? JSON.parse(v) : null
+		console.debug("get()", this.key, rs) //D
+		return rs
 	}
 
 	set(v) {
 		localStorage.setItem(this.key, JSON.stringify(v))
+		console.debug("set()", this.key, v) //D
 		return v
 	}
 }
@@ -38,7 +41,7 @@ export function setEmpProfile(v) {
 	empProfile.set(v)
 }
 
-//
+//TODO??? cache
 
 class LocalStorage {
 	cache = {}

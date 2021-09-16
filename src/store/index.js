@@ -1,7 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 
-import empStore from "@/store/modules/empStore"
+import empStore from "./empStore"
 
 Vue.use(Vuex)
 
