@@ -1,4 +1,4 @@
-import {ref, watch, toRefs} from "@vue/composition-api"
+import {ref, watch, toRefs, onMounted} from "@vue/composition-api"
 import _ from "lodash"
 import moment from "moment"
 
@@ -12,16 +12,22 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		pass_dt: "",
 	})
 
-	watch(value, newValue => {
-			employee.value = _.assign({}, newValue)
+	//FIXME "employee.value = _.assign({}, value.value)" выполняется 2 раза
+	onMounted( () => {
+		console.debug("PassportForm.mounted()", value.value)
+		employee.value = _.assign({}, value.value)
+		}
+	)
+
+	watch(value, v => {
+		console.debug("PassportForm.watch()", v)
+			employee.value = _.assign({}, v)
 		},
 		{deep: true}
 	)
 
 	const saveEmp = () => {
-		if (!refs.form.validate()) {
-			return
-		}
+		if (!refs.form.validate()) return
 
 		_.forIn(employee.value, (value, key) => {
 			employee.value[key] = _.trim(_.replace(value, /\s+/g, " "))
