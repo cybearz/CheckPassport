@@ -1,17 +1,8 @@
-if (!localStorage.getItem("empStore")) {
-	localStorage.setItem("empStore", "")
-}
-
-if (!localStorage.getItem("empStore")) {
-	localStorage.setItem("empProfile", "")
-}
-
 class LocalStorage {
 	ls = {}
 
-	constructor() {
-		for (let i = 0; i < localStorage.length; i++) {
-			let key = localStorage.key(i)
+	constructor(keys) {
+		keys.forEach(key => {
 			Object.defineProperty(this, key, {
 				get: function() {
 					if (!this.ls[key]) {
@@ -19,16 +10,17 @@ class LocalStorage {
 					}
 					return this.ls[key]
 				},
+
 				set: function (json) {
 					this.ls[key] = json
 					const parsed = JSON.stringify(json)
 					localStorage.setItem(key, parsed)
 				}
 			})
-		}
+		})
 	}
 }
 
-const myLocalStorage = new LocalStorage()
+const myLocalStorage = new LocalStorage(["empStore", "empProfile"])
 
 export {myLocalStorage}
