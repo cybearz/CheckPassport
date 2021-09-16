@@ -29,6 +29,8 @@
 import moment from "moment"
 
 export default {
+	name: "Calendar",
+
 	props: {
 		rules: {
 			required: true

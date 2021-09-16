@@ -25,9 +25,10 @@
 </template>
 
 <script>
-import { nameShortener } from "@/utils/nameShortener"
+import { getShortName } from "@/utils/getShortName"
 
 export default {
+	name: "AppBar",
 
 	props: {
 		profile: Object,
@@ -36,7 +37,7 @@ export default {
 	computed: {
 		login() {
 			const fio = this.profile?.fio
-			return fio ? nameShortener(fio) : "Личный кабинет"
+			return fio ? getShortName(fio) : "Личный кабинет"
 		},
 	},
 }

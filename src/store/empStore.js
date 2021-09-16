@@ -1,7 +1,7 @@
 import _ from "lodash"
 
-import { nameShortener } from "@/utils/nameShortener"
-import { myLocalStorage } from "@/utils/api"
+import { getShortName } from "@/utils/getShortName"
+import { getEmpStore, setEmpStore } from "@/utils/api"
 
 export default {
 	state: {
@@ -27,7 +27,7 @@ export default {
 		sortedNamesAndIds(state) {
 			let sortedNamesAndIds = _.cloneDeep(state.namesAndIds).sort((curr, next) => curr[0]?.localeCompare(next[0]))
 			_.forEach(sortedNamesAndIds, value => {
-				value[0] = nameShortener(value[0])
+				value[0] = getShortName(value[0])
 			})
 			return sortedNamesAndIds
 		},
@@ -80,16 +80,14 @@ export default {
 		downloadEmpStore(ctx) {
 			//FIXME проверка isEmpty нужна для предотвращения повторного
 			// обновления данных при одностраничном роутинге. Тем не менее должен быть способ получше
-			if (!_.isEmpty(ctx.state.empStore)) {
-				return
-			}
-			if (myLocalStorage.empStore) {
-				ctx.commit("downloadEmpStore", myLocalStorage.empStore)
-			}
+			if (!_.isEmpty(ctx.state.empStore)) return
+
+			const s = getEmpStore()
+			if (s) ctx.commit("downloadEmpStore", s)
 		},
 
 		uploadEmpStore(ctx) {
-			myLocalStorage.empStore = ctx.getters.empStore
+			setEmpStore(ctx.getters.empStore)
 		},
 
 		addNamesAndIds(ctx, newVal) {

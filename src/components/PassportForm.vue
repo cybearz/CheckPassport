@@ -72,6 +72,8 @@ import {useSnackbar} from "@/composition/snackbar"
 import {useRules} from "@/composition/rules"
 
 export default {
+	name: "PassportForm",
+
 	components: {
 		Calendar,
 	},

@@ -51,6 +51,8 @@
 
 <script>
 export default {
+	name: "EmpList",
+
 	computed: {
 		sortedNamesAndIds() {
 			return this.$store.getters.sortedNamesAndIds

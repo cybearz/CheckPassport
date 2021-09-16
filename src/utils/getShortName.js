@@ -1,4 +1,4 @@
-export function nameShortener(fullName) {
+export function getShortName(fullName) {
 	let [surname, name, midName] = fullName.split(" ")
 	surname = surname.toLowerCase()
 	surname = surname[0].toUpperCase() + surname.slice(1)

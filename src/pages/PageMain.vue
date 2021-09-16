@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import _ from "lodash"
-import {mapActions, mapGetters, mapMutations} from "vuex"
-import {v1 as uuidv1} from "uuid"
-
-import { myLocalStorage } from "@/utils/api"
-
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
+
+import _ from "lodash"
+import { mapActions, mapGetters, mapMutations } from "vuex"
+import { v1 as uuidv1 } from "uuid"
+
+import { getEmpStore } from "@/utils/api"
 
 export default {
 	name: "PageMain",
@@ -52,8 +52,9 @@ export default {
 	}),
 
 	beforeRouteEnter(to, from, next) {
-		if (to.name === "empPassport" && myLocalStorage.empStore) {
-			if (_.find(myLocalStorage.empStore, (value, key) => to.params.urlId === key)) {
+		const s = getEmpStore()
+		if (to.name === "empPassport" && s) {
+			if (_.find(s, (v, k) => to.params.urlId === k)) {
 				next()
 			} else {
 				next({name: "notFound"})

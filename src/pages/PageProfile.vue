@@ -20,6 +20,8 @@ import _ from "lodash"
 import { getEmpProfile, setEmpProfile } from "@/utils/api"
 
 export default {
+	name: "PageProfile",
+
 	components: {
 		PassportForm
 	},
