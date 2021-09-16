@@ -1,4 +1,4 @@
-import { ref, watch, toRefs } from '@vue/composition-api'
+import { ref, watch, toRefs } from "@vue/composition-api"
 
 export function useBtnVisability(props) {
 	const { btn } = toRefs(props)

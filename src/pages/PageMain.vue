@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import {mapActions, mapGetters, mapMutations} from 'vuex'
-import {v1 as uuidv1} from 'uuid'
+import _ from "lodash"
+import {mapActions, mapGetters, mapMutations} from "vuex"
+import {v1 as uuidv1} from "uuid"
 
 import { myLocalStorage } from "@/utils/api"
 
@@ -32,7 +32,7 @@ import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
 
 export default {
-	name: 'App',
+	name: "App",
 
 	props: {
 		urlId: {

@@ -24,10 +24,10 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		}
 
 		_.forIn(employee.value, (value, key) => {
-			employee.value[key] = _.trim(_.replace(value, /\s+/g, ' '))
+			employee.value[key] = _.trim(_.replace(value, /\s+/g, " "))
 		})
 
-		employee.value["pass_dt"] = moment(employee.value["pass_dt"]).format("YYYY-MM-DDThh:mm:ssZ")
+		employee.value.pass_dt = moment(employee.value.pass_dt).format("YYYY-MM-DDThh:mm:ssZ")
 
 		isBtnDisabled.value = true
 
@@ -44,7 +44,7 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 			pass_dt: "",
 		}
 
-		emit('removeEmp')
+		emit("removeEmp")
 
 		showSnackbar()
 	}

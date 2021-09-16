@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment"
 
 export default {
 	props: {
@@ -47,7 +47,7 @@ export default {
 
 	methods: {
 		changeDate(e) {
-			this.$emit('input', e)
+			this.$emit("input", e)
 		}
 	},
 

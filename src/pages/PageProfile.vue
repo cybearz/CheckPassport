@@ -38,7 +38,7 @@ export default {
 		const empProfile = myLocalStorage.empProfile
 		if (empProfile) {
 			this.profile = myLocalStorage.empProfile
-			this.$emit('updateNameProfile', this.profile.fio)
+			this.$emit("updateNameProfile", this.profile.fio)
 		}
 	},
 
@@ -46,7 +46,7 @@ export default {
 		saveProfile(newEmp) {
 			_.assign(this.profile, newEmp)
 			this.uploadProfile()
-			this.$emit('updateNameProfile', this.profile.fio)
+			this.$emit("updateNameProfile", this.profile.fio)
 			this.statusText = "Данные сохранены"
 		},
 
@@ -63,7 +63,7 @@ export default {
 
 		uploadProfile() {
 			myLocalStorage.empProfile = this.profile
-			this.$emit('updateNameProfile', this.profile.fio)
+			this.$emit("updateNameProfile", this.profile.fio)
 		},
 	}
 }
