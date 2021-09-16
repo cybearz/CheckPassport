@@ -62,9 +62,10 @@ export default {
 		},
 
 		uploadProfile() {
-			myLocalStorage.setEmpProfile(this.profile)
+			myLocalStorage.empProfile = this.profile
 			this.$emit('updateNameProfile', this.profile.fio)
 		},
 	}
 }
 </script>
+

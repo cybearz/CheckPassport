@@ -89,7 +89,7 @@ export default {
 		},
 
 		uploadEmpStore(ctx) {
-			myLocalStorage.setEmpStore(ctx.getters.empStore)
+			myLocalStorage.empStore = ctx.getters.empStore
 		},
 
 		addNamesAndIds(ctx, newVal) {

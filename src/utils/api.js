@@ -1,37 +1,31 @@
-// class LocalStorage {
-// 	constructor() {
-// 		for (let i = 0; i < localStorage.length; i++) {
-// 			let key = localStorage.key(i)
-// 			this[key] = JSON.stringify(localStorage.getItem(key))
-// 			Object.defineProperty(this, key, {
-//
-// 			})
-// 		}
-// 	}
-//
-// 	setVal(key, str) {
-// 		const parsed = JSON.parse(str)
-// 		this[key] = parsed
-// 		localStorage.setItem(key, parsed)
-// 	}
-// }
+if (!localStorage.getItem("empStore")) {
+	localStorage.setItem("empStore", "")
+}
+
+if (!localStorage.getItem("empStore")) {
+	localStorage.setItem("empProfile", "")
+}
 
 class LocalStorage {
-	empStore = localStorage.getItem("empStore") ? JSON.parse(localStorage.getItem("empStore")) : null
-	empProfile = localStorage.getItem("empProfile") ? JSON.parse(localStorage.getItem("empProfile")) : null
+	ls = {}
 
-
-	setEmpStore(json) {
-		console.log(json)
-		this.empStore = json
-		const parsed = JSON.stringify(json)
-		localStorage.setItem("empStore", parsed)
-	}
-
-	setEmpProfile(json) {
-		this.empStore = json
-		const parsed = JSON.stringify(json)
-		localStorage.setItem("empProfile", parsed)
+	constructor() {
+		for (let i = 0; i < localStorage.length; i++) {
+			let key = localStorage.key(i)
+			Object.defineProperty(this, key, {
+				get: function() {
+					if (!this.ls[key]) {
+						this.ls[key] = localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : null
+					}
+					return this.ls[key]
+				},
+				set: function (json) {
+					this.ls[key] = json
+					const parsed = JSON.stringify(json)
+					localStorage.setItem(key, parsed)
+				}
+			})
+		}
 	}
 }
 
