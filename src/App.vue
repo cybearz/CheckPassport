@@ -1,11 +1,9 @@
 <template>
 	<v-app>
-		<AppBar
-			:profile="profile"
-		/>
+		<AppBar :profile="profile"/>
 		<v-main>
 			<router-view
-				@updateNameProfile="updateNameProfile"
+				@updateProfile="updateProfile"
 			/>
 		</v-main>
 
@@ -14,10 +12,10 @@
 
 <script>
 import { myLocalStorage } from "@/utils/api"
-
 import AppBar from "@/components/AppBar"
 
 export default {
+	name: "App",
 	components: { AppBar },
 
 	data: () => ({
@@ -25,17 +23,12 @@ export default {
 	}),
 
 	mounted() {
-		const p = myLocalStorage.empProfile
-		if (p) {
-			if (p.fio) {
-				this.profile = p
-			}
-		}
+		this.updateProfile(myLocalStorage.empProfile)
 	},
 
 	methods: {
-		updateNameProfile(fio) {
-			this.profile = { fio }
+		updateProfile(p) {
+			this.profile = p
 		},
 	},
 }

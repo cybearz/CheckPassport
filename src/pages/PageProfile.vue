@@ -38,7 +38,7 @@ export default {
 		const p = getEmpProfile()
 		if (p) {
 			this.profile = p
-			this.$emit("updateNameProfile", p.fio)
+			this.$emit("updateProfile", p)
 		}
 	},
 
@@ -46,7 +46,7 @@ export default {
 		saveProfile(newEmp) {
 			_.assign(this.profile, newEmp)
 			this.uploadProfile()
-			this.$emit("updateNameProfile", this.profile.fio)
+			this.$emit("updateProfile", this.profile)
 			this.statusText = "Данные сохранены"
 		},
 
@@ -64,7 +64,7 @@ export default {
 		uploadProfile() {
 			const p = this.profile
 			setEmpProfile(p)
-			this.$emit("updateNameProfile", p.fio)
+			this.$emit("updateProfile", p)
 		},
 	}
 }
