@@ -1,35 +1,44 @@
 <template>
-	<v-app-bar
-		app
-		dark
-	>
+	<v-app-bar app dark>
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			:to="{name:'main'}"
+			:to="{ name: 'main' }"
 		>
-			<v-btn
-				plain
-				>
+			<v-btn plain>
 				<v-icon size="40">mdi-passport</v-icon>
 				<div class="text-h4">CheckPassport</div>
 			</v-btn>
 		</router-link>
 
 		<v-spacer/>
+
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			:to="{name:'profile'}"
+			:to="{ name: 'profile' }"
 		>
-			<v-btn
-				outlined
-			>
+			<v-btn outlined>
 				<v-icon left>mdi-account</v-icon>
-				<slot name="profile"></slot>
+				{{ login }}
 			</v-btn>
 		</router-link>
 	</v-app-bar>
 </template>
 
 <script>
+import { nameShortener } from "@/utils/nameShortener"
+
+export default {
+
+	props: {
+		profile: Object,
+	},
+
+	computed: {
+		login() {
+			const fio = this.profile?.fio
+			return fio ? nameShortener(fio) : "Личный кабинет"
+		},
+	},
+}
 
 </script>

@@ -1,45 +1,43 @@
 <template>
 	<v-app>
-		<AppBar>
-			<template #profile>
-				{{ nameProfile }}
-			</template>
-		</AppBar>
+		<AppBar
+			:profile="profile"
+		/>
 		<v-main>
-				<router-view
-					:value="nameProfile"
-					@updateNameProfile="updateNameProfile"
-				/>
+			<router-view
+				@updateNameProfile="updateNameProfile"
+			/>
 		</v-main>
 
 	</v-app>
 </template>
 
 <script>
-import { nameShortener } from "@/utils/nameShortener"
 import { myLocalStorage } from "@/utils/api"
 
 import AppBar from "@/components/AppBar"
 
 export default {
-	components: {AppBar},
+	components: { AppBar },
+
 	data: () => ({
-		nameProfile: "Личный кабинет"
+		profile: undefined,
 	}),
 
 	mounted() {
-		if (myLocalStorage.empProfile) {
-			if (myLocalStorage.empProfile.fio) {
-				this.nameProfile = nameShortener(myLocalStorage.empProfile.fio)
+		const p = myLocalStorage.empProfile
+		if (p) {
+			if (p.fio) {
+				this.profile = p
 			}
 		}
 	},
 
 	methods: {
 		updateNameProfile(fio) {
-			this.nameProfile = fio ? nameShortener(fio) : "Личный кабинет"
-		}
-	}
+			this.profile = { fio }
+		},
+	},
 }
 
 </script>

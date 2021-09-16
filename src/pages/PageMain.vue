@@ -32,7 +32,7 @@ import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
 
 export default {
-	name: "App",
+	name: "PageMain",
 
 	props: {
 		urlId: {
@@ -63,7 +63,7 @@ export default {
 	},
 
 	mounted() {
-		console.log("mount")
+		console.log("PageMain.mounted()")
 		this.empId = this.urlId
 		this.downloadEmpStore()
 		this.addNamesAndIds()
