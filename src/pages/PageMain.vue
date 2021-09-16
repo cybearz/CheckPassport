@@ -64,7 +64,6 @@ export default {
 	},
 
 	mounted() {
-		console.log("PageMain.mounted()")
 		this.empId = this.urlId
 		this.downloadEmpStore()
 		this.addNamesAndIds()

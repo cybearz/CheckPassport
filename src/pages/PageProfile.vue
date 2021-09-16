@@ -17,13 +17,19 @@
 import PassportForm from "@/components/PassportForm"
 import _ from "lodash"
 
-import { getEmpProfile, setEmpProfile } from "@/utils/api"
+import { setEmpProfile } from "@/utils/api"
 
 export default {
 	name: "PageProfile",
 
 	components: {
 		PassportForm
+	},
+
+	props: {
+		recvProfile: {
+			required: true
+		}
 	},
 
 	data: () => ({
@@ -37,11 +43,7 @@ export default {
 	}),
 
 	mounted() {
-		const p = getEmpProfile()
-		if (p) {
-			this.profile = p
-			this.$emit("updateProfile", p)
-		}
+		this.profile = _.assign({}, this.recvProfile)
 	},
 
 	methods: {
@@ -69,5 +71,6 @@ export default {
 			this.$emit("updateProfile", p)
 		},
 	}
+
 }
 </script>

@@ -4,6 +4,7 @@
 		<v-main>
 			<router-view
 				@updateProfile="updateProfile"
+				:recvProfile="profile"
 			/>
 		</v-main>
 
@@ -11,8 +12,9 @@
 </template>
 
 <script>
-import { myLocalStorage } from "@/utils/api"
 import AppBar from "@/components/AppBar"
+
+import { getEmpProfile } from "@/utils/api"
 
 export default {
 	name: "App",
@@ -23,8 +25,9 @@ export default {
 		profile: undefined,
 	}),
 
-	mounted() {
-		this.updateProfile(myLocalStorage.empProfile)
+	created() {
+		const p = getEmpProfile()
+		this.updateProfile(p)
 	},
 
 	methods: {
