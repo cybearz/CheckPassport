@@ -3,6 +3,7 @@ import VueRouter from "vue-router"
 import PageMain from "@/pages/PageMain"
 import PageProfile from "@/pages/PageProfile"
 import PageNotFound from "@/pages/PageNotFound"
+import PageIcon from "@/pages/PageIcon"
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,13 @@ const routes = [
 		path: "/profile",
 		name: "profile",
 		component: PageProfile
+	},
+
+	{
+		path: "/mdi-:icon",
+		name: "icon",
+		component: PageIcon,
+		props: true
 	},
 
 	{
