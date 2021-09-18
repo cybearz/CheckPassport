@@ -1,5 +1,6 @@
 <template>
-	<v-container class="py-16 fill-height">
+	<PageNotFound v-if="isNotFound"/>
+	<v-container v-else class="py-16 fill-height">
 		<v-row no-gutters justify="center">
 			<v-col
 				cols="3"
@@ -24,6 +25,8 @@
 <script>
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
+//FIXME перенести PageNotFound в компоненты???
+import PageNotFound from "@/pages/PageNotFound";
 
 import _ from "lodash"
 import { mapActions, mapGetters, mapMutations } from "vuex"
@@ -42,31 +45,24 @@ export default {
 	},
 
 	components: {
-		PassportForm, EmpList
+		PassportForm, EmpList, PageNotFound
 	},
 
 	data: () => ({
+		isNotFound: false,
 		isBtnDisabled: false,
 		empId: "",
 		statusText: "",
 	}),
 
-	beforeRouteEnter(to, from, next) {
-		const s = getEmpStore()
-		if (to.name === "empPassport" && s) {
-			if (_.find(s, (v, k) => to.params.urlId === k)) {
-				next()
-			} else {
-				next({name: "notFound"})
-			}
-		}
-		next()
-	},
-
 	mounted() {
-		this.empId = this.urlId
 		this.downloadEmpStore()
 		this.addNamesAndIds()
+		if (this.urlId && (this.findEmpById(this.empId) === -1)) {
+			this.isNotFound = true
+		} else {
+			this.empId = this.urlId
+		}
 	},
 
 	methods: {
@@ -137,15 +133,19 @@ export default {
 				this.clearEmp()
 			}
 		},
-
+// Для переключения между сотрудниками в списке
 		urlId(newUrlId) {
-			if (newUrlId && this.findEmpById(newUrlId) !== -1) {
-				this.isBtnDisabled = true
-				this.empId = newUrlId
-			} else {
-				this.empId = ""
-				this.isBtnDisabled = false
-			}
+			if (newUrlId) {
+				if (newUrlId && this.findEmpById(newUrlId) !== -1) {
+					this.isBtnDisabled = true
+					this.empId = newUrlId
+				} else {
+					this.isNotFound = true
+					this.empId = ""
+					this.isBtnDisabled = false
+				}
+			} else this.isNotFound = false
+
 		}
 	}
 }
