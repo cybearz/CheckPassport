@@ -3,7 +3,7 @@
 		<v-row no-gutters justify="center">
 			<v-col cols="4" align-self="center">
 				<div class="d-flex justify-center">
-					<v-icon size="400">{{ mdi }}</v-icon>
+					<v-icon size="400" :class=iconClass>{{ mdi }}</v-icon>
 				</div>
 			</v-col>
 		</v-row>
@@ -16,7 +16,9 @@ export default {
 
 	props: {
 		icon: {
-			type: String,
+			default: ""
+		},
+		color: {
 			default: ""
 		}
 	},
@@ -27,6 +29,12 @@ export default {
 
 	mounted() {
 		this.mdi = `mdi-${this.icon}`
+	},
+
+	computed: {
+		iconClass() {
+			return `${this.color}--text`
+		}
 	}
 }
 </script>
