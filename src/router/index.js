@@ -21,7 +21,7 @@ const routes = [
 	},
 
 	{
-		path: "/mdi-:icon-:color",
+		path: "/mdi-:icon",
 		name: "icon",
 		component: PageIcon,
 		props: true
