@@ -4,6 +4,7 @@ import PageMain from "@/pages/PageMain"
 import PageProfile from "@/pages/PageProfile"
 import PageNotFound from "@/pages/PageNotFound"
 import PageIcon from "@/pages/PageIcon"
+import PageIconForm from "@/pages/PageIconForm"
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,12 @@ const routes = [
 	},
 
 	{
+		path: "/icons",
+		name: "icons",
+		component: PageIconForm
+	},
+
+	{
 		path: "/profile",
 		name: "profile",
 		component: PageProfile
@@ -22,7 +29,7 @@ const routes = [
 
 	{
 		path: "/mdi-:icon",
-		name: "icon",
+		name: "showIcon",
 		component: PageIcon,
 		props: true
 	},
