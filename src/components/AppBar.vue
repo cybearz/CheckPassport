@@ -1,5 +1,6 @@
 <template>
 	<v-app-bar app dark>
+
 		<router-link
 			style="text-decoration: none; color: inherit;"
 			:to="{ name: 'main' }"
@@ -14,6 +15,15 @@
 
 		<router-link
 			style="text-decoration: none; color: inherit;"
+			:to="{ name: 'icons' }"
+		>
+			<v-btn plain>
+				Создать иконку
+			</v-btn>
+		</router-link>
+
+		<router-link
+			style="text-decoration: none; color: inherit;"
 			:to="{ name: 'profile' }"
 		>
 			<v-btn outlined>
@@ -21,6 +31,7 @@
 				{{ login }}
 			</v-btn>
 		</router-link>
+
 	</v-app-bar>
 </template>
 
