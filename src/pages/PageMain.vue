@@ -137,6 +137,7 @@ export default {
 		urlId(newUrlId) {
 			if (newUrlId) {
 				if (newUrlId && this.findEmpById(newUrlId) !== -1) {
+					this.isNotFound = false
 					this.empId = newUrlId
 				} else {
 					this.isNotFound = true

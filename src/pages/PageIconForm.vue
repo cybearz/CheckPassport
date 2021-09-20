@@ -11,12 +11,22 @@
 					class="pa-3"
 				>
 					<v-text-field
-						label="Имя иконки"
+						label="Имя"
 						outlined
 						:rules="iconNameRules"
 						v-model="mdi"
 					/>
+					<v-slider
+						label="Размер"
+						step="20"
+						min="20"
+						max="400"
+						thumb-label
+						v-model="size"
+					/>
+					<v-divider/>
 					<v-radio-group
+						label="Цвет"
 						column
 						v-model="color"
 						:rules="iconColorRules"
@@ -62,7 +72,8 @@ export default {
 			"white",
 		],
 		mdi: "",
-		color: "",
+		size: "400",
+		color: "white",
 		iconNameRules: [
 			v => !!v || "Введите имя",
 		],
@@ -78,7 +89,7 @@ export default {
 	methods: {
 		showIcon() {
 			if (!this.$refs.form.validate()) return
-			this.$router.push({ name: 'showIcon', params: { icon: `${ this.mdi }-${ this.color }` } })
+			this.$router.push({ name: 'showIcon', params: { icon: this.mdi }, query: {size: this.size, color: this.color} })
 		},
 
 		getSlicedArr(col) {
