@@ -32,8 +32,6 @@ import _ from "lodash"
 import { mapActions, mapGetters, mapMutations } from "vuex"
 import { v1 as uuidv1 } from "uuid"
 
-import { getEmpStore } from "@/utils/api"
-
 export default {
 	name: "PageMain",
 
@@ -58,7 +56,7 @@ export default {
 	mounted() {
 		this.downloadEmpStore()
 		this.addNamesAndIds()
-		if (this.urlId && (this.findEmpById(this.empId) === -1)) {
+		if (this.urlId && (this.findEmpById(this.urlId) === -1)) {
 			this.isNotFound = true
 		} else {
 			this.empId = this.urlId
