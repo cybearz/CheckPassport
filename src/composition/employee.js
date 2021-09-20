@@ -1,9 +1,9 @@
-import {ref, watch, toRefs, onMounted} from "@vue/composition-api"
+import { ref, watch, toRefs, onMounted } from "@vue/composition-api"
 import _ from "lodash"
 import moment from "moment"
 
 export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
-	const {value} = toRefs(props)
+	const { value } = toRefs(props)
 
 	let employee = ref({
 		fio: "",
@@ -13,17 +13,18 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 	})
 
 	//FIXME "employee.value = _.assign({}, value.value)" выполняется 2 раза
-	onMounted( () => {
-		console.debug("PassportForm.mounted()", value.value)
-		employee.value = _.assign({}, value.value)
-		}
+	onMounted(() => {
+			console.debug("PassportForm.mounted()", value.value)
+			employee.value = _.assign({}, value.value)
+		},
 	)
 
 	watch(value, v => {
-		console.debug("PassportForm.watch()", v)
+			refs.form.resetValidation()
+
 			employee.value = _.assign({}, v)
 		},
-		{deep: true}
+		{ deep: true },
 	)
 
 	const saveEmp = () => {
@@ -55,5 +56,5 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		showSnackbar()
 	}
 
-	return {employee, saveEmp, removeEmp}
+	return { employee, saveEmp, removeEmp }
 }
