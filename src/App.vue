@@ -1,6 +1,7 @@
 <template>
 	<v-app>
 		<AppBar :profile="profile"/>
+
 		<v-main>
 			<router-view
 				@updateProfile="updateProfile"
@@ -8,18 +9,19 @@
 			/>
 		</v-main>
 
+		<Footer/>
 	</v-app>
 </template>
 
 <script>
 import AppBar from "@/components/AppBar"
-
+import Footer from "@/components/Footer"
 import { getEmpProfile } from "@/utils/api"
 
 export default {
 	name: "App",
 
-	components: { AppBar },
+	components: { AppBar, Footer },
 
 	data: () => ({
 		profile: undefined,
