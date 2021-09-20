@@ -1,32 +1,30 @@
 <template>
 	<PageNotFound v-if="isNotFound"/>
-	<v-container v-else class="py-16 fill-height">
-		<v-row no-gutters justify="center">
-			<v-col
-				cols="3"
-			>
-				<EmpList/>
-			</v-col>
-			<v-col
-				cols="4"
-			>
-				<PassportForm
-					:value="employee"
-					:btn="isBtnDisabled"
-					:statusText="statusText"
-					@saveEmp="saveEmp($event)"
-					@removeEmp="removeEmp"
-				/>
-			</v-col>
-		</v-row>
-	</v-container>
+	<v-row v-else no-gutters justify="center">
+		<v-col
+			cols="3"
+		>
+			<EmpList/>
+		</v-col>
+		<v-col
+			cols="4"
+		>
+			<PassportForm
+				:value="employee"
+				:btn="isBtnDisabled"
+				:statusText="statusText"
+				@saveEmp="saveEmp($event)"
+				@removeEmp="removeEmp"
+			/>
+		</v-col>
+	</v-row>
 </template>
 
 <script>
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
 //FIXME перенести PageNotFound в компоненты???
-import PageNotFound from "@/pages/PageNotFound";
+import PageNotFound from "@/pages/PageNotFound"
 
 import _ from "lodash"
 import { mapActions, mapGetters, mapMutations } from "vuex"
@@ -38,12 +36,12 @@ export default {
 	props: {
 		urlId: {
 			type: String,
-			default: ""
-		}
+			default: "",
+		},
 	},
 
 	components: {
-		PassportForm, EmpList, PageNotFound
+		PassportForm, EmpList, PageNotFound,
 	},
 
 	data: () => ({
@@ -65,8 +63,8 @@ export default {
 	},
 
 	methods: {
-		...mapActions(["downloadEmpStore", "uploadEmpStore", "addNamesAndIds"]),
-		...mapMutations(["clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl"]),
+		...mapActions([ "downloadEmpStore", "uploadEmpStore", "addNamesAndIds" ]),
+		...mapMutations([ "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
 			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
@@ -78,19 +76,19 @@ export default {
 
 			if (!this.empId) {
 				this.empId = uuidv1()
-				this.addNamesAndIds([newEmp.fio, this.empId])
+				this.addNamesAndIds([ newEmp.fio, this.empId ])
 			} else {
 				const oldFio = this.employee.fio
 
 				if (newEmp.fio !== oldFio) {
 					const ind = this.findEmpById(this.empId)
 
-					this.changeNamesAndIds({ind, newFullname: newEmp.fio})
+					this.changeNamesAndIds({ ind, newFullname: newEmp.fio })
 				}
 			}
 
 			this.updateEmp(newEmp)
-			this.changeEmpStore({id: this.empId, newEmp})
+			this.changeEmpStore({ id: this.empId, newEmp })
 			this.uploadEmpStore()
 		},
 
@@ -116,12 +114,12 @@ export default {
 
 		findEmpByName(name) {
 			return _.findIndex(this.namesAndIds, el => el[0] === name)
-		}
+		},
 
 	},
 
 	computed: {
-		...mapGetters(["empStore", "namesAndIds", "employee"])
+		...mapGetters([ "empStore", "namesAndIds", "employee" ]),
 	},
 
 	watch: {
@@ -148,7 +146,7 @@ export default {
 				this.empId = ""
 			}
 
-		}
-	}
+		},
+	},
 }
 </script>

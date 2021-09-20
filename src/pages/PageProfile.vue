@@ -1,16 +1,14 @@
 <template>
-	<v-container class="py-16 fill-height">
-		<v-row no-gutters justify="center">
-			<v-col cols="4">
-				<PassportForm
-					:value="profile"
-					:statusText="statusText"
-					@saveEmp="saveProfile"
-					@removeEmp="removeProfile"
-				/>
-			</v-col>
-		</v-row>
-	</v-container>
+	<v-row no-gutters justify="center">
+		<v-col cols="4">
+			<PassportForm
+				:value="profile"
+				:statusText="statusText"
+				@saveEmp="saveProfile"
+				@removeEmp="removeProfile"
+			/>
+		</v-col>
+	</v-row>
 </template>
 
 <script>
@@ -23,13 +21,13 @@ export default {
 	name: "PageProfile",
 
 	components: {
-		PassportForm
+		PassportForm,
 	},
 
 	props: {
 		recvProfile: {
-			required: true
-		}
+			required: true,
+		},
 	},
 
 	data: () => ({
@@ -57,9 +55,9 @@ export default {
 		removeProfile() {
 			this.profile = {
 				fio: "",
-					pass_ser: "",
-					pass_no: "",
-					pass_dt: "",
+				pass_ser: "",
+				pass_no: "",
+				pass_dt: "",
 			}
 			this.uploadProfile()
 			this.statusText = "Данные удалены"
@@ -70,7 +68,7 @@ export default {
 			setEmpProfile(p)
 			this.$emit("updateProfile", p)
 		},
-	}
+	},
 
 }
 </script>

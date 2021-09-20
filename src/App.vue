@@ -3,25 +3,27 @@
 		<AppBar :profile="profile"/>
 
 		<v-main>
-			<router-view
-				@updateProfile="updateProfile"
-				:recvProfile="profile"
-			/>
+			<v-container class="py-16 fill-height">
+				<router-view
+					@updateProfile="updateProfile"
+					:recvProfile="profile"
+				/>
+			</v-container>
 		</v-main>
 
-		<Footer/>
+		<MyFooter/>
 	</v-app>
 </template>
 
 <script>
 import AppBar from "@/components/AppBar"
-import Footer from "@/components/Footer"
+import MyFooter from "@/components/MyFooter"
 import { getEmpProfile } from "@/utils/api"
 
 export default {
 	name: "App",
 
-	components: { AppBar, Footer },
+	components: { AppBar, MyFooter },
 
 	data: () => ({
 		profile: undefined,

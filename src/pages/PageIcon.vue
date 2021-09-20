@@ -1,13 +1,11 @@
 <template>
-	<v-container class="py-16 fill-height">
-		<v-row no-gutters justify="center">
-			<v-col cols="4" align-self="center">
-				<div class="d-flex justify-center">
-					<v-icon size="400" :class=color>{{ mdi }}</v-icon>
-				</div>
-			</v-col>
-		</v-row>
-	</v-container>
+	<v-row no-gutters justify="center">
+		<v-col cols="4" align-self="center">
+			<div class="d-flex justify-center">
+				<v-icon size="400" :class=color>{{ mdi }}</v-icon>
+			</div>
+		</v-col>
+	</v-row>
 </template>
 
 <script>
@@ -18,7 +16,7 @@ export default {
 
 	props: {
 		icon: {
-			default: ""
+			default: "",
 		},
 	},
 
@@ -29,9 +27,9 @@ export default {
 
 	mounted() {
 		const tmp = _.split(this.icon, '-')
-		this.mdi = `mdi-${tmp[0]}`
-		if (tmp[1]) this.color = `${tmp[1]}--text`
-	}
+		this.mdi = `mdi-${ tmp[0] }`
+		if (tmp[1]) this.color = `${ tmp[1] }--text`
+	},
 }
 </script>
 
