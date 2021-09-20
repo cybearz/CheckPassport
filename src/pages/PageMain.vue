@@ -48,7 +48,7 @@ export default {
 
 	data: () => ({
 		isNotFound: false,
-		isBtnDisabled: false,
+		isBtnDisabled: true,
 		empId: "",
 		statusText: "",
 	}),
@@ -60,6 +60,7 @@ export default {
 			this.isNotFound = true
 		} else {
 			this.empId = this.urlId
+			this.isBtnDisabled = false
 		}
 	},
 
@@ -127,22 +128,25 @@ export default {
 		empId(newEmpId) {
 			if (this.empId) {
 				this.updateEmp(this.empStore[newEmpId])
+				this.isBtnDisabled = true
 			} else {
 				this.clearEmp()
+				this.isBtnDisabled = false
 			}
 		},
 // Для переключения между сотрудниками в списке
 		urlId(newUrlId) {
 			if (newUrlId) {
 				if (newUrlId && this.findEmpById(newUrlId) !== -1) {
-					this.isBtnDisabled = true
 					this.empId = newUrlId
 				} else {
 					this.isNotFound = true
 					this.empId = ""
-					this.isBtnDisabled = false
 				}
-			} else this.isNotFound = false
+			} else {
+				this.isNotFound = false
+				this.empId = ""
+			}
 
 		}
 	}
