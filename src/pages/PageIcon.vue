@@ -2,14 +2,13 @@
 	<v-row no-gutters justify="center">
 		<v-col cols="4" align-self="center">
 			<div class="d-flex justify-center">
-				<v-icon size="400" :class=color>{{ mdi }}</v-icon>
+				<v-icon :size="size" :class=color>{{ mdi }}</v-icon>
 			</div>
 		</v-col>
 	</v-row>
 </template>
 
 <script>
-import _ from "lodash"
 
 export default {
 	name: "PageIcon",
@@ -22,13 +21,18 @@ export default {
 
 	data: () => ({
 		mdi: "",
-		color: "",
+		color: "white--text",
+		size: 400
 	}),
 
 	mounted() {
-		const tmp = _.split(this.icon, '-')
-		this.mdi = `mdi-${ tmp[0] }`
-		if (tmp[1]) this.color = `${ tmp[1] }--text`
+		this.mdi = `mdi-${ this.icon }`
+
+		const color = this.$route.query?.color
+		if (color) this.color = `${ color }--text`
+
+		const size = this.$route.query?.size
+		if (size) this.size = size
 	},
 }
 </script>

@@ -13,7 +13,7 @@
 				outlined
 				v-model="employee.fio"
 				:rules="nameRules"
-				@focus="isBtnDisabled = false"
+				@focus="$emit('btnChange')"
 			/>
 			<div class="d-flex align-center">
 				<v-text-field
@@ -22,7 +22,7 @@
 					class="flex-grow-0"
 					v-model="employee.pass_ser"
 					:rules="serRules"
-					@focus="isBtnDisabled = false"
+					@focus="$emit('btnChange')"
 				/>
 				<v-text-field
 					label="Номер"
@@ -30,14 +30,14 @@
 					class="flex-grow-1"
 					v-model="employee.pass_no"
 					:rules="nomRules"
-					@focus="isBtnDisabled = false"
+					@focus="$emit('btnChange')"
 				/>
 			</div>
 			<Calendar
 				v-model="employee.pass_dt"
 				:receivedDate="employee.pass_dt"
 				:rules="dtRules"
-				@focus="isBtnDisabled = false"
+				@focus="$emit('btnChange')"
 			/>
 			<v-btn
 				:disabled="isBtnDisabled"
