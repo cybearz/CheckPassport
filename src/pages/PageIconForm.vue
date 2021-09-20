@@ -71,6 +71,10 @@ export default {
 		],
 	}),
 
+	mounted() {
+		this.libColor.sort((curr, next) => curr > next)
+	},
+
 	methods: {
 		showIcon() {
 			if (!this.$refs.form.validate()) return
