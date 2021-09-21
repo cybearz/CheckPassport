@@ -30,6 +30,10 @@ export default {
 			return state.color
 		},
 
+		iconColor(state) {
+			return `${state.color}--text`
+		},
+
 		libColors(state) {
 			return state.libColors.sort((curr, next) => curr > next)
 		}

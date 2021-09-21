@@ -3,7 +3,7 @@
 	<v-row v-else no-gutters justify="center">
 		<v-col cols="4" align-self="center">
 			<div class="d-flex justify-center">
-				<v-icon :size="size" :class=color>{{ mdi }}</v-icon>
+				<v-icon :size="size" :class=iconColor>{{ mdi }}</v-icon>
 			</div>
 		</v-col>
 	</v-row>
@@ -53,7 +53,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "mdi", "size", "color" ])
+		...mapGetters([ "mdi", "size", "iconColor" ])
 	}
 }
 </script>
