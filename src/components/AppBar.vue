@@ -17,7 +17,10 @@
 			style="text-decoration: none; color: inherit;"
 			:to="{ name: 'icons' }"
 		>
-			<v-btn plain>
+			<v-btn
+				v-if="isIconBtnVisible"
+				plain
+			>
 				Иконка
 			</v-btn>
 		</router-link>
@@ -45,12 +48,26 @@ export default {
 		profile: Object,
 	},
 
+	data: () => ({
+		isIconBtnVisible: true
+	}),
+
+	mounted() {
+		this.isIconBtnVisible = (this.$route.name !== "icons")
+	},
+
 	computed: {
 		login() {
 			const fio = this.profile?.fio
 			return fio ? getShortName(fio) : "Личный кабинет"
 		},
 	},
+
+	watch: {
+		$route(to) {
+			this.isIconBtnVisible = (to.name !== "icons")
+		}
+	}
 }
 
 </script>
