@@ -18,7 +18,7 @@
 			:to="{ name: 'icons' }"
 		>
 			<v-btn plain>
-				Создать иконку
+				Иконка
 			</v-btn>
 		</router-link>
 

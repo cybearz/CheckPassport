@@ -11,6 +11,7 @@
 
 <script>
 import PageNotFound from "@/pages/PageNotFound"
+import { hasIcon } from "@/utils/api"
 
 export default {
 	name: "PageIcon",
@@ -35,13 +36,7 @@ export default {
 	async mounted() {
 		this.mdi = `mdi-${ this.icon }`
 
-		// ====================================================================================
-
-		let response = await fetch("https://pictogrammers.github.io/@mdi/font/6.1.95/")
-		let txt = await response.text()
-		if(txt.indexOf(`name:"${this.icon}"`) === -1) this.isNotFound = true
-
-		// ====================================================================================
+		if (!await hasIcon(this.icon)) this.isNotFound = true
 
 		const color = this.$route.query?.color
 		if (color) this.color = `${ color }--text`

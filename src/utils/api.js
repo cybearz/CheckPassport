@@ -41,6 +41,13 @@ export function setEmpProfile(v) {
 	empProfile.set(v)
 }
 
+
+export async function hasIcon(v) {
+	let response = await fetch("https://pictogrammers.github.io/@mdi/font/6.1.95/")
+	let txt = await response.text()
+	return txt.indexOf(`name:"${v}"`) !== -1
+}
+
 //TODO??? cache
 
 class LocalStorage {
@@ -49,7 +56,11 @@ class LocalStorage {
 	constructor(keys) {
 		keys.forEach(key => {
 			const store = new LocalStorageData(key)
+// ====================================================================================
 
+
+
+		// ====================================================================================
 			Object.defineProperty(this, key, {
 				get() {
 					const v = this.cache[key]
