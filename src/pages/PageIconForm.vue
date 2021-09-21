@@ -64,23 +64,28 @@
 <script>
 import { mapGetters, mapMutations } from "vuex"
 
+import { iconStorage, matchIcon } from "@/utils/api"
+
 export default {
 	name: "PageIconConfig",
 
 	data: () => ({
 		iconNameRules: [
 			v => !!v || "Введите имя",
+			v => matchIcon(v) || "Иконка не существует"
 		],
 		iconColorRules: [
 			v => !!v || "Выберите цвет",
 		],
 	}),
 
-	mounted() {
+	async mounted() {
+		await iconStorage.init()
 	},
 
 	methods: {
 		...mapMutations(["changeIcon", "changeSize", "changeColor"]),
+
 		showIcon() {
 			if (!this.$refs.form.validate()) return
 			this.$router.push({ name: 'showIcon', params: { icon: this.icon } })

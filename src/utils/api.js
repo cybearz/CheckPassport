@@ -8,20 +8,39 @@ class LocalStorageData {
 
 	get() {
 		const v = localStorage.getItem(this.key)
-		const rs = v ? JSON.parse(v) : null
-		console.debug("get()", this.key, rs) //D
-		return rs
+		return v ? JSON.parse(v) : null
 	}
 
 	set(v) {
 		localStorage.setItem(this.key, JSON.stringify(v))
-		console.debug("set()", this.key, v) //D
 		return v
 	}
 }
 
+class IconStorage {
+
+	txt = ""
+
+	async init() {
+		let response = await fetch("https://pictogrammers.github.io/@mdi/font/6.1.95/")
+		this.txt = await response.text()
+	}
+
+	has(v) {
+		return this.txt.indexOf(`name:"${ v }"`) !== -1
+	}
+
+	match(v) {
+		const regexp = new RegExp(`name:"${v}\\w*"`)
+		return !!this.txt.match(regexp)
+	}
+}
+
+export const iconStorage = new IconStorage()
+
 const empStore = new LocalStorageData("empStore")
 const empProfile = new LocalStorageData("empProfile")
+
 
 // api
 
@@ -41,12 +60,14 @@ export function setEmpProfile(v) {
 	empProfile.set(v)
 }
 
-
-export async function hasIcon(v) {
-	let response = await fetch("https://pictogrammers.github.io/@mdi/font/6.1.95/")
-	let txt = await response.text()
-	return txt.indexOf(`name:"${v}"`) !== -1
+export function hasIcon(v) {
+	return iconStorage.has(v)
 }
+
+export function matchIcon(v) {
+	return iconStorage.match(v)
+}
+
 
 //TODO??? cache
 
@@ -56,11 +77,7 @@ class LocalStorage {
 	constructor(keys) {
 		keys.forEach(key => {
 			const store = new LocalStorageData(key)
-// ====================================================================================
 
-
-
-		// ====================================================================================
 			Object.defineProperty(this, key, {
 				get() {
 					const v = this.cache[key]
