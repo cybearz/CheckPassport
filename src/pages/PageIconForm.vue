@@ -14,7 +14,8 @@
 						label="Имя"
 						outlined
 						:rules="iconNameRules"
-						v-model="mdi"
+						:value="icon"
+						@input="changeIcon($event)"
 					/>
 					<v-slider
 						label="Размер"
@@ -22,14 +23,16 @@
 						min="20"
 						max="400"
 						thumb-label
-						v-model="size"
+						:value="size"
+						@input="changeSize($event)"
 					/>
 					<v-divider/>
 					<v-radio-group
 						label="Цвет"
 						column
-						v-model="color"
 						:rules="iconColorRules"
+						:value="color"
+						@change="changeColor($event)"
 					>
 						<v-row>
 							<v-col
@@ -59,21 +62,12 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex"
+
 export default {
 	name: "PageIconConfig",
 
 	data: () => ({
-		libColor: [
-			"red", "pink", "purple", "deep-purple",
-			"indigo", "blue", "light-blue", "cyan",
-			"teal", "green", "light-green", "lime",
-			"yellow", "amber", "orange", "deep-orange",
-			"brown", "blue-grey", "grey", "black",
-			"white",
-		],
-		mdi: "",
-		size: "400",
-		color: "white",
 		iconNameRules: [
 			v => !!v || "Введите имя",
 		],
@@ -83,20 +77,24 @@ export default {
 	}),
 
 	mounted() {
-		this.libColor.sort((curr, next) => curr > next)
 	},
 
 	methods: {
+		...mapMutations(["changeIcon", "changeSize", "changeColor"]),
 		showIcon() {
 			if (!this.$refs.form.validate()) return
-			this.$router.push({ name: 'showIcon', params: { icon: this.mdi }, query: {size: this.size, color: this.color} })
+			this.$router.push({ name: 'showIcon', params: { icon: this.icon } })
 		},
 
 		getSlicedArr(col) {
-			const lenCol = this.libColor.length / 3
-			return this.libColor.slice(lenCol * (col - 1), lenCol * col)
+			const lenCol = this.libColors.length / 3
+			return this.libColors.slice(lenCol * (col - 1), lenCol * col)
 		},
 	},
+
+	computed: {
+		...mapGetters([ "icon", "size", "color", "libColors" ])
+	}
 
 }
 </script>

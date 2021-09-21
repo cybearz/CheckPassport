@@ -11,6 +11,9 @@
 
 <script>
 import PageNotFound from "@/pages/PageNotFound"
+
+import { mapGetters, mapMutations } from "vuex"
+
 import { hasIcon } from "@/utils/api"
 
 export default {
@@ -27,23 +30,31 @@ export default {
 	},
 
 	data: () => ({
-		mdi: "",
-		color: "white--text",
-		size: 400,
 		isNotFound: false
 	}),
 
 	async mounted() {
-		this.mdi = `mdi-${ this.icon }`
+		this.changeIcon(this.icon)
 
-		if (!await hasIcon(this.icon)) this.isNotFound = true
-
-		const color = this.$route.query?.color
-		if (color) this.color = `${ color }--text`
+		if (!await hasIcon(this.icon)) {
+			this.isNotFound = true
+			return //^
+		}
 
 		const size = this.$route.query?.size
-		if (size) this.size = size
+		if (size) this.changeSize(size)
+
+		const color = this.$route.query?.color
+		if (color) this.changeColor(`${ color }--text`)
 	},
+
+	methods: {
+		...mapMutations(["changeIcon", "changeSize", "changeColor"])
+	},
+
+	computed: {
+		...mapGetters([ "mdi", "size", "color" ])
+	}
 }
 </script>
 
