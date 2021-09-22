@@ -14,7 +14,7 @@ import PageNotFound from "@/pages/PageNotFound"
 
 import { mapGetters, mapMutations } from "vuex"
 
-import { hasIcon } from "@/utils/api"
+import { iconStorage, hasIcon } from "@/utils/api"
 
 export default {
 	name: "PageIcon",
@@ -34,6 +34,8 @@ export default {
 	}),
 
 	async mounted() {
+		await iconStorage.init()
+
 		this.changeIcon(this.icon)
 
 		if (!await hasIcon(this.icon)) {
