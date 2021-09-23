@@ -64,32 +64,47 @@
 
 				<v-list>
 
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon>mdi-home</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>Главная</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
+					<router-link
+						style="text-decoration: none; color: inherit;"
+						:to="{ name: 'main' }"
+					>
+						<v-list-item @click="dialog = false">
+							<v-list-item-icon>
+								<v-icon>mdi-home</v-icon>
+							</v-list-item-icon>
+							<v-list-item-content>
+								<v-list-item-title>Главная</v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>
+					</router-link>
 
-					<v-list-item>
-						<v-list-item-icon>
-							<v-icon>mdi-account</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>{{ login }}</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
+					<router-link
+						style="text-decoration: none; color: inherit;"
+						:to="{ name: 'profile' }"
+					>
+						<v-list-item @click="dialog = false">
+							<v-list-item-icon>
+								<v-icon>mdi-account</v-icon>
+							</v-list-item-icon>
+							<v-list-item-content>
+								<v-list-item-title>{{ login }}</v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>
+					</router-link>
 
-					<v-list-item v-if="isIconBtnVisible">
-						<v-list-item-icon>
-							<v-icon>mdi-sticker-emoji</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title>Иконка</v-list-item-title>
-						</v-list-item-content>
-					</v-list-item>
+					<router-link
+						style="text-decoration: none; color: inherit;"
+						:to="{ name: 'icons' }"
+					>
+						<v-list-item v-if="isIconBtnVisible" @click="dialog = false">
+							<v-list-item-icon>
+								<v-icon>mdi-sticker-emoji</v-icon>
+							</v-list-item-icon>
+							<v-list-item-content>
+								<v-list-item-title>Иконка</v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>
+					</router-link>
 
 				</v-list>
 			</v-card>
