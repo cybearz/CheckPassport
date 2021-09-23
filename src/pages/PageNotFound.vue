@@ -1,6 +1,11 @@
 <template>
 	<v-row no-gutters justify="center">
-		<v-col cols="4">
+		<v-col
+			xl="4"
+			lg="4"
+			md="7"
+			sm="7"
+		>
 			<v-card class="pa-3">
 				<v-row align="center">
 					<v-col cols="6">
@@ -19,17 +24,16 @@
 									style="text-decoration: none; color: inherit;"
 									:to="{name: 'main'}"
 								>
-									<v-btn plain>
-										<v-icon left>mdi-arrow-left</v-icon>
+									<v-btn plain class="px-0">
+										<v-icon>mdi-chevron-left</v-icon>
 										На главную
 									</v-btn>
 								</router-link>
 							</v-card-actions>
 						</v-card>
 					</v-col>
-					<v-col>
-						<v-row align="center" no-gutters>
-							<v-col cols="11">
+						<v-row no-gutters>
+							<v-col cols="10">
 								<v-text-field
 									filled
 									hide-details
@@ -38,7 +42,7 @@
 									dense
 								/>
 							</v-col>
-							<v-col cols="1">
+							<v-col cols="2">
 								<v-btn
 									class="py-2"
 									outlined
@@ -51,7 +55,6 @@
 								</v-btn>
 							</v-col>
 						</v-row>
-					</v-col>
 				</v-row>
 			</v-card>
 		</v-col>

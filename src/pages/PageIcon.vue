@@ -1,7 +1,13 @@
 <template>
 	<PageNotFound v-if="isNotFound"/>
 	<v-row v-else no-gutters justify="center">
-		<v-col cols="4" align-self="center">
+		<v-col
+			align-self="center"
+			xl="4"
+			lg="4"
+			md="7"
+			sm="7"
+		>
 			<div class="d-flex justify-center">
 				<v-icon :size="size" :class=color>{{ mdi }}</v-icon>
 			</div>
