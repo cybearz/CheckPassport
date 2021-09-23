@@ -17,7 +17,7 @@ const routes = [
 
 	{
 		path: "/icons",
-		name: "icons",
+		name: "PageIconForm",
 		component: PageIconForm
 	},
 

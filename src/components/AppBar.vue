@@ -15,7 +15,7 @@
 
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			:to="{ name: 'icons' }"
+			:to="{ name: 'PageIconForm' }"
 		>
 			<v-btn
 				v-if="isIconBtnVisible"
@@ -53,7 +53,7 @@ export default {
 	}),
 
 	mounted() {
-		this.isIconBtnVisible = (this.$route.name !== "icons")
+		this.isIconBtnVisible = (this.$route.name !== "PageIconForm")
 	},
 
 	computed: {
@@ -65,7 +65,7 @@ export default {
 
 	watch: {
 		$route(to) {
-			this.isIconBtnVisible = (to.name !== "icons")
+			this.isIconBtnVisible = (to.name !== "PageIconForm")
 		}
 	}
 }
