@@ -1,6 +1,7 @@
 export default {
 	state: {
 		icon: "",
+		iconsArr: [],
 		size: "400",
 		color: "white",
 		libColors: [
@@ -20,6 +21,10 @@ export default {
 
 		mdi(state) {
 			return `mdi-${ state.icon }`
+		},
+
+		mdiArr(state) {
+			return state.iconsArr.map(icon => `mdi-${ icon }`)
 		},
 
 		size(state) {
@@ -42,6 +47,14 @@ export default {
 	mutations: {
 		changeIcon(state, icon) {
 			state.icon = icon
+		},
+
+		pushIcon(state, icon) {
+			state.iconsArr.push(icon)
+		},
+
+		clearIconsArr(state) {
+			state.iconsArr = []
 		},
 
 		changeSize(state, size) {

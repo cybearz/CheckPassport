@@ -35,6 +35,13 @@ const routes = [
 	},
 
 	{
+		path: "/mdi/:icon",
+		name: "showIconsArr",
+		component: PageIcon,
+		props: true
+	},
+
+	{
 		path: "/:urlId",
 		name: "empPassport",
 		component: PageMain,

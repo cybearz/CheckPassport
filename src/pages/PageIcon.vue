@@ -3,7 +3,14 @@
 	<v-row v-else no-gutters justify="center">
 		<v-col cols="4" align-self="center">
 			<div class="d-flex justify-center">
-				<v-icon :size="size" :class=iconColor>{{ mdi }}</v-icon>
+				<v-icon
+					v-for="(icon, i) in mdiArr"
+					:key="i"
+					:size="size"
+					:class=iconColor
+				>
+					{{ icon }}
+				</v-icon>
 			</div>
 		</v-col>
 	</v-row>
@@ -35,12 +42,23 @@ export default {
 
 	async mounted() {
 		await iconStorage.init()
-
-		this.changeIcon(this.icon)
-
-		if (!await hasIcon(this.icon)) {
-			this.isNotFound = true
-			return //^
+		this.clearIconsArr()
+		if (this.$route.name === "showIconsArr") {
+			for (let icon of this.icon.split(",")) {
+				console.log(icon)
+				if (!await hasIcon(icon)) {
+					this.isNotFound = true
+					return //^
+				}
+				this.pushIcon(icon)
+			}
+		} else {
+			if (!await hasIcon(this.icon)) {
+				this.isNotFound = true
+				return //^
+			}
+			this.changeIcon(this.icon)
+			this.pushIcon(this.icon)
 		}
 
 		const size = this.$route.query?.size
@@ -51,11 +69,11 @@ export default {
 	},
 
 	methods: {
-		...mapMutations(["changeIcon", "changeSize", "changeColor"])
+		...mapMutations(["changeIcon", "pushIcon", "clearIconsArr", "changeSize", "changeColor"])
 	},
 
 	computed: {
-		...mapGetters([ "mdi", "size", "iconColor" ])
+		...mapGetters([ "mdi", "mdiArr", "size", "iconColor" ])
 	}
 }
 </script>
