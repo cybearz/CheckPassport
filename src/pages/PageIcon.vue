@@ -10,10 +10,10 @@
 		>
 			<div class="d-flex justify-center">
 				<v-icon
-					v-for="(icon, i) in mdiArr"
+					v-for="(icon, i) in mdiIconArr"
 					:key="i"
-					:size="size"
-					:class=iconColor
+					:size="iconSize"
+					:class="iconColorTextClass"
 				>
 					{{ icon }}
 				</v-icon>
@@ -39,48 +39,42 @@ export default {
 	},
 
 	components: {
-		PageNotFound
+		PageNotFound,
 	},
 
 	data: () => ({
-		isNotFound: false
+		isNotFound: false,
 	}),
 
 	async mounted() {
 		await iconStorage.init()
-		this.clearIconsArr()
-		if (this.$route.name === "PageIcon") {
-			for (let icon of this.icon.split(",")) {
-				console.log(icon)
-				if (!await hasIcon(icon)) {
-					this.isNotFound = true
-					return //^
-				}
-				this.pushIcon(icon)
-			}
-		} else {
-			if (!await hasIcon(this.icon)) {
+
+		let iconsArr = []
+
+		for (let icon of this.icon.split(",")) {
+			if (!await hasIcon(icon)) {
 				this.isNotFound = true
 				return //^
 			}
-			this.changeIcon(this.icon)
-			this.pushIcon(this.icon)
+			iconsArr.push(icon)
 		}
 
-		const size = this.$route.query?.size
-		if (size) this.changeSize(size)
+		this.updateIconsArr(iconsArr)
 
-		const color = this.$route.query?.color
-		if (color) this.changeColor(`${ color }--text`)
+		const iconSize = this.$route.query?.size
+		if (iconSize) this.changeIconSize(iconSize)
+
+		const iconColor = this.$route.query?.color
+		if (iconColor) this.changeIconColor(iconColor)
 	},
 
 	methods: {
-		...mapMutations(["changeIcon", "pushIcon", "clearIconsArr", "changeSize", "changeColor"])
+		...mapMutations([ "updateIconsArr", "changeIconSize", "changeIconColor"]),
 	},
 
 	computed: {
-		...mapGetters([ "mdi", "mdiArr", "size", "iconColor" ])
-	}
+		...mapGetters([ "mdiIconArr", "iconSize", "iconColorTextClass" ]),
+	},
 }
 </script>
 
