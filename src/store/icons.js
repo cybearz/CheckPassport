@@ -1,8 +1,13 @@
+import _ from "lodash"
+
 export default {
 	state: {
-		iconsArr: [],
-		iconSize: "400",
-		iconColor: "white",
+		iconConfig: {
+			textIcons: "",
+			size: "400",
+			color: "white",
+		},
+
 		iconColorsArr: [
 			"red", "pink", "purple", "deep-purple",
 			"indigo", "blue", "light-blue", "cyan",
@@ -11,31 +16,12 @@ export default {
 			"brown", "blue-grey", "grey", "black",
 			"white",
 		],
+
 	},
 
 	getters: {
-		iconsArr(state) {
-			return state.iconsArr
-		},
-
-		textIconsArr(state) {
-			return state.iconsArr.join(',')
-		},
-
-		mdiIconArr(state) {
-			return state.iconsArr.map(icon => `mdi-${ icon }`)
-		},
-
-		iconSize(state) {
-			return state.iconSize
-		},
-
-		iconColor(state) {
-			return state.iconColor
-		},
-
-		iconColorTextClass(state) {
-			return `${ state.iconColor }--text`
+		iconConfig(state) {
+			return state.iconConfig
 		},
 
 		iconColorsArr(state) {
@@ -44,20 +30,8 @@ export default {
 	},
 
 	mutations: {
-		updateIconsArr(state, iconsArr) {
-			state.iconsArr = iconsArr
-		},
-
-		pushIconsArr(state, icon) {
-			state.iconsArr.push(icon)
-		},
-
-		changeIconSize(state, iconSize) {
-			state.iconSize = iconSize
-		},
-
-		changeIconColor(state, iconColor) {
-			state.iconColor = iconColor
+		updatedIconConfig(state, v) {
+			state.iconConfig = _.clone(v)
 		},
 	},
 

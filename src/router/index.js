@@ -27,13 +27,6 @@ const routes = [
 		component: PageProfile,
 	},
 
-	// {
-	// 	path: "/mdi-:icon",
-	// 	name: "PageIcon",
-	// 	component: PageIcon,
-	// 	props: true
-	// },
-
 	{
 		path: "/mdi/:icon",
 		name: "PageIcon",

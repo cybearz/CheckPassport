@@ -10,12 +10,12 @@
 		>
 			<div class="d-flex justify-center">
 				<v-icon
-					v-for="(icon, i) in mdiIconArr"
+					v-for="(icon, i) in iconsArr"
 					:key="i"
-					:size="iconSize"
-					:class="iconColorTextClass"
+					:size="iconConfig.size"
+					:class="`${iconConfig.color}--text`"
 				>
-					{{ icon }}
+					{{ `mdi-${icon}` }}
 				</v-icon>
 			</div>
 		</v-col>
@@ -43,10 +43,15 @@ export default {
 	},
 
 	data: () => ({
+		iconsArr: [],
 		isNotFound: false,
 	}),
 
 	async mounted() {
+		if (this.$route.params.icon === "show-icon") {
+			this.iconsArr = this.iconConfig.textIcons.split(",")
+			return //^
+		}
 		await iconStorage.init()
 
 		let iconsArr = []
@@ -59,21 +64,24 @@ export default {
 			iconsArr.push(icon)
 		}
 
-		this.updateIconsArr(iconsArr)
+		this.iconsArr = iconsArr
 
 		const iconSize = this.$route.query?.size
-		if (iconSize) this.changeIconSize(iconSize)
-
 		const iconColor = this.$route.query?.color
-		if (iconColor) this.changeIconColor(iconColor)
+
+		this.updatedIconConfig({
+			textIcons: this.icon,
+			size: iconSize ? iconSize : "400",
+			color: iconColor ? iconColor :"white",
+		})
 	},
 
 	methods: {
-		...mapMutations([ "updateIconsArr", "changeIconSize", "changeIconColor"]),
+		...mapMutations([ "updatedIconConfig" ]),
 	},
 
 	computed: {
-		...mapGetters([ "mdiIconArr", "iconSize", "iconColorTextClass" ]),
+		...mapGetters([ "iconConfig" ]),
 	},
 }
 </script>

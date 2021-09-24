@@ -19,7 +19,7 @@
 						label="Имя"
 						outlined
 						:rules="iconNameRules"
-						v-model="textIconsArr"
+						v-model="lclIconConfig.textIcons"
 					/>
 					<v-slider
 						label="Размер"
@@ -27,14 +27,13 @@
 						min="20"
 						max="400"
 						thumb-label
-						v-model="lclIconSize"
+						v-model="lclIconConfig.size"
 					/>
 					<v-divider/>
 					<v-radio-group
 						label="Цвет"
 						column
-						:rules="iconColorRules"
-						v-model="lclIconColor"
+						v-model="lclIconConfig.color"
 					>
 						<v-row>
 							<v-col
@@ -66,15 +65,20 @@
 <script>
 import { mapGetters, mapMutations } from "vuex"
 
+import _ from "lodash"
+
 import { iconStorage, matchIcon } from "@/utils/api"
 
 export default {
 	name: "PageIconConfig",
 
 	data: () => ({
-		textIconsArr: "",
-		lclIconSize: "",
-		lclIconColor: "",
+		lclIconConfig: {
+			textIcons: "",
+			size: "",
+			color: "",
+		},
+
 		iconNameRules: [
 			v => !!v || "Введите имя",
 			v => {
@@ -87,32 +91,32 @@ export default {
 	}),
 
 	async mounted() {
-		this.textIconsArr = this.iconsArr.join(',')
-		this.lclIconSize = this.iconSize
-		this.lclIconColor = this.iconColor
+		this.lclIconConfig = _.clone(this.iconConfig)
+
 		await iconStorage.init()
 	},
 
 	methods: {
-		...mapMutations([ "updateIconsArr", "changeIconSize", "changeIconColor"]),
+		...mapMutations([ "updatedIconConfig" ]),
 
 		getSlicedArr(col) {
 			const lenCol = this.iconColorsArr.length / 3
+
 			return this.iconColorsArr.slice(lenCol * (col - 1), lenCol * col)
 		},
 
 		showIcon() {
 			if (!this.$refs.form.validate()) return //^
-			this.updateIconsArr(this.textIconsArr.split(","))
-			this.changeIconSize(this.lclIconSize)
-			this.changeIconColor(this.lclIconColor)
-			this.$router.push({ name: 'PageIcon' })
+
+			this.updatedIconConfig(this.lclIconConfig)
+
+			this.$router.push({ name: 'PageIcon', params: {icon: "show-icon"} })
 		},
 
 	},
 
 	computed: {
-		...mapGetters([ "iconsArr", "iconSize", "iconColor",  "iconColorsArr"]),
+		...mapGetters([ "iconConfig", "iconColorsArr"]),
 	},
 
 }
