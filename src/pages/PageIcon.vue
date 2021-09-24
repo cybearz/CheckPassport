@@ -49,7 +49,7 @@ export default {
 	async mounted() {
 		await iconStorage.init()
 		this.clearIconsArr()
-		if (this.$route.name === "showIconsArr") {
+		if (this.$route.name === "PageIcon") {
 			for (let icon of this.icon.split(",")) {
 				console.log(icon)
 				if (!await hasIcon(icon)) {

@@ -93,7 +93,7 @@ export default {
 
 		showIcon() {
 			if (!this.$refs.form.validate()) return
-			this.$router.push({ name: 'showIcon', params: { icon: this.icon } })
+			this.$router.push({ name: 'PageIcon', params: { icon: this.icon } })
 		},
 
 		getSlicedArr(col) {

@@ -3,7 +3,7 @@
 
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			:to="{ name: 'main' }"
+			:to="{ name: 'PageMain' }"
 		>
 			<v-btn
 				class="px-0"
@@ -30,7 +30,7 @@
 
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			:to="{ name: 'profile' }"
+			:to="{ name: 'PageProfile' }"
 		>
 			<v-btn outlined>
 				<v-icon left>mdi-account</v-icon>
@@ -66,7 +66,7 @@
 
 					<router-link
 						style="text-decoration: none; color: inherit;"
-						:to="{ name: 'main' }"
+						:to="{ name: 'PageMain' }"
 					>
 						<v-list-item @click="dialog = false">
 							<v-list-item-icon>
@@ -80,7 +80,7 @@
 
 					<router-link
 						style="text-decoration: none; color: inherit;"
-						:to="{ name: 'profile' }"
+						:to="{ name: 'PageProfile' }"
 					>
 						<v-list-item @click="dialog = false">
 							<v-list-item-icon>
@@ -94,7 +94,7 @@
 
 					<router-link
 						style="text-decoration: none; color: inherit;"
-						:to="{ name: 'icons' }"
+						:to="{ name: 'PageIconForm' }"
 					>
 						<v-list-item v-if="isIconBtnVisible" @click="dialog = false">
 							<v-list-item-icon>

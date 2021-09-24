@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: "/",
-		name: "main",
+		name: "PageMain",
 		component: PageMain,
 	},
 
@@ -23,31 +23,31 @@ const routes = [
 
 	{
 		path: "/profile",
-		name: "profile",
+		name: "PageProfile",
 		component: PageProfile
 	},
 
 	{
 		path: "/mdi-:icon",
-		name: "showIcon",
+		name: "PageIcon",
 		component: PageIcon,
 		props: true
 	},
 
 	{
 		path: "/mdi/:icon",
-		name: "showIconsArr",
+		name: "PageIcon",
 		component: PageIcon,
 		props: true
 	},
-
+// FIXME Здесь не могу сделать name: "PageMain": нарушится логика
 	{
 		path: "/:urlId",
 		name: "empPassport",
 		component: PageMain,
 		props: true
 	},
-
+// TODO Это вообще, скорее всего, удалю и сделаю notFound компонентом, а не страницей
 	{
 		path: "/notFound",
 		name: "notFound",

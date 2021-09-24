@@ -15,7 +15,7 @@
 				<div class="d-flex justify-end">
 					<router-link
 						style="text-decoration: none; color: inherit;"
-						:to="{ name: 'main' }"
+						:to="{ name: 'PageMain' }"
 					>
 						<v-btn
 							text
@@ -59,7 +59,6 @@
 <script>
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
-//FIXME перенести PageNotFound в компоненты???
 import PageNotFound from "@/pages/PageNotFound"
 
 import _ from "lodash"
@@ -100,6 +99,7 @@ export default {
 		} else if (this.findEmpById(this.urlId) === -1) {
 			this.isNotFound = true
 		} else {
+			this.isEmpListActive = false
 			this.empId = this.urlId
 		}
 	},

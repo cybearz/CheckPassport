@@ -14,7 +14,6 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 
 	//FIXME "employee.value = _.assign({}, value.value)" выполняется 2 раза
 	onMounted(() => {
-			console.debug("PassportForm.mounted()", value.value)
 			employee.value = _.assign({}, value.value)
 		},
 	)
