@@ -1,10 +1,9 @@
 export default {
 	state: {
-		icon: "",
 		iconsArr: [],
-		size: "400",
-		color: "white",
-		libColors: [
+		iconSize: "400",
+		iconColor: "white",
+		iconColorsArr: [
 			"red", "pink", "purple", "deep-purple",
 			"indigo", "blue", "light-blue", "cyan",
 			"teal", "green", "light-green", "lime",
@@ -15,55 +14,47 @@ export default {
 	},
 
 	getters: {
-		icon(state) {
-			return state.icon
+		iconsArr(state) {
+			return state.iconsArr
 		},
 
-		mdi(state) {
-			return `mdi-${ state.icon }`
-		},
-
-		mdiArr(state) {
+		mdiIconArr(state) {
 			return state.iconsArr.map(icon => `mdi-${ icon }`)
 		},
 
-		size(state) {
-			return state.size
-		},
-
-		color(state) {
-			return state.color
+		iconSize(state) {
+			return state.iconSize
 		},
 
 		iconColor(state) {
-			return `${state.color}--text`
+			return state.iconColor
 		},
 
-		libColors(state) {
-			return state.libColors.sort((curr, next) => curr > next)
-		}
+		iconColorTextClass(state) {
+			return `${ state.iconColor }--text`
+		},
+
+		iconColorsArr(state) {
+			return state.iconColorsArr.sort()
+		},
 	},
 
 	mutations: {
-		changeIcon(state, icon) {
-			state.icon = icon
+		updateIconsArr(state, iconsArr) {
+			state.iconsArr = iconsArr
 		},
 
-		pushIcon(state, icon) {
+		pushIconsArr(state, icon) {
 			state.iconsArr.push(icon)
 		},
 
-		clearIconsArr(state) {
-			state.iconsArr = []
+		changeIconSize(state, iconSize) {
+			state.iconSize = iconSize
 		},
 
-		changeSize(state, size) {
-			state.size = size
+		changeIconColor(state, iconColor) {
+			state.iconColor = iconColor
 		},
-
-		changeColor(state, color) {
-			state.color = color
-		}
-	}
+	},
 
 }
