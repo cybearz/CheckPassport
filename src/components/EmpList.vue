@@ -9,7 +9,7 @@
 				<v-spacer></v-spacer>
 				<router-link
 					style="text-decoration: none; color: inherit;"
-					:to="{name: 'main'}"
+					:to="{name: 'empPassport', params: {urlId: 'new-emp'}}"
 				>
 					<v-btn
 						x-small

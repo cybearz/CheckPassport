@@ -2,12 +2,47 @@
 	<PageNotFound v-if="isNotFound"/>
 	<v-row v-else no-gutters justify="center">
 		<v-col
-			cols="3"
+			xl="3"
+			lg="3"
+			md="5"
+			sm="5"
 		>
-			<EmpList/>
+			<EmpList
+				v-if="!isMobile || (isMobile && isEmpListActive)"
+				@addEmp="isEmpListActive = false"
+			/>
+			<div v-else>
+				<div class="d-flex justify-end">
+					<router-link
+						style="text-decoration: none; color: inherit;"
+						:to="{ name: 'main' }"
+					>
+						<v-btn
+							text
+							plain
+						>
+							<v-icon>mdi-chevron-left</v-icon>
+							Назад
+						</v-btn>
+					</router-link>
+				</div>
+
+				<PassportForm
+					:value="employee"
+					:btn="isBtnDisabled"
+					@btnChange="isBtnDisabled=false"
+					:statusText="statusText"
+					@saveEmp="saveEmp($event)"
+					@removeEmp="removeEmp"
+				/>
+			</div>
 		</v-col>
 		<v-col
-			cols="4"
+			v-if="!isMobile"
+			xl="4"
+			lg="4"
+			md="7"
+			sm="7"
 		>
 			<PassportForm
 				:value="employee"
@@ -28,8 +63,8 @@ import EmpList from "@/components/EmpList"
 import PageNotFound from "@/pages/PageNotFound"
 
 import _ from "lodash"
-import { mapActions, mapGetters, mapMutations } from "vuex"
-import { v1 as uuidv1 } from "uuid"
+import {mapActions, mapGetters, mapMutations} from "vuex"
+import {v1 as uuidv1} from "uuid"
 
 export default {
 	name: "PageMain",
@@ -46,6 +81,7 @@ export default {
 	},
 
 	data: () => ({
+		isEmpListActive: true,
 		isNotFound: false,
 		isBtnDisabled: true,
 		empId: "",
@@ -55,17 +91,22 @@ export default {
 	mounted() {
 		this.downloadEmpStore()
 		this.addNamesAndIds()
-		if (this.urlId && (this.findEmpById(this.urlId) === -1)) {
+
+		if (!this.urlId) {
+			this.isBtnDisabled = false
+		} else if (this.urlId === "new-emp") {
+			this.isEmpListActive = false
+			this.isBtnDisabled = false
+		} else if (this.findEmpById(this.urlId) === -1) {
 			this.isNotFound = true
 		} else {
 			this.empId = this.urlId
-			this.isBtnDisabled = false
 		}
 	},
 
 	methods: {
-		...mapActions([ "downloadEmpStore", "uploadEmpStore", "addNamesAndIds" ]),
-		...mapMutations([ "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl" ]),
+		...mapActions(["downloadEmpStore", "uploadEmpStore", "addNamesAndIds"]),
+		...mapMutations(["clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl"]),
 
 		saveEmp(newEmp) {
 			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
@@ -77,19 +118,19 @@ export default {
 
 			if (!this.empId) {
 				this.empId = uuidv1()
-				this.addNamesAndIds([ newEmp.fio, this.empId ])
+				this.addNamesAndIds([newEmp.fio, this.empId])
 			} else {
 				const oldFio = this.employee.fio
 
 				if (newEmp.fio !== oldFio) {
 					const ind = this.findEmpById(this.empId)
 
-					this.changeNamesAndIds({ ind, newFullname: newEmp.fio })
+					this.changeNamesAndIds({ind, newFullname: newEmp.fio})
 				}
 			}
 
 			this.updateEmp(newEmp)
-			this.changeEmpStore({ id: this.empId, newEmp })
+			this.changeEmpStore({id: this.empId, newEmp})
 			this.uploadEmpStore()
 		},
 
@@ -120,7 +161,10 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "empStore", "namesAndIds", "employee" ]),
+		...mapGetters(["empStore", "namesAndIds", "employee"]),
+		isMobile() {
+			return this.$vuetify.breakpoint.name === "xs"
+		},
 	},
 
 	watch: {
@@ -134,20 +178,23 @@ export default {
 			}
 		},
 // Для переключения между сотрудниками в списке
-		urlId(newUrlId) {
-			if (newUrlId) {
-				if (newUrlId && this.findEmpById(newUrlId) !== -1) {
-					this.isNotFound = false
-					this.empId = newUrlId
-				} else {
-					this.isNotFound = true
-					this.empId = ""
-				}
-			} else {
+		urlId(v) {
+			if (!v) {
+				this.isEmpListActive = true
 				this.isNotFound = false
+				this.isBtnDisabled = false
 				this.empId = ""
+			} else if (v === "new-emp") {
+				this.isEmpListActive = false
+				this.isNotFound = false
+				this.isBtnDisabled = false
+				this.empId = ""
+			} else {
+				this.isEmpListActive = false
+				this.isNotFound = false
+				this.isBtnDisabled = true
+				this.empId = v
 			}
-
 		},
 	},
 }

@@ -1,6 +1,11 @@
 <template>
 	<v-row no-gutters justify="center">
-		<v-col cols="4">
+		<v-col
+			xl="4"
+			lg="4"
+			md="7"
+			sm="7"
+		>
 			<v-card
 				elevation="4"
 				tile

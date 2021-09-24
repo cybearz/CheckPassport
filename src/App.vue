@@ -3,7 +3,7 @@
 		<AppBar :profile="profile"/>
 
 		<v-main>
-			<v-container class="py-16 fill-height">
+			<v-container class="fill-height">
 				<router-view
 					@updateProfile="updateProfile"
 					:recvProfile="profile"
