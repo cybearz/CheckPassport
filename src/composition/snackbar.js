@@ -1,4 +1,4 @@
-import {ref, toRefs, watch} from "@vue/composition-api";
+import { ref, toRefs, watch } from "@vue/composition-api"
 
 export function useSnackbar(props) {
 	const { statusText } = toRefs(props)
@@ -16,5 +16,5 @@ export function useSnackbar(props) {
 		}, 1000)
 	}
 
-	return {snackbar, text, showSnackbar}
+	return { snackbar, text, showSnackbar }
 }

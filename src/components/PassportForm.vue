@@ -66,10 +66,10 @@
 <script>
 import Calendar from "@/components/Calendar"
 
-import {useBtnVisability} from "@/composition/btnVisability"
-import {useEmployee} from "@/composition/employee"
-import {useSnackbar} from "@/composition/snackbar"
-import {useRules} from "@/composition/rules"
+import { useBtnVisability } from "@/composition/btnVisability"
+import { useEmployee } from "@/composition/employee"
+import { useSnackbar } from "@/composition/snackbar"
+import { useRules } from "@/composition/rules"
 
 export default {
 	name: "PassportForm",
@@ -83,24 +83,24 @@ export default {
 		},
 		value: {
 			type: Object,
-			required: true
+			required: true,
 		},
 		statusText: {
 			type: String,
-		}
+		},
 	},
 
-	setup(props, {emit, refs}) {
-		let {snackbar, text, showSnackbar} = useSnackbar(props)
-		const {isBtnDisabled} = useBtnVisability(props)
+	setup(props, { emit, refs }) {
+		let { snackbar, text, showSnackbar } = useSnackbar(props)
+		const { isBtnDisabled } = useBtnVisability(props)
 
 		return {
 			snackbar, text,
 			isBtnDisabled,
 			...useEmployee(props, showSnackbar, emit, refs, isBtnDisabled),
-			...useRules()
+			...useRules(),
 		}
-	}
+	},
 }
 
 </script>

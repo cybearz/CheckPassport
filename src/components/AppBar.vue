@@ -126,7 +126,7 @@ export default {
 
 	data: () => ({
 		dialog: false,
-		isIconBtnVisible: true
+		isIconBtnVisible: true,
 	}),
 
 	mounted() {
@@ -147,8 +147,8 @@ export default {
 	watch: {
 		$route(to) {
 			this.isIconBtnVisible = (to.name !== "PageIconForm")
-		}
-	}
+		},
+	},
 }
 
 </script>

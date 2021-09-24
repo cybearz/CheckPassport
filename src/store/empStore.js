@@ -34,7 +34,7 @@ export default {
 
 		employee(state) {
 			return state.employee
-		}
+		},
 	},
 
 	mutations: {
@@ -42,7 +42,7 @@ export default {
 			state.empStore = newEmpStore
 		},
 
-		changeEmpStore(state, {id, newEmp}) {
+		changeEmpStore(state, { id, newEmp }) {
 			state.empStore[id] = _.assign({}, newEmp)
 		},
 
@@ -54,7 +54,7 @@ export default {
 			state.namesAndIds.push(newVal)
 		},
 
-		changeNamesAndIds(state, {ind, newFullname}) {
+		changeNamesAndIds(state, { ind, newFullname }) {
 			state.namesAndIds[ind].splice(0, 1, newFullname)
 		},
 
@@ -95,7 +95,7 @@ export default {
 				ctx.commit("pushNamesAndIds", newVal)
 			} else if (_.isEmpty(ctx.getters.namesAndIds)) {
 				_.forEach(ctx.getters.empStore, (value, id) => {
-					ctx.commit("pushNamesAndIds", [value.fio, id])
+					ctx.commit("pushNamesAndIds", [ value.fio, id ])
 				})
 			}
 		},

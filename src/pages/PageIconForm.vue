@@ -77,7 +77,7 @@ export default {
 	data: () => ({
 		iconNameRules: [
 			v => !!v || "Введите имя",
-			v => matchIcon(v) || "Иконка не существует"
+			v => matchIcon(v) || "Иконка не существует",
 		],
 		iconColorRules: [
 			v => !!v || "Выберите цвет",
@@ -89,7 +89,7 @@ export default {
 	},
 
 	methods: {
-		...mapMutations(["changeIcon", "changeSize", "changeColor"]),
+		...mapMutations([ "changeIcon", "changeSize", "changeColor" ]),
 
 		showIcon() {
 			if (!this.$refs.form.validate()) return
@@ -103,8 +103,8 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "icon", "size", "color", "libColors" ])
-	}
+		...mapGetters([ "icon", "size", "color", "libColors" ]),
+	},
 
 }
 </script>

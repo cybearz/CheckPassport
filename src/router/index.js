@@ -18,34 +18,34 @@ const routes = [
 	{
 		path: "/icons",
 		name: "PageIconForm",
-		component: PageIconForm
+		component: PageIconForm,
 	},
 
 	{
 		path: "/profile",
 		name: "PageProfile",
-		component: PageProfile
+		component: PageProfile,
 	},
 
-	{
-		path: "/mdi-:icon",
-		name: "PageIcon",
-		component: PageIcon,
-		props: true
-	},
+	// {
+	// 	path: "/mdi-:icon",
+	// 	name: "PageIcon",
+	// 	component: PageIcon,
+	// 	props: true
+	// },
 
 	{
 		path: "/mdi/:icon",
 		name: "PageIcon",
 		component: PageIcon,
-		props: true
+		props: true,
 	},
 // FIXME Здесь не могу сделать name: "PageMain": нарушится логика
 	{
 		path: "/:urlId",
 		name: "empPassport",
 		component: PageMain,
-		props: true
+		props: true,
 	},
 // TODO Это вообще, скорее всего, удалю и сделаю notFound компонентом, а не страницей
 	{
@@ -58,7 +58,7 @@ const routes = [
 const router = new VueRouter({
 	mode: "history",
 	base: process.env.BASE_URL,
-	routes
+	routes,
 })
 
 export default router

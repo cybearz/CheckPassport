@@ -62,8 +62,8 @@ import EmpList from "@/components/EmpList"
 import PageNotFound from "@/pages/PageNotFound"
 
 import _ from "lodash"
-import {mapActions, mapGetters, mapMutations} from "vuex"
-import {v1 as uuidv1} from "uuid"
+import { mapActions, mapGetters, mapMutations } from "vuex"
+import { v1 as uuidv1 } from "uuid"
 
 export default {
 	name: "PageMain",
@@ -105,8 +105,8 @@ export default {
 	},
 
 	methods: {
-		...mapActions(["downloadEmpStore", "uploadEmpStore", "addNamesAndIds"]),
-		...mapMutations(["clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl"]),
+		...mapActions([ "downloadEmpStore", "uploadEmpStore", "addNamesAndIds" ]),
+		...mapMutations([ "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
 			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
@@ -118,19 +118,19 @@ export default {
 
 			if (!this.empId) {
 				this.empId = uuidv1()
-				this.addNamesAndIds([newEmp.fio, this.empId])
+				this.addNamesAndIds([ newEmp.fio, this.empId ])
 			} else {
 				const oldFio = this.employee.fio
 
 				if (newEmp.fio !== oldFio) {
 					const ind = this.findEmpById(this.empId)
 
-					this.changeNamesAndIds({ind, newFullname: newEmp.fio})
+					this.changeNamesAndIds({ ind, newFullname: newEmp.fio })
 				}
 			}
 
 			this.updateEmp(newEmp)
-			this.changeEmpStore({id: this.empId, newEmp})
+			this.changeEmpStore({ id: this.empId, newEmp })
 			this.uploadEmpStore()
 		},
 
@@ -161,7 +161,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters(["empStore", "namesAndIds", "employee"]),
+		...mapGetters([ "empStore", "namesAndIds", "employee" ]),
 		isMobile() {
 			return this.$vuetify.breakpoint.name === "xs"
 		},

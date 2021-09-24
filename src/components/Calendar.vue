@@ -33,24 +33,24 @@ export default {
 
 	props: {
 		rules: {
-			required: true
+			required: true,
 		},
 		receivedDate: {
 			type: String,
-			required: true
-		}
+			required: true,
+		},
 	},
 
 	data: () => ({
 		date: "",
 		curDate: moment().format("YYYY-MM-DD"),
-		menu: false
+		menu: false,
 	}),
 
 	methods: {
 		changeDate(e) {
 			this.$emit("input", e)
-		}
+		},
 	},
 
 	computed: {
@@ -62,8 +62,8 @@ export default {
 	watch: {
 		receivedDate() {
 			this.date = this.receivedDate ? moment(this.receivedDate).format("YYYY-MM-DD") : ""
-		}
-	}
+		},
+	},
 }
 </script>
 

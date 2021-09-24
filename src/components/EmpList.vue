@@ -56,8 +56,8 @@ export default {
 	computed: {
 		sortedNamesAndIds() {
 			return this.$store.getters.sortedNamesAndIds
-		}
-	}
+		},
+	},
 }
 </script>
 

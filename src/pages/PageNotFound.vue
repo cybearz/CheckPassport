@@ -32,29 +32,29 @@
 							</v-card-actions>
 						</v-card>
 					</v-col>
-						<v-row no-gutters>
-							<v-col cols="10">
-								<v-text-field
-									filled
-									hide-details
-									placeholder="Как мы можем помочь?"
-									outlined
-									dense
-								/>
-							</v-col>
-							<v-col cols="2">
-								<v-btn
-									class="py-2"
-									outlined
-									depressed
-									block
-									tile
-									height="100%"
-								>
-									<v-icon>mdi-chat</v-icon>
-								</v-btn>
-							</v-col>
-						</v-row>
+					<v-row no-gutters>
+						<v-col cols="10">
+							<v-text-field
+								filled
+								hide-details
+								placeholder="Как мы можем помочь?"
+								outlined
+								dense
+							/>
+						</v-col>
+						<v-col cols="2">
+							<v-btn
+								class="py-2"
+								outlined
+								depressed
+								block
+								tile
+								height="100%"
+							>
+								<v-icon>mdi-chat</v-icon>
+							</v-btn>
+						</v-col>
+					</v-row>
 				</v-row>
 			</v-card>
 		</v-col>

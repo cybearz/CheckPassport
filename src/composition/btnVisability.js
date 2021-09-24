@@ -8,5 +8,5 @@ export function useBtnVisability(props) {
 		isBtnDisabled.value = s
 	})
 
-	return {isBtnDisabled}
+	return { isBtnDisabled }
 }
