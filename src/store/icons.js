@@ -18,6 +18,10 @@ export default {
 			return state.iconsArr
 		},
 
+		textIconsArr(state) {
+			return state.iconsArr.join(',')
+		},
+
 		mdiIconArr(state) {
 			return state.iconsArr.map(icon => `mdi-${ icon }`)
 		},

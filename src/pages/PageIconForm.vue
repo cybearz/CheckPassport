@@ -19,8 +19,7 @@
 						label="Имя"
 						outlined
 						:rules="iconNameRules"
-						:value="icon"
-						@input="changeIcon($event)"
+						v-model="textIconsArr"
 					/>
 					<v-slider
 						label="Размер"
@@ -28,16 +27,14 @@
 						min="20"
 						max="400"
 						thumb-label
-						:value="size"
-						@input="changeSize($event)"
+						v-model="lclIconSize"
 					/>
 					<v-divider/>
 					<v-radio-group
 						label="Цвет"
 						column
 						:rules="iconColorRules"
-						:value="color"
-						@change="changeColor($event)"
+						v-model="lclIconColor"
 					>
 						<v-row>
 							<v-col
@@ -75,35 +72,47 @@ export default {
 	name: "PageIconConfig",
 
 	data: () => ({
+		textIconsArr: "",
+		lclIconSize: "",
+		lclIconColor: "",
 		iconNameRules: [
 			v => !!v || "Введите имя",
-			v => matchIcon(v) || "Иконка не существует",
-		],
-		iconColorRules: [
-			v => !!v || "Выберите цвет",
+			v => {
+				for (let icon of v.split(",")) {
+					if (!matchIcon(icon)) return `Иконка "${icon}" не существует`
+				}
+				return true
+			},
 		],
 	}),
 
 	async mounted() {
+		this.textIconsArr = this.iconsArr.join(',')
+		this.lclIconSize = this.iconSize
+		this.lclIconColor = this.iconColor
 		await iconStorage.init()
 	},
 
 	methods: {
-		...mapMutations([ "changeIcon", "changeSize", "changeColor" ]),
-
-		showIcon() {
-			if (!this.$refs.form.validate()) return
-			this.$router.push({ name: 'PageIcon', params: { icon: this.icon } })
-		},
+		...mapMutations([ "updateIconsArr", "changeIconSize", "changeIconColor"]),
 
 		getSlicedArr(col) {
-			const lenCol = this.libColors.length / 3
-			return this.libColors.slice(lenCol * (col - 1), lenCol * col)
+			const lenCol = this.iconColorsArr.length / 3
+			return this.iconColorsArr.slice(lenCol * (col - 1), lenCol * col)
 		},
+
+		showIcon() {
+			if (!this.$refs.form.validate()) return //^
+			this.updateIconsArr(this.textIconsArr.split(","))
+			this.changeIconSize(this.lclIconSize)
+			this.changeIconColor(this.lclIconColor)
+			this.$router.push({ name: 'PageIcon' })
+		},
+
 	},
 
 	computed: {
-		...mapGetters([ "icon", "size", "color", "libColors" ]),
+		...mapGetters([ "iconsArr", "iconSize", "iconColor",  "iconColorsArr"]),
 	},
 
 }
