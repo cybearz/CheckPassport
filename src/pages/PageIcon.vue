@@ -20,11 +20,9 @@
 </template>
 
 <script>
-import PageNotFound from "@/pages/PageNotFound"
-
 import { mapGetters, mapMutations } from "vuex"
-
 import { iconStorage, hasIcon } from "@/utils/api"
+import PageNotFound from "@/pages/PageNotFound"
 
 export default {
 	name: "PageIcon",
@@ -45,10 +43,6 @@ export default {
 	}),
 
 	async mounted() {
-		if (this.icon === "show-icon") {
-			this.iconsArr = this.iconConfig.textIcons.split(",")
-			return //^
-		}
 		await iconStorage.init()
 
 		let iconsArr = []

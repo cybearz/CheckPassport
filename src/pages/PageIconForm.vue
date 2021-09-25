@@ -1,25 +1,15 @@
 <template>
 	<v-row no-gutters justify="center">
-		<v-col
-			xl="4"
-			lg="4"
-			md="7"
-			sm="7"
-		>
-			<v-card
-				elevation="4"
-				tile
-			>
-				<v-subheader>Настройка иконки</v-subheader>
-				<v-form
-					ref="form"
-					class="pa-3"
-				>
+		<v-col lg="6" sm="8">
+			<v-card tile class="pa-4">
+				<v-subheader class="text-h4 pt-4 mb-2 primary--text">Иконки</v-subheader>
+
+				<v-form ref="form" class="pa-3" @submit.prevent="showIcon">
 					<v-text-field
 						label="Имя"
 						outlined
 						:rules="iconNameRules"
-						v-model="lclIconConfig.textIcons"
+						v-model="values.textIcons"
 					/>
 					<v-slider
 						label="Размер"
@@ -27,13 +17,13 @@
 						min="20"
 						max="400"
 						thumb-label
-						v-model="lclIconConfig.size"
+						v-model="values.size"
 					/>
 					<v-divider/>
 					<v-radio-group
 						label="Цвет"
 						column
-						v-model="lclIconConfig.color"
+						v-model="values.color"
 					>
 						<v-row>
 							<v-col
@@ -52,10 +42,9 @@
 						</v-row>
 					</v-radio-group>
 
-					<v-btn @click="showIcon">
+					<v-btn type="submit" color="primary">
 						Показать
 					</v-btn>
-
 				</v-form>
 			</v-card>
 		</v-col>
@@ -63,17 +52,15 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex"
-
 import _ from "lodash"
-
+import { mapGetters, mapMutations } from "vuex"
 import { iconStorage, matchIcon } from "@/utils/api"
 
 export default {
 	name: "PageIconConfig",
 
 	data: () => ({
-		lclIconConfig: {
+		values: {
 			textIcons: "",
 			size: "",
 			color: "",
@@ -91,7 +78,7 @@ export default {
 	}),
 
 	async mounted() {
-		this.lclIconConfig = _.clone(this.iconConfig)
+		this.values = _.clone(this.iconConfig)
 		await iconStorage.init()
 	},
 
@@ -107,13 +94,13 @@ export default {
 		showIcon() {
 			if (!this.$refs.form.validate()) return //^
 
-			this.updatedIconConfig(this.lclIconConfig)
+			this.updatedIconConfig(this.values)
+			const { textIcons: icon, size, color } = this.values
 
 			this.$router.push({
 				name: "PageIcon",
-				params: {
-					icon: "show-icon",
-				},
+				params: { icon },
+				query: { size, color },
 			})
 		},
 
