@@ -13,18 +13,14 @@
 			/>
 			<div v-else>
 				<div class="d-flex justify-end">
-					<router-link
-						style="text-decoration: none; color: inherit;"
+					<v-btn
+						text
+						plain
 						:to="{ name: 'PageHome' }"
 					>
-						<v-btn
-							text
-							plain
-						>
-							<v-icon>mdi-chevron-left</v-icon>
-							Назад
-						</v-btn>
-					</router-link>
+						<v-icon>mdi-chevron-left</v-icon>
+						Назад
+					</v-btn>
 				</div>
 
 				<PassportForm

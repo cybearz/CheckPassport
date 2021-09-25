@@ -20,15 +20,14 @@
 							<v-card-title class="text-uppercase">Ошибка</v-card-title>
 							<v-card-subtitle>Запрашиваемая страница не найдена</v-card-subtitle>
 							<v-card-actions>
-								<router-link
-									style="text-decoration: none; color: inherit;"
+								<v-btn
+									plain
+									class="px-0"
 									:to="{ name: 'PageHome' }"
 								>
-									<v-btn plain class="px-0">
-										<v-icon>mdi-chevron-left</v-icon>
-										На главную
-									</v-btn>
-								</router-link>
+									<v-icon>mdi-chevron-left</v-icon>
+									На главную
+								</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-col>

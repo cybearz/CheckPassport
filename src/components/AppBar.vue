@@ -1,18 +1,14 @@
 <template>
 	<v-app-bar app dark v-if="!isMobile">
 
-		<router-link
-			style="text-decoration: none; color: inherit;"
+		<v-btn
+			class="px-0"
+			plain
 			:to="{ name: 'PageHome' }"
 		>
-			<v-btn
-				class="px-0"
-				plain
-			>
-				<v-icon size="40">mdi-passport</v-icon>
-				<div class="text-h4">CheckPassport</div>
-			</v-btn>
-		</router-link>
+			<v-icon size="40">mdi-passport</v-icon>
+			<div class="text-h4">CheckPassport</div>
+		</v-btn>
 
 		<v-spacer/>
 
@@ -22,15 +18,12 @@
 			Иконка
 		</v-btn>
 
-		<router-link
-			style="text-decoration: none; color: inherit;"
+		<v-btn outlined
 			:to="{ name: 'PageProfile' }"
 		>
-			<v-btn outlined>
-				<v-icon left>mdi-account</v-icon>
-				{{ login }}
-			</v-btn>
-		</router-link>
+			<v-icon left>mdi-account</v-icon>
+			{{ login }}
+		</v-btn>
 
 	</v-app-bar>
 
