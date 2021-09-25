@@ -1,6 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import PageMain from "@/pages/PageMain"
+import PageEmp from "@/pages/PageEmp"
 import PageProfile from "@/pages/PageProfile"
 import PageNotFound from "@/pages/PageNotFound"
 import PageIcon from "@/pages/PageIcon"
@@ -11,8 +11,8 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: "/",
-		name: "PageMain",
-		component: PageMain,
+		name: "PageHome",
+		component: PageEmp,
 	},
 
 	{
@@ -33,11 +33,11 @@ const routes = [
 		component: PageIcon,
 		props: true,
 	},
-// FIXME Здесь не могу сделать name: "PageMain": нарушится логика
+// FIXME Здесь не могу сделать name: "PageEmp": нарушится логика
 	{
 		path: "/:urlId",
-		name: "empPassport",
-		component: PageMain,
+		name: "PageEmp",
+		component: PageEmp,
 		props: true,
 	},
 // TODO Это вообще, скорее всего, удалю и сделаю notFound компонентом, а не страницей

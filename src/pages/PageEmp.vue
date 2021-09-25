@@ -15,7 +15,7 @@
 				<div class="d-flex justify-end">
 					<router-link
 						style="text-decoration: none; color: inherit;"
-						:to="{ name: 'PageMain' }"
+						:to="{ name: 'PageEmp' }"
 					>
 						<v-btn
 							text
@@ -66,7 +66,7 @@ import { mapActions, mapGetters, mapMutations } from "vuex"
 import { v1 as uuidv1 } from "uuid"
 
 export default {
-	name: "PageMain",
+	name: "PageEmp",
 
 	props: {
 		urlId: {

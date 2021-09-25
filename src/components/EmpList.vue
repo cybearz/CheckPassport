@@ -9,7 +9,7 @@
 				<v-spacer></v-spacer>
 				<router-link
 					style="text-decoration: none; color: inherit;"
-					:to="{name: 'empPassport', params: {urlId: 'new-emp'}}"
+					:to="{name: 'PageEmp', params: {urlId: 'new-emp'}}"
 				>
 					<v-btn
 						x-small
@@ -36,7 +36,7 @@
 					style="text-decoration: none; color: inherit;"
 					v-for="i in sortedNamesAndIds"
 					:key="i[1]"
-					:to="{name: 'empPassport', params: {urlId: i[1]}}"
+					:to="{name: 'PageEmp', params: {urlId: i[1]}}"
 				>
 					<v-list-item>
 						<v-list-item-content>
