@@ -1,4 +1,4 @@
-//
+import _ from "lodash"
 
 class LocalStorageData {
 
@@ -31,7 +31,8 @@ class IconStorage {
 	}
 
 	match(v) {
-		const regexp = new RegExp(`name:"${v}\\w*"`)
+		const str = _.escapeRegExp(v)
+		const regexp = new RegExp(`name:"${str}\\w*"`)
 		return !!this.txt.match(regexp)
 	}
 }
