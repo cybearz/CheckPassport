@@ -1,23 +1,20 @@
 <template>
 	<PageNotFound v-if="isNotFound"/>
 	<v-row v-else no-gutters justify="center">
-		<v-col
-			align-self="center"
-			xl="4"
-			lg="4"
-			md="7"
-			sm="7"
-		>
-			<div class="d-flex justify-center">
-				<v-icon
+		<v-col>
+			<v-row>
+				<v-col
 					v-for="(icon, i) in iconsArr"
 					:key="i"
-					:size="iconConfig.size"
-					:class="`${iconConfig.color}--text`"
 				>
-					{{ `mdi-${icon}` }}
-				</v-icon>
-			</div>
+					<v-icon
+						:size="iconConfig.size"
+						:class="[`${iconConfig.color}--text`, 'd-flex']"
+					>
+						{{ `mdi-${icon}` }}
+					</v-icon>
+				</v-col>
+			</v-row>
 		</v-col>
 	</v-row>
 </template>
