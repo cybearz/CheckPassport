@@ -22,7 +22,7 @@
 							<v-card-actions>
 								<router-link
 									style="text-decoration: none; color: inherit;"
-									:to="{name: 'PageEmp'}"
+									:to="{ name: 'PageHome' }"
 								>
 									<v-btn plain class="px-0">
 										<v-icon>mdi-chevron-left</v-icon>

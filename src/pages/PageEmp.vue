@@ -15,7 +15,7 @@
 				<div class="d-flex justify-end">
 					<router-link
 						style="text-decoration: none; color: inherit;"
-						:to="{ name: 'PageEmp' }"
+						:to="{ name: 'PageHome' }"
 					>
 						<v-btn
 							text

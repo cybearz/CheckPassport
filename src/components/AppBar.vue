@@ -3,7 +3,7 @@
 
 		<router-link
 			style="text-decoration: none; color: inherit;"
-			:to="{ name: 'PageEmp' }"
+			:to="{ name: 'PageHome' }"
 		>
 			<v-btn
 				class="px-0"
@@ -60,7 +60,7 @@
 
 					<router-link
 						style="text-decoration: none; color: inherit;"
-						:to="{ name: 'PageEmp' }"
+						:to="{ name: 'PageHome' }"
 					>
 						<v-list-item @click="dialog = false">
 							<v-list-item-icon>
