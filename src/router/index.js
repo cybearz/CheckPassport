@@ -14,13 +14,6 @@ const routes = [
 		name: "PageHome",
 		component: PageEmp,
 	},
-
-	{
-		path: "/icons",
-		name: "PageIconForm",
-		component: PageIconForm,
-	},
-
 	{
 		path: "/profile",
 		name: "PageProfile",
@@ -28,19 +21,25 @@ const routes = [
 	},
 
 	{
+		path: "/icons",
+		name: "PageIconForm",
+		component: PageIconForm,
+	},
+	{
 		path: "/mdi/:icon",
 		name: "PageIcon",
 		component: PageIcon,
 		props: true,
 	},
-// FIXME Здесь не могу сделать name: "PageEmp": нарушится логика
+
 	{
 		path: "/:urlId",
 		name: "PageEmp",
 		component: PageEmp,
 		props: true,
 	},
-// TODO Это вообще, скорее всего, удалю и сделаю notFound компонентом, а не страницей
+
+	// TODO Это вообще, скорее всего, удалю и сделаю notFound компонентом, а не страницей
 	{
 		path: "/notFound",
 		name: "notFound",

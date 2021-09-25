@@ -83,7 +83,7 @@ export default {
 			v => !!v || "Введите имя",
 			v => {
 				for (let icon of v.split(",")) {
-					if (!matchIcon(icon)) return `Иконка "${icon}" не существует`
+					if (!matchIcon(icon)) return `Иконка "${ icon }" не существует`
 				}
 				return true
 			},
@@ -92,7 +92,6 @@ export default {
 
 	async mounted() {
 		this.lclIconConfig = _.clone(this.iconConfig)
-
 		await iconStorage.init()
 	},
 
@@ -110,13 +109,18 @@ export default {
 
 			this.updatedIconConfig(this.lclIconConfig)
 
-			this.$router.push({ name: 'PageIcon', params: {icon: "show-icon"} })
+			this.$router.push({
+				name: "PageIcon",
+				params: {
+					icon: "show-icon",
+				},
+			})
 		},
 
 	},
 
 	computed: {
-		...mapGetters([ "iconConfig", "iconColorsArr"]),
+		...mapGetters([ "iconConfig", "iconColorsArr" ]),
 	},
 
 }

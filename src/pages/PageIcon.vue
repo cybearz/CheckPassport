@@ -11,7 +11,7 @@
 						:size="iconConfig.size"
 						:class="[`${iconConfig.color}--text`, 'd-flex']"
 					>
-						{{ `mdi-${icon}` }}
+						{{ `mdi-${ icon }` }}
 					</v-icon>
 				</v-col>
 			</v-row>
@@ -45,7 +45,7 @@ export default {
 	}),
 
 	async mounted() {
-		if (this.$route.params.icon === "show-icon") {
+		if (this.icon === "show-icon") {
 			this.iconsArr = this.iconConfig.textIcons.split(",")
 			return //^
 		}
@@ -63,13 +63,11 @@ export default {
 
 		this.iconsArr = iconsArr
 
-		const iconSize = this.$route.query?.size
-		const iconColor = this.$route.query?.color
-
+		const { size = "400", color = "white" } = this.$route.query || {}
 		this.updatedIconConfig({
 			textIcons: this.icon,
-			size: iconSize ? iconSize : "400",
-			color: iconColor ? iconColor :"white",
+			size,
+			color,
 		})
 	},
 
