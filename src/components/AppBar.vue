@@ -16,17 +16,11 @@
 
 		<v-spacer/>
 
-		<router-link
-			style="text-decoration: none; color: inherit;"
-			:to="{ name: 'PageIconForm' }"
-		>
-			<v-btn
-				v-if="isIconBtnVisible"
-				plain
-			>
-				Иконка
-			</v-btn>
-		</router-link>
+		<v-btn plain
+			v-if="isIconBtnVisible"
+			:to="{ name: 'PageIconForm' }">
+			Иконка
+		</v-btn>
 
 		<router-link
 			style="text-decoration: none; color: inherit;"
