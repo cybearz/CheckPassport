@@ -5,7 +5,7 @@
 	>
 		<v-subheader>Паспортные данные</v-subheader>
 		<v-form
-			ref="form"
+			ref="theForm"
 			class="pa-3"
 		>
 			<v-text-field

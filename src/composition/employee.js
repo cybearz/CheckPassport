@@ -19,7 +19,7 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 	)
 
 	watch(value, v => {
-			refs.form.resetValidation()
+			refs.theForm.resetValidation()
 
 			employee.value = _.assign({}, v)
 		},
@@ -27,7 +27,7 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 	)
 
 	const saveEmp = () => {
-		if (!refs.form.validate()) return
+		if (!refs.theForm.validate()) return
 
 		_.forIn(employee.value, (value, key) => {
 			employee.value[key] = _.trim(_.replace(value, /\s+/g, " "))

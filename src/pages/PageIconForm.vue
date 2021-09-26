@@ -4,7 +4,7 @@
 			<v-card tile class="pa-4">
 				<v-subheader class="text-h4 pt-4 mb-2 primary--text">Иконки</v-subheader>
 
-				<v-form ref="form" class="pa-3" @submit.prevent="showIcon">
+				<v-form ref="theForm" class="pa-3" @submit.prevent="showIcon">
 					<v-text-field
 						label="Имя"
 						outlined
@@ -92,7 +92,7 @@ export default {
 		},
 
 		showIcon() {
-			if (!this.$refs.form.validate()) return //^
+			if (!this.$refs.theForm.validate()) return //^
 
 			this.updatedIconConfig(this.values)
 			const { textIcons: icon, size, color } = this.values
