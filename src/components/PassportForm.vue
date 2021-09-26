@@ -40,6 +40,7 @@
 				@focus="$emit('btnChange')"
 			/>
 			<v-btn
+				color="primary"
 				:disabled="isBtnDisabled"
 				@click="saveEmp"
 			>Сохранить
