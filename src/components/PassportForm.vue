@@ -5,8 +5,9 @@
 	>
 		<v-subheader>Паспортные данные</v-subheader>
 		<v-form
-			ref="theForm"
 			class="pa-3"
+			ref="theForm"
+			@submit.prevent="saveEmp"
 		>
 			<v-text-field
 				label="ФИО"
@@ -40,9 +41,9 @@
 				@focus="$emit('btnChange')"
 			/>
 			<v-btn
+				type="submit"
 				color="primary"
 				:disabled="isBtnDisabled"
-				@click="saveEmp"
 			>Сохранить
 			</v-btn>
 			<v-btn @click="removeEmp">Удалить</v-btn>
