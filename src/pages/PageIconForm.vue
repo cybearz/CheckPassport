@@ -1,6 +1,6 @@
 <template>
 	<v-row no-gutters justify="center">
-		<v-col lg="6" sm="8">
+		<v-col xl="4" lg="4" md="7" sm="7">
 			<v-card tile class="pa-4">
 				<v-subheader class="text-h4 pt-4 mb-2 primary--text">Иконки</v-subheader>
 
@@ -27,13 +27,12 @@
 					>
 						<v-row>
 							<v-col
-								v-for="col in 3"
-								:key="col"
+								cols="4"
+								v-for="color in iconColorsArr"
+								:key="color"
 							>
-
 								<v-radio
-									v-for="(color, ind) in getSlicedArr(col)"
-									:key="ind"
+									class="d-inline-flex"
 									:label="color"
 									:color="color"
 									:value="color"
@@ -60,6 +59,15 @@ export default {
 	name: "PageIconConfig",
 
 	data: () => ({
+		iconColorsArr: [
+			"red", "pink", "purple", "deep-purple",
+			"indigo", "blue", "light-blue", "cyan",
+			"teal", "green", "light-green", "lime",
+			"yellow", "amber", "orange", "deep-orange",
+			"brown", "blue-grey", "grey", "black",
+			"white",
+		].sort(),
+
 		values: {
 			icon: "",
 			size: "",
@@ -85,12 +93,6 @@ export default {
 	methods: {
 		...mapMutations([ "updatedIconConfig" ]),
 
-		getSlicedArr(col) {
-			const lenCol = this.iconColorsArr.length / 3
-
-			return this.iconColorsArr.slice(lenCol * (col - 1), lenCol * col)
-		},
-
 		showIcon() {
 			if (!this.$refs.theForm.validate()) return //^
 
@@ -107,7 +109,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "iconConfig", "iconColorsArr" ]),
+		...mapGetters([ "iconConfig" ]),
 	},
 
 }
