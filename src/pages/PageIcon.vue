@@ -45,9 +45,10 @@ export default {
 	async mounted() {
 		await iconStorage.init()
 
+		const icon = this.icon
 		let iconsArr = []
 
-		for (let icon of this.icon.split(",")) {
+		for (let icon of icon.split(",")) {
 			if (!await hasIcon(icon)) {
 				this.isNotFound = true
 				return //^
@@ -59,7 +60,7 @@ export default {
 
 		const { size = "400", color = "white" } = this.$route.query || {}
 		this.updatedIconConfig({
-			textIcons: this.icon,
+			icon,
 			size,
 			color,
 		})

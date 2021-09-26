@@ -9,7 +9,7 @@
 						label="Имя"
 						outlined
 						:rules="iconNameRules"
-						v-model="values.textIcons"
+						v-model="values.icon"
 					/>
 					<v-slider
 						label="Размер"
@@ -61,7 +61,7 @@ export default {
 
 	data: () => ({
 		values: {
-			textIcons: "",
+			icon: "",
 			size: "",
 			color: "",
 		},
@@ -95,7 +95,7 @@ export default {
 			if (!this.$refs.theForm.validate()) return //^
 
 			this.updatedIconConfig(this.values)
-			const { textIcons: icon, size, color } = this.values
+			const { icon: icon, size, color } = this.values
 
 			this.$router.push({
 				name: "PageIcon",

@@ -3,7 +3,7 @@ import _ from "lodash"
 export default {
 	state: {
 		iconConfig: {
-			textIcons: "",
+			icon: "",
 			size: "400",
 			color: "white",
 		},
