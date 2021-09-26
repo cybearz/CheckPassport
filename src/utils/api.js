@@ -32,7 +32,7 @@ class IconStorage {
 
 	match(v) {
 		const str = _.escapeRegExp(v)
-		const regexp = new RegExp(`name:"${str}\\w*"`)
+		const regexp = new RegExp(`name:"${str}[\\w\-]*"`)
 		return !!this.txt.match(regexp)
 	}
 }
