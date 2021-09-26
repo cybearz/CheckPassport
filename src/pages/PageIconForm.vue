@@ -9,6 +9,8 @@
 						label="Имя"
 						outlined
 						:rules="iconNameRules"
+						:error-messages="errMsg"
+						@click="errMsg = ''"
 						v-model="values.icon"
 					/>
 					<v-slider
@@ -53,20 +55,20 @@
 <script>
 import _ from "lodash"
 import { mapGetters, mapMutations } from "vuex"
-import { iconStorage, matchIcon } from "@/utils/api"
+import { iconStorage, matchIcon, hasIcon } from "@/utils/api"
 
 export default {
 	name: "PageIconConfig",
 
 	data: () => ({
 		iconColorsArr: [
-			["red", "#F44336"], ["pink", "#E91E63"], ["purple", "#9C27B0"], ["deep-purple", "#673AB7"],
-			["indigo", "#3F51B5"], ["blue", "#2196F3"], ["light-blue", "#03A9F4"], ["cyan", "#00BCD4"],
-			["teal", "#009688"], ["green", "#4CAF50"], ["light-green", "#8BC34A"], ["lime", "#CDDC39"],
-			["yellow", "#FFEB3B"], ["amber", "#FFC107"], ["orange", "#FF9800"], ["deep-orange", "#FF5722"],
-			["brown", "#795548"], ["blue-grey", "#607D8B"], ["grey", "#9E9E9E"], ["black", "#000000"],
-			["white", "#FFFFFF"],
-		].sort( (prev, next) => prev[0] > next[0]),
+			[ "red", "#F44336" ], [ "pink", "#E91E63" ], [ "purple", "#9C27B0" ], [ "deep-purple", "#673AB7" ],
+			[ "indigo", "#3F51B5" ], [ "blue", "#2196F3" ], [ "light-blue", "#03A9F4" ], [ "cyan", "#00BCD4" ],
+			[ "teal", "#009688" ], [ "green", "#4CAF50" ], [ "light-green", "#8BC34A" ], [ "lime", "#CDDC39" ],
+			[ "yellow", "#FFEB3B" ], [ "amber", "#FFC107" ], [ "orange", "#FF9800" ], [ "deep-orange", "#FF5722" ],
+			[ "brown", "#795548" ], [ "blue-grey", "#607D8B" ], [ "grey", "#9E9E9E" ], [ "black", "#000000" ],
+			[ "white", "#FFFFFF" ],
+		].sort((prev, next) => prev[0] > next[0]),
 
 		values: {
 			icon: "",
@@ -83,17 +85,14 @@ export default {
 				return true
 			},
 		],
+		errMsg: "",
 	}),
 
-	created() {
-	},
-
 	async mounted() {
+		// FIXME is it OK?
 		// =======================================================================
-
 		document.querySelectorAll(".v-radio .v-icon")
-			.forEach((v, ind)=>v.style.color=this.iconColorsArr[ind][1])
-
+			.forEach((v, ind) => v.style.color = this.iconColorsArr[ind][1])
 		// =======================================================================
 		this.values = _.clone(this.iconConfig)
 		await iconStorage.init()
@@ -103,10 +102,17 @@ export default {
 		...mapMutations([ "updatedIconConfig" ]),
 
 		showIcon() {
-			if (!this.$refs.theForm.validate()) return //^
-
+			// FIXME is it OK?
+			// =======================================================================
+			for (let icon of this.values.icon.split(",")) {
+				if (!hasIcon(icon)) {
+					this.errMsg = `Иконка "${ icon }" не существует`
+					return
+				}
+			}
+			// =======================================================================
 			this.updatedIconConfig(this.values)
-			const { icon: icon, size, color } = this.values
+			const { icon, size, color } = this.values
 
 			this.$router.push({
 				name: "PageIcon",
