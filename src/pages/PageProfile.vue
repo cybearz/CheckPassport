@@ -41,6 +41,10 @@ export default {
 			pass_ser: "",
 			pass_no: "",
 			pass_dt: "",
+			avatar: {
+				icon: "passport",
+				color: "red"
+			}
 		},
 		statusText: "",
 	}),
@@ -63,6 +67,10 @@ export default {
 				pass_ser: "",
 				pass_no: "",
 				pass_dt: "",
+				avatar: {
+					icon: "passport",
+					color: "red"
+				}
 			}
 			this.uploadProfile()
 			this.statusText = "Данные удалены"

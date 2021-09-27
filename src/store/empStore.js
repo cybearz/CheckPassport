@@ -12,6 +12,10 @@ export default {
 			pass_ser: "",
 			pass_no: "",
 			pass_dt: "",
+			avatar: {
+				icon: "passport",
+				color: "red"
+			}
 		},
 	},
 
@@ -72,6 +76,10 @@ export default {
 				pass_ser: "",
 				pass_no: "",
 				pass_dt: "",
+				avatar: {
+					icon: "passport",
+					color: "red"
+				}
 			}
 		},
 	},

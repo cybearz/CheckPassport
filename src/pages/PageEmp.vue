@@ -117,10 +117,8 @@ export default {
 				this.addNamesAndIds([ newEmp.fio, this.empId ])
 			} else {
 				const oldFio = this.employee.fio
-
 				if (newEmp.fio !== oldFio) {
 					const ind = this.findEmpById(this.empId)
-
 					this.changeNamesAndIds({ ind, newFullname: newEmp.fio })
 				}
 			}
