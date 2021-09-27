@@ -4,13 +4,14 @@
 			<v-card tile class="pa-4">
 				<v-subheader class="text-h4 pt-4 mb-2 primary--text">Иконки</v-subheader>
 
-				<v-form ref="theForm" class="pa-3" @submit.prevent="showIcon">
+				<v-form ref="theForm"
+					lazy-validation
+					class="pa-3"
+					@submit.prevent="showIcon">
 					<v-text-field
 						label="Имя"
 						outlined
 						:rules="iconNameRules"
-						:error-messages="errMsg"
-						@click="errMsg = ''"
 						v-model="values.icon"
 					/>
 					<v-slider
@@ -86,7 +87,8 @@ export default {
 				v => !!v || "Введите имя",
 				v => {
 					for (let icon of v.split(",")) {
-						if (!matchIcon(icon)) return `Иконка "${ icon }" не существует`
+						if (icon && !hasIcon(icon))
+							return `Иконка "${ icon }" не существует` //^
 					}
 					return true
 				},
@@ -101,11 +103,9 @@ export default {
 	},
 
 	async mounted() {
-		// FIXME is it OK?
-		// =======================================================================
+		//TODO maybe on class ???
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.style.color = this.iconColorsArr[ndx][1])
-		// =======================================================================
 		this.values = _.clone(this.iconConfig)
 		await iconStorage.init()
 	},
@@ -120,13 +120,9 @@ export default {
 		},
 
 		showIcon() {
-			// FIXME is it OK?
-			for (let icon of this.values.icon.split(",")) {
-				if (!hasIcon(icon)) {
-					this.errMsg = `Иконка "${ icon }" не существует`
-					return
-				}
-			}
+			const isValid = this.$refs.theForm.validate()
+			if(!isValid) return //^
+
 			this.updatedIconConfig(this.values)
 			const { icon, size, color } = this.values
 
