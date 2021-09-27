@@ -9,6 +9,12 @@
 			ref="theForm"
 			@submit.prevent="saveEmp"
 		>
+			<div class="mb-4">
+				<v-avatar color="grey">
+					<v-icon>mdi-account</v-icon>
+				</v-avatar>
+				<v-btn small plain>Создать аватар</v-btn>
+			</div>
 			<v-text-field
 				label="ФИО"
 				outlined
