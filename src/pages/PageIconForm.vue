@@ -61,7 +61,7 @@
 <script>
 import _ from "lodash"
 import { mapGetters, mapMutations } from "vuex"
-import { iconStorage, matchIcon, hasIcon } from "@/utils/api"
+import { iconStorage, hasIcon } from "@/utils/api"
 
 const iconColorsArr = [
 	[ "red", "#F44336" ], [ "pink", "#E91E63" ], [ "purple", "#9C27B0" ], [ "deep-purple", "#673AB7" ],
@@ -73,7 +73,7 @@ const iconColorsArr = [
 ].sort((prev, next) => prev[0] > next[0] ? 1 : -1)
 
 export default {
-	name: "PageIconConfig",
+	name: "PageIconForm",
 
 	data() {
 		return {
