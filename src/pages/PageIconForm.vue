@@ -46,6 +46,9 @@
 					<v-btn type="submit" color="primary">
 						Показать
 					</v-btn>
+					<v-btn text small color="primary" @click="changeColorArr">
+						Change Available Colors
+					</v-btn>
 				</v-form>
 			</v-card>
 		</v-col>
@@ -108,16 +111,20 @@ export default {
 	methods: {
 		...mapMutations([ "updatedIconConfig" ]),
 
+		changeColorArr() {
+			iconColorsArr.splice(-1)
+			// console.log(">>>", iconColorsArr.length) //D
+			this.$forceUpdate()
+		},
+
 		showIcon() {
 			// FIXME is it OK?
-			// =======================================================================
 			for (let icon of this.values.icon.split(",")) {
 				if (!hasIcon(icon)) {
 					this.errMsg = `Иконка "${ icon }" не существует`
 					return
 				}
 			}
-			// =======================================================================
 			this.updatedIconConfig(this.values)
 			const { icon, size, color } = this.values
 
