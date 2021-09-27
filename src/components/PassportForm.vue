@@ -41,6 +41,7 @@
 							:rules="iconNameRules"
 							outlined
 							v-model="employee.avatar.icon"
+							@focus="$emit('btnChange')"
 						/>
 
 						<v-divider/>
@@ -49,6 +50,7 @@
 							label="Цвет"
 							column
 							v-model="employee.avatar.color"
+							@change="$emit('btnChange')"
 						>
 							<v-row>
 								<v-col
