@@ -1,4 +1,12 @@
+import { hasIcon } from "@/utils/api"
+
 const RULES = {
+	iconNameRules: [
+		v => !!v || "Введите имя",
+		v => ( v && !hasIcon(v) )
+			? `Иконка "${ v }" не существует`
+			: true
+	],
 	nameRules: [
 		v => !!v || "Введите имя",
 		v => /^( *[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} +[a-zA-Zа-яА-ЯёЁ]{2,} *)+$/.test(v) || "Пример: Иванов Иван Иванович.",
