@@ -42,15 +42,15 @@ export default {
 			pass_no: "",
 			pass_dt: "",
 			avatar: {
-				icon: "passport",
-				color: "red"
+				icon: "account",
+				color: "white"
 			}
 		},
 		statusText: "",
 	}),
 
 	mounted() {
-		this.profile = _.assign({}, this.recvProfile)
+		if (this.recvProfile) this.profile = _.cloneDeep(this.recvProfile)
 	},
 
 	methods: {
@@ -68,8 +68,8 @@ export default {
 				pass_no: "",
 				pass_dt: "",
 				avatar: {
-					icon: "passport",
-					color: "red"
+					icon: "account",
+					color: "white"
 				}
 			}
 			this.uploadProfile()
