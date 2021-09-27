@@ -57,36 +57,43 @@ import _ from "lodash"
 import { mapGetters, mapMutations } from "vuex"
 import { iconStorage, matchIcon, hasIcon } from "@/utils/api"
 
+const iconColorsArr = [
+	[ "red", "#F44336" ], [ "pink", "#E91E63" ], [ "purple", "#9C27B0" ], [ "deep-purple", "#673AB7" ],
+	[ "indigo", "#3F51B5" ], [ "blue", "#2196F3" ], [ "light-blue", "#03A9F4" ], [ "cyan", "#00BCD4" ],
+	[ "teal", "#009688" ], [ "green", "#4CAF50" ], [ "light-green", "#8BC34A" ], [ "lime", "#CDDC39" ],
+	[ "yellow", "#FFEB3B" ], [ "amber", "#FFC107" ], [ "orange", "#FF9800" ], [ "deep-orange", "#FF5722" ],
+	[ "brown", "#795548" ], [ "blue-grey", "#607D8B" ], [ "grey", "#9E9E9E" ], [ "black", "#000000" ],
+	[ "white", "#FFFFFF" ],
+].sort((prev, next) => prev[0] > next[0] ? 1 : -1)
+
 export default {
 	name: "PageIconConfig",
 
-	data: () => ({
-		iconColorsArr: [
-			[ "red", "#F44336" ], [ "pink", "#E91E63" ], [ "purple", "#9C27B0" ], [ "deep-purple", "#673AB7" ],
-			[ "indigo", "#3F51B5" ], [ "blue", "#2196F3" ], [ "light-blue", "#03A9F4" ], [ "cyan", "#00BCD4" ],
-			[ "teal", "#009688" ], [ "green", "#4CAF50" ], [ "light-green", "#8BC34A" ], [ "lime", "#CDDC39" ],
-			[ "yellow", "#FFEB3B" ], [ "amber", "#FFC107" ], [ "orange", "#FF9800" ], [ "deep-orange", "#FF5722" ],
-			[ "brown", "#795548" ], [ "blue-grey", "#607D8B" ], [ "grey", "#9E9E9E" ], [ "black", "#000000" ],
-			[ "white", "#FFFFFF" ],
-		].sort((prev, next) => prev[0] > next[0]),
-
-		values: {
-			icon: "",
-			size: "",
-			color: "",
-		},
-
-		iconNameRules: [
-			v => !!v || "Введите имя",
-			v => {
-				for (let icon of v.split(",")) {
-					if (!matchIcon(icon)) return `Иконка "${ icon }" не существует`
-				}
-				return true
+	data() {
+		return {
+			values: {
+				icon: "",
+				size: "",
+				color: "",
 			},
-		],
-		errMsg: "",
-	}),
+
+			iconNameRules: [
+				v => !!v || "Введите имя",
+				v => {
+					for (let icon of v.split(",")) {
+						if (!matchIcon(icon)) return `Иконка "${ icon }" не существует`
+					}
+					return true
+				},
+			],
+			errMsg: "",
+		}
+	},
+
+	computed: {
+		...mapGetters([ "iconConfig" ]),
+		iconColorsArr: () => iconColorsArr,
+	},
 
 	async mounted() {
 		// FIXME is it OK?
@@ -121,10 +128,6 @@ export default {
 			})
 		},
 
-	},
-
-	computed: {
-		...mapGetters([ "iconConfig" ]),
 	},
 
 }
