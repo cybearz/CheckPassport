@@ -21,7 +21,9 @@
 						thumb-label
 						v-model="values.size"
 					/>
+
 					<v-divider/>
+
 					<v-radio-group
 						label="Цвет"
 						column
@@ -102,7 +104,7 @@ export default {
 		// FIXME is it OK?
 		// =======================================================================
 		document.querySelectorAll(".v-radio .v-icon")
-			.forEach((v, ind) => v.style.color = this.iconColorsArr[ind][1])
+			.forEach((el, ndx) => el.style.color = this.iconColorsArr[ndx][1])
 		// =======================================================================
 		this.values = _.clone(this.iconConfig)
 		await iconStorage.init()
