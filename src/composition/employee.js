@@ -10,27 +10,31 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		pass_ser: "",
 		pass_no: "",
 		pass_dt: "",
+		avatar: {
+			icon: "",
+			color: "",
+		}
 	})
 
-	//FIXME "employee.value = _.assign({}, value.value)" выполняется 2 раза
 	onMounted(() => {
-			employee.value = _.assign({}, value.value)
+			employee.value = _.cloneDeep(value.value)
 		},
 	)
 
 	watch(value, v => {
-			refs.theForm.resetValidation()
+			refs.passportFrom.resetValidation()
 
-			employee.value = _.assign({}, v)
+			employee.value = _.cloneDeep(v)
 		},
 		{ deep: true },
 	)
 
 	const saveEmp = () => {
-		if (!refs.theForm.validate()) return
+		if (!refs.passportFrom.validate()) return
 
 		_.forIn(employee.value, (value, key) => {
-			employee.value[key] = _.trim(_.replace(value, /\s+/g, " "))
+			//TODO Оптимизировать?
+			if (key !== "avatar") employee.value[key] = _.trim(_.replace(value, /\s+/g, " "))
 		})
 
 		employee.value.pass_dt = moment(employee.value.pass_dt).format("YYYY-MM-DDThh:mm:ssZ")
@@ -48,6 +52,10 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 			pass_ser: "",
 			pass_no: "",
 			pass_dt: "",
+			avatar: {
+				icon: "passport",
+				color: "red"
+			}
 		}
 
 		emit("removeEmp")
