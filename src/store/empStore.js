@@ -13,8 +13,8 @@ export default {
 			pass_no: "",
 			pass_dt: "",
 			avatar: {
-				icon: "passport",
-				color: "red"
+				icon: "",
+				color: ""
 			}
 		},
 	},
@@ -77,8 +77,8 @@ export default {
 				pass_no: "",
 				pass_dt: "",
 				avatar: {
-					icon: "passport",
-					color: "red"
+					icon: "",
+					color: ""
 				}
 			}
 		},

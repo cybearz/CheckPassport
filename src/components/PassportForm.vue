@@ -15,7 +15,11 @@
 				<template v-slot:activator="{ on }">
 					<div class="mb-4">
 						<v-avatar color="grey">
-							<v-icon>mdi-account</v-icon>
+							<v-icon
+								:color="employee.avatar.color"
+							>
+								{{ `mdi-${employee.avatar.icon}` }}
+							</v-icon>
 						</v-avatar>
 						<v-btn
 							small

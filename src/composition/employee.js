@@ -53,8 +53,8 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 			pass_no: "",
 			pass_dt: "",
 			avatar: {
-				icon: "passport",
-				color: "red"
+				icon: "",
+				color: ""
 			}
 		}
 
