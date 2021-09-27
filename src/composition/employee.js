@@ -13,7 +13,7 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		avatar: {
 			icon: "",
 			color: "",
-		}
+		},
 	})
 
 	onMounted(() => {
@@ -54,8 +54,8 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 			pass_dt: "",
 			avatar: {
 				icon: "",
-				color: ""
-			}
+				color: "",
+			},
 		}
 
 		emit("removeEmp")

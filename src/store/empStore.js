@@ -13,9 +13,9 @@ export default {
 			pass_no: "",
 			pass_dt: "",
 			avatar: {
-				icon: "",
-				color: ""
-			}
+				icon: "account",
+				color: "white",
+			},
 		},
 	},
 
@@ -65,22 +65,19 @@ export default {
 		deleteNamesAndIdsEl(state, ind) {
 			state.namesAndIds.splice(ind, 1)
 		},
-
-		updateEmp(state, newEmp) {
+		// FIXME допустим ли такой дефолтный параметр?
+		updateEmp(state, newEmp = {
+								fio: "",
+								pass_ser: "",
+								pass_no: "",
+								pass_dt: "",
+								avatar: {
+									icon: "account",
+									color: "white",
+								},
+							},
+		) {
 			state.employee = newEmp
-		},
-
-		clearEmp(state) {
-			state.employee = {
-				fio: "",
-				pass_ser: "",
-				pass_no: "",
-				pass_dt: "",
-				avatar: {
-					icon: "",
-					color: ""
-				}
-			}
 		},
 	},
 

@@ -141,7 +141,7 @@ export default {
 			}
 
 			this.uploadEmpStore()
-			this.clearEmp()
+			this.updateEmp()
 		},
 
 		findEmpById(id) {
@@ -167,7 +167,7 @@ export default {
 				this.updateEmp(this.empStore[newEmpId])
 				this.isBtnDisabled = true
 			} else {
-				this.clearEmp()
+				this.updateEmp()
 				this.isBtnDisabled = false
 			}
 		},
