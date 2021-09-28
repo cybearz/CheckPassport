@@ -50,11 +50,8 @@ const refEmp = {
 	},
 }
 
-function doMerge(emp) {
-	// return _.merge(emp, _.omit(refEmp, _.keys(emp)))      =)
-	const keys = _.keys(emp)
-	const unique = _.omit(refEmp, keys)
-	return _.merge(emp, unique)
+function createAvatar(emp) {
+	if (!emp.avatar) emp.avatar = { icon: "account", color: "white" }
 }
 
 export const iconStorage = new IconStorage()
@@ -62,23 +59,11 @@ export const iconStorage = new IconStorage()
 const empStore = new LocalStorageData("empStore")
 const empProfile = new LocalStorageData("empProfile")
 
-
 // api
-export function init() {
-	let p = getEmpProfile()
-	p = doMerge(p)
-	setEmpProfile(p)
-
-	let es = getEmpStore()
-	_.forIn(es, (v, k) => {
-		const emp = doMerge(v)
-		es[k] = _.cloneDeep(emp)
-	})
-	setEmpStore(es)
-}
 
 export function getEmpStore() {
-	return empStore.get()
+	const es = empStore.get()
+	return _.forEach(es, createAvatar)
 }
 
 export function setEmpStore(v) {
@@ -86,7 +71,9 @@ export function setEmpStore(v) {
 }
 
 export function getEmpProfile() {
-	return empProfile.get()
+	const emp = empProfile.get()
+	createAvatar(emp)
+	return emp
 }
 
 export function setEmpProfile(v) {
