@@ -21,6 +21,18 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		{ deep: true },
 	)
 
+	let iconDialog = ref(false)
+
+	const updateIcon = iconConfig => {
+		const {icon, color} = iconConfig
+		employee.value.avatar = {
+			icon,
+			color
+		}
+		iconDialog.value = false
+		isBtnDisabled.value = false
+	}
+
 	const saveEmp = () => {
 		if (!refs.passportFrom.validate()) return
 
@@ -44,5 +56,5 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 		showSnackbar()
 	}
 
-	return { employee, saveEmp, removeEmp }
+	return { employee, iconDialog, updateIcon, saveEmp, removeEmp }
 }

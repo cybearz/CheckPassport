@@ -30,49 +30,10 @@
 						</v-btn>
 					</div>
 				</template>
-				<v-card tile class="pa-4">
-					<v-subheader class="text-h4 pt-4 mb-2 primary--text">Иконки</v-subheader>
-					<v-form ref="iconForm"
-									lazy-validation
-									class="pa-3"
-									@submit.prevent="submitIcon">
-						<v-text-field
-							label="Имя"
-							:rules="iconNameRules"
-							outlined
-							v-model="employee.avatar.icon"
-							@focus="$emit('btnChange')"
-						/>
-
-						<v-divider/>
-
-						<v-radio-group
-							label="Цвет"
-							column
-							v-model="employee.avatar.color"
-							@change="$emit('btnChange')"
-						>
-							<v-row>
-								<v-col
-									cols="4"
-									v-for="color in iconColorsArr"
-									:key="color[0]"
-								>
-									<v-radio
-										class="d-inline-flex"
-										:label="color[0]"
-										:color="color[0]"
-										:value="color[0]"
-									/>
-								</v-col>
-							</v-row>
-						</v-radio-group>
-
-						<v-btn type="submit" color="primary">
-							Сохранить
-						</v-btn>
-					</v-form>
-				</v-card>
+				<IconForm
+					:pIconConfig="employee.avatar"
+					@save="updateIcon"
+				/>
 			</v-dialog>
 			<v-text-field
 				label="ФИО"
@@ -106,10 +67,11 @@
 				@focus="$emit('btnChange')"
 			/>
 			<v-btn
+				:disabled="isBtnDisabled"
 				type="submit"
 				color="primary"
-				:disabled="isBtnDisabled"
-			>Сохранить
+			>
+				Сохранить
 			</v-btn>
 			<v-btn @click="removeEmp">Удалить</v-btn>
 
@@ -137,15 +99,15 @@ import { useBtnVisability } from "@/composition/btnVisability"
 import { useEmployee } from "@/composition/employee"
 import { useSnackbar } from "@/composition/snackbar"
 import { useRules } from "@/composition/rules"
-import { useIcon } from "@/composition/icon"
 
 import Calendar from "@/components/Calendar"
+import IconForm from "@/components/IconForm"
 
 export default {
 	name: "PassportForm",
 
 	components: {
-		Calendar,
+		Calendar, IconForm
 	},
 	props: {
 		btn: {
@@ -179,7 +141,6 @@ export default {
 			iconColorsArr, snackbar, text,
 			isBtnDisabled,
 			...useEmployee(props, showSnackbar, emit, refs, isBtnDisabled),
-			...useIcon(refs),
 			...useRules(),
 		}
 	},
