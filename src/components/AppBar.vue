@@ -21,7 +21,12 @@
 		<v-btn outlined
 			:to="{ name: 'PageProfile' }"
 		>
-			<v-icon left>mdi-account</v-icon>
+			<v-icon
+				:color="profile.avatar.color"
+				left
+			>
+				{{ `mdi-${profile.avatar.icon}` }}
+			</v-icon>
 			{{ login }}
 		</v-btn>
 
