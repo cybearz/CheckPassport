@@ -75,13 +75,53 @@ export default {
 		PassportForm, EmpList, PageNotFound,
 	},
 
-	data: () => ({
-		isEmpListActive: true,
-		isNotFound: false,
-		isBtnDisabled: true,
-		empId: "",
-		statusText: "",
-	}),
+	data() {
+		return {
+			isEmpListActive: true,
+			isNotFound: false,
+			isBtnDisabled: true,
+			empId: "",
+			statusText: "",
+		}
+	},
+
+	computed: {
+		...mapGetters([ "empStore", "empListArr", "employee" ]),
+		isMobile() {
+			return this.$vuetify.breakpoint.name === "xs"
+		},
+	},
+
+	watch: {
+		empId(newEmpId) {
+			if (this.empId) {
+				this.updateEmp(this.empStore[newEmpId])
+				this.isBtnDisabled = true
+			} else {
+				this.updateEmp()
+				this.isBtnDisabled = false
+			}
+		},
+// Для переключения между сотрудниками в списке
+		urlId(v) {
+			if (!v) {
+				this.isEmpListActive = true
+				this.isNotFound = false
+				this.isBtnDisabled = false
+				this.empId = ""
+			} else if (v === "new-emp") {
+				this.isEmpListActive = false
+				this.isNotFound = false
+				this.isBtnDisabled = false
+				this.empId = ""
+			} else {
+				this.isEmpListActive = false
+				this.isNotFound = false
+				this.isBtnDisabled = true
+				this.empId = v
+			}
+		},
+	},
 
 	mounted() {
 		this.downloadEmpStore()
@@ -152,44 +192,6 @@ export default {
 			return _.findIndex(this.empListArr, el => el[1] === name)
 		},
 
-	},
-
-	computed: {
-		...mapGetters([ "empStore", "empListArr", "employee" ]),
-		isMobile() {
-			return this.$vuetify.breakpoint.name === "xs"
-		},
-	},
-
-	watch: {
-		empId(newEmpId) {
-			if (this.empId) {
-				this.updateEmp(this.empStore[newEmpId])
-				this.isBtnDisabled = true
-			} else {
-				this.updateEmp()
-				this.isBtnDisabled = false
-			}
-		},
-// Для переключения между сотрудниками в списке
-		urlId(v) {
-			if (!v) {
-				this.isEmpListActive = true
-				this.isNotFound = false
-				this.isBtnDisabled = false
-				this.empId = ""
-			} else if (v === "new-emp") {
-				this.isEmpListActive = false
-				this.isNotFound = false
-				this.isBtnDisabled = false
-				this.empId = ""
-			} else {
-				this.isEmpListActive = false
-				this.isNotFound = false
-				this.isBtnDisabled = true
-				this.empId = v
-			}
-		},
 	},
 }
 </script>
