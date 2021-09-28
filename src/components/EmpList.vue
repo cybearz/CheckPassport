@@ -35,19 +35,19 @@
 				<router-link
 					style="text-decoration: none; color: inherit;"
 					v-for="i in sortedNamesAndIds"
-					:key="i[2]"
-					:to="{name: 'PageEmp', params: {urlId: i[2]}}"
+					:key="i.id"
+					:to="{name: 'PageEmp', params: {urlId: i.id}}"
 				>
 					<v-list-item>
 						<v-list-item-icon>
 							<v-icon
-								:color="i[0].color"
+								:color="i.avatar.color"
 							>
-								{{ `mdi-${i[0].icon}` }}
+								{{ `mdi-${i.avatar.icon}` }}
 							</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>
-							<v-list-item-title>{{ i[1] }}</v-list-item-title>
+							<v-list-item-title>{{ i.fullName }}</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
 				</router-link>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+
 export default {
 	name: "EmpList",
 

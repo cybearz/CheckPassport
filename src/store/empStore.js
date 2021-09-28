@@ -15,9 +15,9 @@ export default {
 		},
 
 		sortedNamesAndIds(state) {
-			let sortedNamesAndIds = _.cloneDeep(state.empListArr).sort((curr, next) => curr[1]?.localeCompare(next[1]))
+			let sortedNamesAndIds = _.cloneDeep(state.empListArr).sort((curr, next) => curr.fullName?.localeCompare(next.fullName))
 			_.forEach(sortedNamesAndIds, value => {
-				value[1] = getShortName(value[1])
+				value.fullName = getShortName(value.fullName)
 			})
 			return sortedNamesAndIds
 		},
@@ -33,12 +33,12 @@ export default {
 			state.empListArr = _.cloneDeep(v)
 		},
 
-		pushNamesAndIds(state, newVal) {
-			state.empListArr.push(newVal)
+		pushEmpListArr(state, v) {
+			state.empListArr.push(v)
 		},
 
-		changeNamesAndIds(state, { ind, newFullname }) {
-			state.empListArr[ind].splice(1, 1, newFullname)
+		changeEmpListArrEl(state, { ind, key, value }) {
+			state.empListArr[ind][key] = value
 		},
 
 		deleteNamesAndIdsEl(state, ind) {
@@ -47,12 +47,6 @@ export default {
 
 		updateEmp(state, newEmp = cleanEmp) {
 			state.employee = newEmp
-		},
-	},
-
-	actions: {
-		addNamesAndIds(ctx, newVal) {
-			ctx.commit("pushNamesAndIds", newVal)
 		},
 	},
 }

@@ -54,7 +54,7 @@
 
 <script>
 import _ from "lodash"
-import { mapActions, mapGetters, mapMutations } from "vuex"
+import { mapGetters, mapMutations } from "vuex"
 import { v1 as uuidv1 } from "uuid"
 import { getEmpStore, setEmpStore } from "@/utils/api"
 
@@ -131,7 +131,7 @@ export default {
 
 		const empListArr = []
 		_.forEach(es, (v, k) => {
-			empListArr.push([ v.avatar, v.fio, k ])
+			empListArr.push({ id: k, avatar: v.avatar, fullName: v.fio })
 		})
 		this.updateEmpListArr(empListArr)
 
@@ -149,8 +149,7 @@ export default {
 	},
 
 	methods: {
-		...mapActions([ "addNamesAndIds" ]),
-		...mapMutations([ "updateEmpListArr", "updateEmp", "pushNamesAndIds", "changeNamesAndIds", "deleteNamesAndIdsEl" ]),
+		...mapMutations([ "updateEmpListArr", "updateEmp", "pushEmpListArr", "changeEmpListArrEl", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
 			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
@@ -162,12 +161,14 @@ export default {
 
 			if (!this.empId) {
 				this.empId = uuidv1()
-				this.addNamesAndIds([ newEmp.avatar, newEmp.fio, this.empId ])
+				this.pushEmpListArr({ id: this.empId, avatar: newEmp.avatar, fullName: newEmp.fio})
 			} else {
-				const oldFio = this.employee.fio
-				if (newEmp.fio !== oldFio) {
-					const ind = this.findEmpById(this.empId)
-					this.changeNamesAndIds({ ind, newFullname: newEmp.fio })
+				const ind = this.findEmpById(this.empId)
+				if (newEmp.fio !== this.employee.fio) {
+					this.changeEmpListArrEl({ ind, key: "fullName", value: newEmp.fio })
+				}
+				if (!_.isEqual(newEmp.avatar, this.employee.avatar)) {
+					this.changeEmpListArrEl({ ind, key: "avatar", value: newEmp.avatar })
 				}
 			}
 
@@ -192,11 +193,11 @@ export default {
 		},
 
 		findEmpById(id) {
-			return _.findIndex(this.empListArr, el => el[2] === id)
+			return _.findIndex(this.empListArr, el => el.id === id)
 		},
 
 		findEmpByName(name) {
-			return _.findIndex(this.empListArr, el => el[1] === name)
+			return _.findIndex(this.empListArr, el => el.fullName === name)
 		},
 
 	},
