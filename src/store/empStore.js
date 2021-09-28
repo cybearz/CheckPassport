@@ -50,7 +50,7 @@ export default {
 		},
 
 		changeNamesAndIds(state, { ind, newFullname }) {
-			state.empListArr[ind].splice(1, 2, newFullname)
+			state.empListArr[ind].splice(1, 1, newFullname)
 		},
 
 		deleteNamesAndIdsEl(state, ind) {
