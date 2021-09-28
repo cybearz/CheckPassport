@@ -145,17 +145,17 @@ export default {
 		},
 
 		findEmpById(id) {
-			return _.findIndex(this.namesAndIds, el => el[1] === id)
+			return _.findIndex(this.empListArr, el => el[1] === id)
 		},
 
 		findEmpByName(name) {
-			return _.findIndex(this.namesAndIds, el => el[0] === name)
+			return _.findIndex(this.empListArr, el => el[0] === name)
 		},
 
 	},
 
 	computed: {
-		...mapGetters([ "empStore", "namesAndIds", "employee" ]),
+		...mapGetters([ "empStore", "empListArr", "employee" ]),
 		isMobile() {
 			return this.$vuetify.breakpoint.name === "xs"
 		},

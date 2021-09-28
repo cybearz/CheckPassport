@@ -13,10 +13,6 @@ export default {
 		iconConfig(state) {
 			return state.iconConfig
 		},
-
-		iconColorsArr(state) {
-			return state.iconColorsArr.sort()
-		},
 	},
 
 	mutations: {

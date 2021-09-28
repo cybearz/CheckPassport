@@ -6,7 +6,7 @@ import { cleanEmp, getEmpStore, setEmpStore } from "@/utils/api"
 export default {
 	state: {
 		empStore: {},
-		namesAndIds: [],
+		empListArr: [],
 		employee: cleanEmp,
 	},
 
@@ -15,12 +15,12 @@ export default {
 			return state.empStore
 		},
 
-		namesAndIds(state) {
-			return state.namesAndIds
+		empListArr(state) {
+			return state.empListArr
 		},
 
 		sortedNamesAndIds(state) {
-			let sortedNamesAndIds = _.cloneDeep(state.namesAndIds).sort((curr, next) => curr[0]?.localeCompare(next[0]))
+			let sortedNamesAndIds = _.cloneDeep(state.empListArr).sort((curr, next) => curr[0]?.localeCompare(next[0]))
 			_.forEach(sortedNamesAndIds, value => {
 				value[0] = getShortName(value[0])
 			})
@@ -46,15 +46,15 @@ export default {
 		},
 
 		pushNamesAndIds(state, newVal) {
-			state.namesAndIds.push(newVal)
+			state.empListArr.push(newVal)
 		},
 
 		changeNamesAndIds(state, { ind, newFullname }) {
-			state.namesAndIds[ind].splice(0, 1, newFullname)
+			state.empListArr[ind].splice(0, 1, newFullname)
 		},
 
 		deleteNamesAndIdsEl(state, ind) {
-			state.namesAndIds.splice(ind, 1)
+			state.empListArr.splice(ind, 1)
 		},
 		// FIXME допустим ли такой дефолтный параметр?
 		updateEmp(state, newEmp = cleanEmp,
@@ -80,7 +80,7 @@ export default {
 		addNamesAndIds(ctx, newVal) {
 			if (newVal) {
 				ctx.commit("pushNamesAndIds", newVal)
-			} else if (_.isEmpty(ctx.getters.namesAndIds)) {
+			} else if (_.isEmpty(ctx.getters.empListArr)) {
 				_.forEach(ctx.getters.empStore, (value, id) => {
 					ctx.commit("pushNamesAndIds", [ value.fio, id ])
 				})
