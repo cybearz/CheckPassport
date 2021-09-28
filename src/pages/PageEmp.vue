@@ -53,13 +53,14 @@
 </template>
 
 <script>
-import PassportForm from "@/components/PassportForm"
-import EmpList from "@/components/EmpList"
-import PageNotFound from "@/pages/PageNotFound"
-
 import _ from "lodash"
 import { mapActions, mapGetters, mapMutations } from "vuex"
 import { v1 as uuidv1 } from "uuid"
+import { getEmpStore, setEmpStore } from "@/utils/api"
+
+import PassportForm from "@/components/PassportForm"
+import EmpList from "@/components/EmpList"
+import PageNotFound from "@/pages/PageNotFound"
 
 export default {
 	name: "PageEmp",
@@ -77,6 +78,7 @@ export default {
 
 	data() {
 		return {
+			empStore: {},
 			isEmpListActive: true,
 			isNotFound: false,
 			isBtnDisabled: true,
@@ -86,7 +88,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "empStore", "empListArr", "employee" ]),
+		...mapGetters([ "empListArr", "employee" ]),
 		isMobile() {
 			return this.$vuetify.breakpoint.name === "xs"
 		},
@@ -124,8 +126,14 @@ export default {
 	},
 
 	mounted() {
-		this.downloadEmpStore()
-		this.addNamesAndIds()
+		const es = getEmpStore()
+		this.empStore = es
+
+		const empListArr = []
+		_.forEach(es, (v, k) => {
+			empListArr.push([ v.avatar, v.fio, k ])
+		})
+		this.updateEmpListArr(empListArr)
 
 		if (!this.urlId) {
 			this.isBtnDisabled = false
@@ -141,8 +149,8 @@ export default {
 	},
 
 	methods: {
-		...mapActions([ "downloadEmpStore", "uploadEmpStore", "addNamesAndIds" ]),
-		...mapMutations([ "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl" ]),
+		...mapActions([ "addNamesAndIds" ]),
+		...mapMutations([ "updateEmpListArr", "updateEmp", "pushNamesAndIds", "changeNamesAndIds", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
 			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
@@ -164,23 +172,22 @@ export default {
 			}
 
 			this.updateEmp(newEmp)
-			this.changeEmpStore({ id: this.empId, newEmp })
-			this.uploadEmpStore()
+			this.empStore[this.empId] = _.assign({}, newEmp)
+			setEmpStore(this.empStore)
 		},
 
 		removeEmp() {
 			this.statusText = "Данные удалены"
 			const empStoreId = this.empId
 
-			if (this.empStore[empStoreId]) {
-				this.deleteEmpStoreKey(empStoreId)
-				const ind = this.findEmpById(empStoreId)
+			delete this.empStore[empStoreId]
+			const ind = this.findEmpById(empStoreId)
 
-				this.deleteNamesAndIdsEl(ind)
-				this.empId = ""
-			}
+			this.deleteNamesAndIdsEl(ind)
+			this.empId = ""
 
-			this.uploadEmpStore()
+
+			setEmpStore(this.empStore)
 			this.updateEmp()
 		},
 

@@ -65,6 +65,7 @@ export default {
 			return this.$store.getters.sortedNamesAndIds
 		},
 	},
+
 }
 </script>
 
