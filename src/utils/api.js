@@ -1,5 +1,16 @@
 import _ from "lodash"
 
+export const cleanEmp = {
+	fio: "",
+	pass_ser: "",
+	pass_no: "",
+	pass_dt: "",
+	avatar: {
+		icon: "account",
+		color: "white",
+	},
+}
+
 class LocalStorageData {
 
 	constructor(key) {
@@ -35,19 +46,6 @@ class IconStorage {
 		const regexp = new RegExp(`name:"${str}[\\w\-]*"`)
 		return !!this.txt.match(regexp)
 	}
-}
-
-// TODO refEmp можно куда-нибудь вынести в отдельное место...
-//refEmp - эталонная структура объекта
-const refEmp = {
-	fio: "",
-	pass_ser: "",
-	pass_no: "",
-	pass_dt: "",
-	avatar: {
-		icon: "account",
-		color: "white",
-	},
 }
 
 function createAvatar(emp) {

@@ -1,22 +1,13 @@
 import _ from "lodash"
 
 import { getShortName } from "@/utils/getShortName"
-import { getEmpStore, setEmpStore } from "@/utils/api"
+import { cleanEmp, getEmpStore, setEmpStore } from "@/utils/api"
 
 export default {
 	state: {
 		empStore: {},
 		namesAndIds: [],
-		employee: {
-			fio: "",
-			pass_ser: "",
-			pass_no: "",
-			pass_dt: "",
-			avatar: {
-				icon: "account",
-				color: "white",
-			},
-		},
+		employee: cleanEmp,
 	},
 
 	getters: {
@@ -66,16 +57,7 @@ export default {
 			state.namesAndIds.splice(ind, 1)
 		},
 		// FIXME допустим ли такой дефолтный параметр?
-		updateEmp(state, newEmp = {
-								fio: "",
-								pass_ser: "",
-								pass_no: "",
-								pass_dt: "",
-								avatar: {
-									icon: "account",
-									color: "white",
-								},
-							},
+		updateEmp(state, newEmp = cleanEmp,
 		) {
 			state.employee = newEmp
 		},

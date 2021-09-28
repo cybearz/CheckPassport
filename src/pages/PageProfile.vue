@@ -19,8 +19,7 @@
 <script>
 import PassportForm from "@/components/PassportForm"
 import _ from "lodash"
-
-import { setEmpProfile } from "@/utils/api"
+import { cleanEmp, setEmpProfile } from "@/utils/api"
 
 export default {
 	name: "PageProfile",
@@ -36,16 +35,7 @@ export default {
 	},
 
 	data: () => ({
-		profile: {
-			fio: "",
-			pass_ser: "",
-			pass_no: "",
-			pass_dt: "",
-			avatar: {
-				icon: "account",
-				color: "white"
-			}
-		},
+		profile: cleanEmp,
 		statusText: "",
 	}),
 
@@ -62,16 +52,7 @@ export default {
 		},
 
 		removeProfile() {
-			this.profile = {
-				fio: "",
-				pass_ser: "",
-				pass_no: "",
-				pass_dt: "",
-				avatar: {
-					icon: "account",
-					color: "white"
-				}
-			}
+			this.profile = cleanEmp
 			this.uploadProfile()
 			this.statusText = "Данные удалены"
 		},

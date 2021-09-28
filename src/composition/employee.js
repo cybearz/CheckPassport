@@ -1,20 +1,12 @@
 import { ref, watch, toRefs, onMounted } from "@vue/composition-api"
 import _ from "lodash"
 import moment from "moment"
+import { cleanEmp } from "@/utils/api"
 
 export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 	const { value } = toRefs(props)
 
-	let employee = ref({
-		fio: "",
-		pass_ser: "",
-		pass_no: "",
-		pass_dt: "",
-		avatar: {
-			icon: "",
-			color: "",
-		},
-	})
+	let employee = ref(cleanEmp)
 
 	onMounted(() => {
 			employee.value = _.cloneDeep(value.value)
@@ -47,19 +39,8 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 	}
 
 	const removeEmp = () => {
-		employee.value = {
-			fio: "",
-			pass_ser: "",
-			pass_no: "",
-			pass_dt: "",
-			avatar: {
-				icon: "",
-				color: "",
-			},
-		}
-
+		employee.value = cleanEmp
 		emit("removeEmp")
-
 		showSnackbar()
 	}
 
