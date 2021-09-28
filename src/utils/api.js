@@ -37,6 +37,26 @@ class IconStorage {
 	}
 }
 
+// TODO refEmp можно куда-нибудь вынести в отдельное место...
+//refEmp - эталонная структура объекта
+const refEmp = {
+	fio: "",
+	pass_ser: "",
+	pass_no: "",
+	pass_dt: "",
+	avatar: {
+		icon: "account",
+		color: "white",
+	},
+}
+
+function doMerge(emp) {
+	// return _.merge(emp, _.omit(refEmp, _.keys(emp)))      =)
+	const keys = _.keys(emp)
+	const unique = _.omit(refEmp, keys)
+	return _.merge(emp, unique)
+}
+
 export const iconStorage = new IconStorage()
 
 const empStore = new LocalStorageData("empStore")
@@ -44,6 +64,18 @@ const empProfile = new LocalStorageData("empProfile")
 
 
 // api
+export function init() {
+	let p = getEmpProfile()
+	p = doMerge(p)
+	setEmpProfile(p)
+
+	let es = getEmpStore()
+	_.forIn(es, (v, k) => {
+		const emp = doMerge(v)
+		es[k] = _.cloneDeep(emp)
+	})
+	setEmpStore(es)
+}
 
 export function getEmpStore() {
 	return empStore.get()

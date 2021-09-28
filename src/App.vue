@@ -18,7 +18,7 @@
 <script>
 import AppBar from "@/components/AppBar"
 import MyFooter from "@/components/MyFooter"
-import { getEmpProfile } from "@/utils/api"
+import { init, getEmpProfile } from "@/utils/api"
 
 export default {
 	name: "App",
@@ -30,6 +30,7 @@ export default {
 	}),
 
 	created() {
+		init()
 		const p = getEmpProfile()
 		this.updateProfile(p)
 	},
