@@ -102,7 +102,7 @@ export default {
 
 	methods: {
 		...mapActions([ "downloadEmpStore", "uploadEmpStore", "addNamesAndIds" ]),
-		...mapMutations([ "clearEmp", "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl" ]),
+		...mapMutations([ "updateEmp", "pushNamesAndIds", "changeEmpStore", "changeNamesAndIds", "deleteEmpStoreKey", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
 			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
@@ -114,7 +114,7 @@ export default {
 
 			if (!this.empId) {
 				this.empId = uuidv1()
-				this.addNamesAndIds([ newEmp.fio, this.empId ])
+				this.addNamesAndIds([ newEmp.avatar, newEmp.fio, this.empId ])
 			} else {
 				const oldFio = this.employee.fio
 				if (newEmp.fio !== oldFio) {
@@ -145,11 +145,11 @@ export default {
 		},
 
 		findEmpById(id) {
-			return _.findIndex(this.empListArr, el => el[1] === id)
+			return _.findIndex(this.empListArr, el => el[2] === id)
 		},
 
 		findEmpByName(name) {
-			return _.findIndex(this.empListArr, el => el[0] === name)
+			return _.findIndex(this.empListArr, el => el[1] === name)
 		},
 
 	},

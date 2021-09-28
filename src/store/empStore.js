@@ -20,9 +20,9 @@ export default {
 		},
 
 		sortedNamesAndIds(state) {
-			let sortedNamesAndIds = _.cloneDeep(state.empListArr).sort((curr, next) => curr[0]?.localeCompare(next[0]))
+			let sortedNamesAndIds = _.cloneDeep(state.empListArr).sort((curr, next) => curr[1]?.localeCompare(next[1]))
 			_.forEach(sortedNamesAndIds, value => {
-				value[0] = getShortName(value[0])
+				value[1] = getShortName(value[1])
 			})
 			return sortedNamesAndIds
 		},
@@ -50,15 +50,14 @@ export default {
 		},
 
 		changeNamesAndIds(state, { ind, newFullname }) {
-			state.empListArr[ind].splice(0, 1, newFullname)
+			state.empListArr[ind].splice(1, 2, newFullname)
 		},
 
 		deleteNamesAndIdsEl(state, ind) {
 			state.empListArr.splice(ind, 1)
 		},
 		// FIXME допустим ли такой дефолтный параметр?
-		updateEmp(state, newEmp = cleanEmp,
-		) {
+		updateEmp(state, newEmp = cleanEmp) {
 			state.employee = newEmp
 		},
 	},
@@ -81,8 +80,8 @@ export default {
 			if (newVal) {
 				ctx.commit("pushNamesAndIds", newVal)
 			} else if (_.isEmpty(ctx.getters.empListArr)) {
-				_.forEach(ctx.getters.empStore, (value, id) => {
-					ctx.commit("pushNamesAndIds", [ value.fio, id ])
+				_.forEach(ctx.getters.empStore, (v, k) => {
+					ctx.commit("pushNamesAndIds", [ v.avatar, v.fio, k ])
 				})
 			}
 		},

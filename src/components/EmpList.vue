@@ -6,7 +6,7 @@
 		<v-list class="py-0">
 			<div class="d-flex align-center">
 				<v-subheader>Сотрудники</v-subheader>
-				<v-spacer></v-spacer>
+				<v-spacer/>
 				<router-link
 					style="text-decoration: none; color: inherit;"
 					:to="{name: 'PageEmp', params: {urlId: 'new-emp'}}"
@@ -35,12 +35,19 @@
 				<router-link
 					style="text-decoration: none; color: inherit;"
 					v-for="i in sortedNamesAndIds"
-					:key="i[1]"
-					:to="{name: 'PageEmp', params: {urlId: i[1]}}"
+					:key="i[2]"
+					:to="{name: 'PageEmp', params: {urlId: i[2]}}"
 				>
 					<v-list-item>
+						<v-list-item-icon>
+							<v-icon
+								:color="i[0].color"
+							>
+								{{ `mdi-${i[0].icon}` }}
+							</v-icon>
+						</v-list-item-icon>
 						<v-list-item-content>
-							<v-list-item-title>{{ i[0] }}</v-list-item-title>
+							<v-list-item-title>{{ i[1] }}</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
 				</router-link>
