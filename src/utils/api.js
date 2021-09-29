@@ -69,8 +69,10 @@ export function setEmpStore(v) {
 }
 
 export function getEmpProfile() {
-	const emp = empProfile.get()
-	createAvatar(emp)
+	let emp = empProfile.get()
+	_.isEmpty(emp)
+		? emp = cleanEmp
+		: createAvatar(emp)
 	return emp
 }
 
