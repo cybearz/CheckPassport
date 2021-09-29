@@ -118,6 +118,8 @@ export default {
 	},
 
 	async mounted() {
+		if (!this.isPageIconForm)
+			this.iconNameRules[1] = v => (hasIcon(v)) ? true : `Иконка "${ v }" не существует` //^
 		//TODO maybe on class ???
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.style.color = this.iconColorsArr[ndx][1])
