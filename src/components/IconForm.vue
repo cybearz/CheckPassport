@@ -117,6 +117,16 @@ export default {
 		},
 	},
 
+	watch: {
+		pIconConfig: {
+			deep: true,
+			handler: function(v) {
+				if (this.isPageIconForm) return
+				this.values = _.clone(v)
+			},
+		},
+	},
+
 	async mounted() {
 		if (!this.isPageIconForm)
 			this.iconNameRules[1] = v => (hasIcon(v)) ? true : `Иконка "${ v }" не существует` //^
