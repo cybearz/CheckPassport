@@ -32,14 +32,14 @@
 				<v-row>
 					<v-col
 						cols="4"
-						v-for="color in iconColorsArr"
-						:key="color[0]"
+						v-for="color in iconColors"
+						:key="color"
 					>
 						<v-radio
 							class="d-inline-flex"
-							:label="color[0]"
-							:color="color[0]"
-							:value="color[0]"
+							:label="color"
+							:color="color"
+							:value="color"
 						/>
 					</v-col>
 				</v-row>
@@ -65,14 +65,14 @@ import _ from "lodash"
 import { mapGetters, mapMutations } from "vuex"
 import { iconStorage, hasIcon } from "@/utils/api"
 
-const iconColorsArr = [
-	[ "red", "#F44336" ], [ "pink", "#E91E63" ], [ "purple", "#9C27B0" ], [ "deep-purple", "#673AB7" ],
-	[ "indigo", "#3F51B5" ], [ "blue", "#2196F3" ], [ "light-blue", "#03A9F4" ], [ "cyan", "#00BCD4" ],
-	[ "teal", "#009688" ], [ "green", "#4CAF50" ], [ "light-green", "#8BC34A" ], [ "lime", "#CDDC39" ],
-	[ "yellow", "#FFEB3B" ], [ "amber", "#FFC107" ], [ "orange", "#FF9800" ], [ "deep-orange", "#FF5722" ],
-	[ "brown", "#795548" ], [ "blue-grey", "#607D8B" ], [ "grey", "#9E9E9E" ], [ "black", "#000000" ],
-	[ "white", "#FFFFFF" ],
-].sort((prev, next) => prev[0] > next[0] ? 1 : -1)
+const iconColors = [
+	"red", "pink", "purple", "deep-purple",
+	"indigo", "blue", "light-blue", "cyan",
+	"teal", "green", "light-green", "lime",
+	"yellow", "amber", "orange", "deep-orange",
+	"brown", "blue-grey", "grey", "black",
+	"white",
+].sort()
 
 export default {
 	name: "IconForm",
@@ -106,7 +106,7 @@ export default {
 	computed: {
 		...mapGetters([ "iconConfig" ]),
 
-		iconColorsArr: () => iconColorsArr,
+		iconColors: () => iconColors,
 
 		isPageIconForm() {
 			return this.$route.name === "PageIconForm"
@@ -132,7 +132,7 @@ export default {
 			this.iconNameRules[1] = v => (hasIcon(v)) ? true : `Иконка "${ v }" не существует` //^
 		//TODO maybe on class ???
 		document.querySelectorAll(".v-radio .v-icon")
-			.forEach((el, ndx) => el.style.color = this.iconColorsArr[ndx][1])
+			.forEach((el, ndx) => el.classList.add(`${this.iconColors[ndx]}--text`))
 		this.values = this.isPageIconForm ? _.clone(this.iconConfig) : _.clone(this.pIconConfig)
 		await iconStorage.init()
 	},
@@ -141,7 +141,7 @@ export default {
 		...mapMutations([ "updatedIconConfig" ]),
 
 		changeColorArr() {
-			iconColorsArr.splice(-1)
+			iconColors.splice(-1)
 			this.$forceUpdate()
 		},
 
