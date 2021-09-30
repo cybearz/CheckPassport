@@ -3,7 +3,7 @@ import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 
-export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
+export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled) {
 	const { value } = toRefs(props)
 
 	let employee = ref(cleanEmp)
@@ -34,7 +34,16 @@ export function useEmployee(props, showSnackbar, emit, refs, isBtnDisabled) {
 	}
 
 	const saveEmp = () => {
-		if (!refs.passportFrom.validate()) return
+		const isValid = refs.passportFrom.validate()
+		if (!isValid) {
+			// TODO Допустимо ли обращение через $root?
+			root.$nextTick(() => {
+				const errorEl = document.querySelector(".v-messages__message:first-of-type")
+				const inputEl = errorEl.parentNode.parentNode.parentNode.parentNode
+				root.$vuetify.goTo(inputEl)
+			})
+			return //^
+		}
 
 		_.forIn(employee.value, (value, key) => {
 			//TODO Оптимизировать?

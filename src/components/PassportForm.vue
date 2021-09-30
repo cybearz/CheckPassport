@@ -121,7 +121,7 @@ export default {
 		},
 	},
 
-	setup(props, { emit, refs }) {
+	setup(props, { emit, refs, root }) {
 		onMounted( () => iconStorage.init() )
 
 		const iconColorsArr = [
@@ -139,7 +139,7 @@ export default {
 		return {
 			iconColorsArr, snackbar, text,
 			isBtnDisabled,
-			...useEmployee(props, showSnackbar, emit, refs, isBtnDisabled),
+			...useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled),
 			...useRules(),
 		}
 	},
