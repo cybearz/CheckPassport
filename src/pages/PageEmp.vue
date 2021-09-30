@@ -27,7 +27,7 @@
 					:value="employee"
 					:btn="isBtnDisabled"
 					:statusText="statusText"
-					@saveEmp="saveEmp($event)"
+					@saveEmp="saveEmp"
 					@removeEmp="removeEmp"
 				/>
 			</div>
@@ -43,7 +43,7 @@
 				:value="employee"
 				:btn="isBtnDisabled"
 				:statusText="statusText"
-				@saveEmp="saveEmp($event)"
+				@saveEmp="saveEmp"
 				@removeEmp="removeEmp"
 			/>
 		</v-col>
@@ -150,7 +150,7 @@ export default {
 		...mapMutations([ "updateEmpListArr", "updateEmp", "pushEmpListArr", "changeEmpListArrEl", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
-			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
+			if (this.findEmpByName(newEmp.fio) !== -1) {
 				this.statusText = "ОШИБКА: Пользователь с таким именем уже существует"
 				return
 			} else {
