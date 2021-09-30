@@ -26,7 +26,6 @@
 				<PassportForm
 					:value="employee"
 					:btn="isBtnDisabled"
-					@btnChange="isBtnDisabled=false"
 					:statusText="statusText"
 					@saveEmp="saveEmp($event)"
 					@removeEmp="removeEmp"
@@ -43,7 +42,6 @@
 			<PassportForm
 				:value="employee"
 				:btn="isBtnDisabled"
-				@btnChange="isBtnDisabled=false"
 				:statusText="statusText"
 				@saveEmp="saveEmp($event)"
 				@removeEmp="removeEmp"
