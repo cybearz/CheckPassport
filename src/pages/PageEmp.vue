@@ -1,6 +1,10 @@
 <template>
-	<PageNotFound v-if="isNotFound"/>
-	<v-row v-else no-gutters justify="center">
+	<PageNotFound v-if="isNotFound" />
+	<v-row
+		v-else
+		no-gutters
+		justify="center"
+	>
 		<v-col
 			xl="3"
 			lg="3"
@@ -26,7 +30,7 @@
 				<PassportForm
 					:value="employee"
 					:btn="isBtnDisabled"
-					:statusText="statusText"
+					:status-text="statusText"
 					@saveEmp="saveEmp"
 					@removeEmp="removeEmp"
 				/>
@@ -42,7 +46,7 @@
 			<PassportForm
 				:value="employee"
 				:btn="isBtnDisabled"
-				:statusText="statusText"
+				:status-text="statusText"
 				@saveEmp="saveEmp"
 				@removeEmp="removeEmp"
 			/>
@@ -102,7 +106,7 @@ export default {
 				this.isBtnDisabled = false
 			}
 		},
-// Для переключения между сотрудниками в списке
+		// Для переключения между сотрудниками в списке
 		urlId(v) {
 			if (!v) {
 				this.isEmpListActive = true
@@ -159,7 +163,7 @@ export default {
 
 			if (!this.empId) {
 				this.empId = uuidv1()
-				this.pushEmpListArr({ id: this.empId, avatar: newEmp.avatar, fullName: newEmp.fio})
+				this.pushEmpListArr({ id: this.empId, avatar: newEmp.avatar, fullName: newEmp.fio })
 			} else {
 				const ind = this.findEmpById(this.empId)
 				if (newEmp.fio !== this.employee.fio) {

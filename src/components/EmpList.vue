@@ -6,7 +6,7 @@
 		<v-list class="py-0">
 			<div class="d-flex align-center">
 				<v-subheader>Сотрудники</v-subheader>
-				<v-spacer/>
+				<v-spacer />
 				<router-link
 					style="text-decoration: none; color: inherit;"
 					:to="{name: 'PageEmp', params: {urlId: 'new-emp'}}"
@@ -17,7 +17,9 @@
 						dark
 						class="mx-4"
 					>
-						<v-icon size="16">mdi-plus</v-icon>
+						<v-icon size="16">
+							mdi-plus
+						</v-icon>
 					</v-btn>
 				</router-link>
 			</div>
@@ -29,7 +31,9 @@
 					inactive
 				>
 					<v-list-item-content>
-						<v-list-item-subtitle class="text-center">Добавьте первого сотрудника</v-list-item-subtitle>
+						<v-list-item-subtitle class="text-center">
+							Добавьте первого сотрудника
+						</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 				<router-link
@@ -43,7 +47,7 @@
 							<v-icon
 								:color="i.avatar.color"
 							>
-								{{ `mdi-${i.avatar.icon}` }}
+								{{ `mdi-${ i.avatar.icon }` }}
 							</v-icon>
 						</v-list-item-icon>
 						<v-list-item-content>

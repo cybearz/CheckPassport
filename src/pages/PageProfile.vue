@@ -1,5 +1,8 @@
 <template>
-	<v-row no-gutters justify="center">
+	<v-row
+		no-gutters
+		justify="center"
+	>
 		<v-col
 			xl="4"
 			lg="4"
@@ -8,7 +11,7 @@
 		>
 			<PassportForm
 				:value="profile"
-				:statusText="statusText"
+				:status-text="statusText"
 				@saveEmp="saveProfile"
 				@removeEmp="removeProfile"
 			/>
@@ -30,6 +33,7 @@ export default {
 
 	props: {
 		recvProfile: {
+			type: Object,
 			required: true,
 		},
 	},

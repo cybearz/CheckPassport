@@ -1,17 +1,21 @@
 <template>
-	<PageNotFound v-if="isNotFound"/>
-	<v-row v-else no-gutters justify="center">
+	<PageNotFound v-if="isNotFound" />
+	<v-row
+		v-else
+		no-gutters
+		justify="center"
+	>
 		<v-col>
 			<v-row>
 				<v-col
-					v-for="(icon, i) in iconsArr"
+					v-for="(iconsEl, i) in iconsArr"
 					:key="i"
 				>
 					<v-icon
 						:size="iconConfig.size"
 						:class="[`${iconConfig.color}--text`, 'd-flex']"
 					>
-						{{ `mdi-${ icon }` }}
+						{{ `mdi-${ iconsEl }` }}
 					</v-icon>
 				</v-col>
 			</v-row>
@@ -29,6 +33,7 @@ export default {
 
 	props: {
 		icon: {
+			type: String,
 			default: "",
 		},
 	},

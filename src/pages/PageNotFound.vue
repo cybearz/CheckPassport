@@ -1,5 +1,8 @@
 <template>
-	<v-row no-gutters justify="center">
+	<v-row
+		no-gutters
+		justify="center"
+	>
 		<v-col
 			xl="4"
 			lg="4"
@@ -10,14 +13,25 @@
 				<v-row align="center">
 					<v-col cols="6">
 						<div class="d-flex justify-center">
-							<div class="text-h1 font-weight-black">4</div>
-							<v-icon size="96" class="mt-n3">mdi-robot</v-icon>
-							<div class="text-h1 font-weight-black">4</div>
+							<div class="text-h1 font-weight-black">
+								4
+							</div>
+							<v-icon
+								size="96"
+								class="mt-n3"
+							>
+								mdi-robot
+							</v-icon>
+							<div class="text-h1 font-weight-black">
+								4
+							</div>
 						</div>
 					</v-col>
 					<v-col cols="6">
 						<v-card flat>
-							<v-card-title class="text-uppercase">Ошибка</v-card-title>
+							<v-card-title class="text-uppercase">
+								Ошибка
+							</v-card-title>
 							<v-card-subtitle>Запрашиваемая страница не найдена</v-card-subtitle>
 							<v-card-actions>
 								<v-btn

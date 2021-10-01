@@ -1,11 +1,18 @@
 <template>
-	<v-card tile class="pa-4">
-		<v-subheader class="text-h4 pt-4 mb-2 primary--text">Иконки</v-subheader>
+	<v-card
+		tile
+		class="pa-4"
+	>
+		<v-subheader class="text-h4 pt-4 mb-2 primary--text">
+			Иконки
+		</v-subheader>
 
-		<v-form ref="theForm"
+		<v-form
+			ref="theForm"
 			lazy-validation
 			class="pa-3"
-			@submit.prevent="submit">
+			@submit.prevent="submit"
+		>
 			<v-text-field
 				label="Имя"
 				outlined
@@ -22,7 +29,7 @@
 				v-model="values.size"
 			/>
 
-			<v-divider/>
+			<v-divider />
 
 			<v-radio-group
 				label="Цвет"
@@ -53,7 +60,11 @@
 			</v-btn>
 			<v-btn
 				v-if="isPageIconForm"
-				text small color="primary" @click="changeColorArr">
+				text
+				small
+				color="primary"
+				@click="changeColorArr"
+			>
 				Change Available Colors
 			</v-btn>
 		</v-form>
@@ -63,7 +74,7 @@
 <script>
 import _ from "lodash"
 import { mapGetters, mapMutations } from "vuex"
-import { iconStorage, hasIcon } from "@/utils/api"
+import { cleanEmp, iconStorage, hasIcon } from "@/utils/api"
 
 const iconColors = [
 	"red", "pink", "purple", "deep-purple",
@@ -78,7 +89,10 @@ export default {
 	name: "IconForm",
 
 	props: {
-		pIconConfig: Object,
+		pIconConfig: {
+			type: Object,
+			default: cleanEmp,
+		},
 	},
 
 	data() {
@@ -132,7 +146,7 @@ export default {
 			this.iconNameRules[1] = v => (hasIcon(v)) ? true : `Иконка "${ v }" не существует` //^
 		//TODO maybe on class ???
 		document.querySelectorAll(".v-radio .v-icon")
-			.forEach((el, ndx) => el.classList.add(`${this.iconColors[ndx]}--text`))
+			.forEach((el, ndx) => el.classList.add(`${ this.iconColors[ndx] }--text`))
 		this.values = this.isPageIconForm ? _.clone(this.iconConfig) : _.clone(this.pIconConfig)
 		await iconStorage.init()
 	},

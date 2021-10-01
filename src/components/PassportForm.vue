@@ -9,7 +9,8 @@
 			ref="passportFrom"
 			@submit.prevent="saveEmp"
 		>
-			<v-dialog width="500"
+			<v-dialog
+				width="500"
 				v-model="iconDialog"
 			>
 				<template v-slot:activator="{ on }">
@@ -18,7 +19,7 @@
 							<v-icon
 								:color="employee.avatar.color"
 							>
-								{{ `mdi-${employee.avatar.icon}` }}
+								{{ `mdi-${ employee.avatar.icon }` }}
 							</v-icon>
 						</v-avatar>
 						<v-btn
@@ -31,7 +32,7 @@
 					</div>
 				</template>
 				<IconForm
-					:pIconConfig="employee.avatar"
+					:p-icon-config="employee.avatar"
 					@save="updateIcon"
 				/>
 			</v-dialog>
@@ -62,7 +63,7 @@
 			</div>
 			<Calendar
 				v-model="employee.pass_dt"
-				:receivedDate="employee.pass_dt"
+				:received-date="employee.pass_dt"
 				:rules="dtRules"
 			/>
 			<v-btn
@@ -72,9 +73,12 @@
 			>
 				Сохранить
 			</v-btn>
-			<v-btn @click="removeEmp">Удалить</v-btn>
+			<v-btn @click="removeEmp">
+				Удалить
+			</v-btn>
 
-			<v-snackbar v-model="snackbar">{{ text }}
+			<v-snackbar v-model="snackbar">
+				{{ text }}
 				<template v-slot:action="{ attrs }">
 					<v-btn
 						color="blue"
@@ -86,7 +90,6 @@
 					</v-btn>
 				</template>
 			</v-snackbar>
-
 		</v-form>
 	</v-card>
 </template>
@@ -106,7 +109,7 @@ export default {
 	name: "PassportForm",
 
 	components: {
-		Calendar, IconForm
+		Calendar, IconForm,
 	},
 	props: {
 		btn: {
@@ -118,11 +121,12 @@ export default {
 		},
 		statusText: {
 			type: String,
+			default: "",
 		},
 	},
 
 	setup(props, { emit, refs, root }) {
-		onMounted( () => iconStorage.init() )
+		onMounted(() => iconStorage.init())
 
 		const iconColorsArr = [
 			[ "red", "#F44336" ], [ "pink", "#E91E63" ], [ "purple", "#9C27B0" ], [ "deep-purple", "#673AB7" ],
