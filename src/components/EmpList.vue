@@ -37,9 +37,9 @@
 					</v-list-item-content>
 				</v-list-item>
 				<router-link
-					style="text-decoration: none; color: inherit;"
 					v-for="i in sortedNamesAndIds"
 					:key="i.id"
+					style="text-decoration: none; color: inherit;"
 					:to="{name: 'PageEmp', params: {urlId: i.id}}"
 				>
 					<v-list-item>

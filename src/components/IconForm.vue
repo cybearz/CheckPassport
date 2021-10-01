@@ -14,33 +14,33 @@
 			@submit.prevent="submit"
 		>
 			<v-text-field
+				v-model="values.icon"
 				label="Имя"
 				outlined
 				:rules="iconNameRules"
-				v-model="values.icon"
 			/>
 			<v-slider
 				v-if="isPageIconForm"
+				v-model="values.size"
 				label="Размер"
 				step="20"
 				min="20"
 				max="400"
 				thumb-label
-				v-model="values.size"
 			/>
 
 			<v-divider />
 
 			<v-radio-group
+				v-model="values.color"
 				label="Цвет"
 				column
-				v-model="values.color"
 			>
 				<v-row>
 					<v-col
-						cols="4"
 						v-for="color in iconColors"
 						:key="color"
+						cols="4"
 					>
 						<v-radio
 							class="d-inline-flex"

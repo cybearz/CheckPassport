@@ -67,15 +67,15 @@ import PageNotFound from "@/pages/PageNotFound"
 export default {
 	name: "PageEmp",
 
+	components: {
+		PassportForm, EmpList, PageNotFound,
+	},
+
 	props: {
 		urlId: {
 			type: String,
 			default: "",
 		},
-	},
-
-	components: {
-		PassportForm, EmpList, PageNotFound,
 	},
 
 	data() {

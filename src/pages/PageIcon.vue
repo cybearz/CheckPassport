@@ -31,6 +31,10 @@ import PageNotFound from "@/pages/PageNotFound"
 export default {
 	name: "PageIcon",
 
+	components: {
+		PageNotFound,
+	},
+
 	props: {
 		icon: {
 			type: String,
@@ -38,14 +42,14 @@ export default {
 		},
 	},
 
-	components: {
-		PageNotFound,
-	},
-
 	data: () => ({
 		iconsArr: [],
 		isNotFound: false,
 	}),
+
+	computed: {
+		...mapGetters([ "iconConfig" ]),
+	},
 
 	async mounted() {
 		await iconStorage.init()
@@ -75,9 +79,6 @@ export default {
 		...mapMutations([ "updatedIconConfig" ]),
 	},
 
-	computed: {
-		...mapGetters([ "iconConfig" ]),
-	},
 }
 </script>
 

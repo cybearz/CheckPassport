@@ -8,19 +8,19 @@
 			<v-text-field
 				:value="rusDate"
 				:rules="rules"
-				@input="changeDate"
 				outlined
 				readonly
 				label="Дата выдачи"
+				@input="changeDate"
 				v-on="on"
 				@focus="menu = true"
 			/>
 		</template>
 		<v-date-picker
 			:value="date"
+			:max="curDate"
 			@input="changeDate"
 			@change="menu = false"
-			:max="curDate"
 		/>
 	</v-menu>
 </template>
@@ -47,12 +47,6 @@ export default {
 		menu: false,
 	}),
 
-	methods: {
-		changeDate(e) {
-			this.$emit("input", e)
-		},
-	},
-
 	computed: {
 		rusDate() {
 			return this.date ? moment(this.date).format("DD-MM-YYYY") : ""
@@ -62,6 +56,12 @@ export default {
 	watch: {
 		receivedDate() {
 			this.date = this.receivedDate ? moment(this.receivedDate).format("YYYY-MM-DD") : ""
+		},
+	},
+
+	methods: {
+		changeDate(e) {
+			this.$emit("input", e)
 		},
 	},
 }

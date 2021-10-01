@@ -1,8 +1,8 @@
 <template>
 	<v-app-bar
+		v-if="!isMobile"
 		app
 		dark
-		v-if="!isMobile"
 	>
 		<v-btn
 			class="px-0"
@@ -20,8 +20,8 @@
 		<v-spacer />
 
 		<v-btn
-			plain
 			v-if="isIconBtnVisible"
+			plain
 			:to="{ name: 'PageIconForm' }"
 		>
 			Иконка
@@ -42,8 +42,8 @@
 	</v-app-bar>
 
 	<v-app-bar
-		app
 		v-else
+		app
 	>
 		<div class="text-uppercase text-h4">
 			CheckPassport
@@ -149,10 +149,6 @@ export default {
 		isIconBtnVisible: true,
 	}),
 
-	mounted() {
-		this.isIconBtnVisible = (this.$route.name !== "PageIconForm")
-	},
-
 	computed: {
 		isMobile() {
 			return this.$vuetify.breakpoint.name === "xs"
@@ -168,6 +164,10 @@ export default {
 		$route(to) {
 			this.isIconBtnVisible = (to.name !== "PageIconForm")
 		},
+	},
+
+	mounted() {
+		this.isIconBtnVisible = (this.$route.name !== "PageIconForm")
 	},
 }
 

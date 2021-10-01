@@ -5,13 +5,13 @@
 	>
 		<v-subheader>Паспортные данные</v-subheader>
 		<v-form
-			class="pa-3"
 			ref="passportFrom"
+			class="pa-3"
 			@submit.prevent="saveEmp"
 		>
 			<v-dialog
-				width="500"
 				v-model="iconDialog"
+				width="500"
 			>
 				<template v-slot:activator="{ on }">
 					<div class="mb-4">
@@ -37,26 +37,26 @@
 				/>
 			</v-dialog>
 			<v-text-field
+				v-model="employee.fio"
 				label="ФИО"
 				outlined
-				v-model="employee.fio"
 				:rules="nameRules"
 				@focus="isBtnDisabled=false"
 			/>
 			<div class="d-flex align-center">
 				<v-text-field
+					v-model="employee.pass_ser"
 					label="Серия"
 					outlined
 					class="flex-grow-0"
-					v-model="employee.pass_ser"
 					:rules="serRules"
 					@focus="isBtnDisabled=false"
 				/>
 				<v-text-field
+					v-model="employee.pass_no"
 					label="Номер"
 					outlined
 					class="flex-grow-1"
-					v-model="employee.pass_no"
 					:rules="nomRules"
 					@focus="isBtnDisabled=false"
 				/>

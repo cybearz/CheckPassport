@@ -21,7 +21,7 @@ export default {
 	name: "PageIconForm",
 
 	components: {
-		IconForm
+		IconForm,
 	},
 
 }
