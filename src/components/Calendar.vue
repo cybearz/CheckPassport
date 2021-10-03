@@ -17,7 +17,7 @@
 			/>
 		</template>
 		<v-date-picker
-			:value="date"
+			:value="dateInner"
 			:max="curDate"
 			@input="changeDate"
 			@change="menu = false"
@@ -35,27 +35,29 @@ export default {
 		rules: {
 			required: true,
 		},
-		receivedDate: {
+		date: {
 			type: String,
 			required: true,
 		},
 	},
 
 	data: () => ({
-		date: "",
+		dateInner: "",
 		curDate: moment().format("YYYY-MM-DD"),
 		menu: false,
 	}),
 
 	computed: {
 		rusDate() {
-			return this.date ? moment(this.date).format("DD-MM-YYYY") : ""
+			return this.dateInner ? moment(this.dateInner).format("DD-MM-YYYY") : ""
 		},
 	},
 
 	watch: {
-		receivedDate() {
-			this.date = this.receivedDate ? moment(this.receivedDate).format("YYYY-MM-DD") : ""
+		date() {
+			this.dateInner = this.date
+				? moment(this.date).format("YYYY-MM-DD")
+				: ""
 		},
 	},
 

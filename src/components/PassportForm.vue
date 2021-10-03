@@ -66,7 +66,7 @@
 			</div>
 			<Calendar
 				v-model="employee.pass_dt"
-				:received-date="employee.pass_dt"
+				:date="employee.pass_dt"
 				:rules="dtRules"
 			/>
 
