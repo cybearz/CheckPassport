@@ -82,7 +82,7 @@
 			</v-btn>
 
 			<v-snackbar v-model="snackbar">
-				{{ text }}
+				{{ statusTextInner }}
 				<template v-slot:action="{ attrs }">
 					<v-btn
 						color="blue"
@@ -141,13 +141,13 @@ export default {
 			[ "white", "#FFFFFF" ],
 		].sort((prev, next) => prev[0] > next[0] ? 1 : -1)
 
-		let { snackbar, text, showSnackbar } = useSnackbar(props)
+		let { snackbar, statusTextInner, showSnackbar } = useSnackbar(props)
 		const { isBtnDisabledInner } = useBtnVisability(props)
 
 		return {
-			iconColorsArr, snackbar, text,
+			iconColorsArr, snackbar, statusTextInner,
 			isBtnDisabledInner,
-			...useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabledInner),
+			...useEmployee(props, showSnackbar, emit, refs, root),
 			...useRules(),
 		}
 	},

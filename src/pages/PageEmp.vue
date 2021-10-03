@@ -176,6 +176,7 @@ export default {
 				}
 			}
 
+			this.isBtnDisabled = true
 			this.updateEmp(newEmp)
 			this.empStore[this.empId] = _.assign({}, newEmp)
 			setEmpStore(this.empStore)

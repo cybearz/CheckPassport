@@ -3,10 +3,10 @@ import { ref, toRefs, watch } from "@vue/composition-api"
 export function useSnackbar(props) {
 	const { statusText } = toRefs(props)
 	let snackbar = ref(false)
-	let text = ref("")
+	let statusTextInner = ref("")
 
 	watch(statusText, newText => {
-		text.value = newText
+		statusTextInner.value = newText
 	})
 
 	const showSnackbar = () => {
@@ -16,5 +16,5 @@ export function useSnackbar(props) {
 		}, 1000)
 	}
 
-	return { snackbar, text, showSnackbar }
+	return { snackbar, statusTextInner, showSnackbar }
 }
