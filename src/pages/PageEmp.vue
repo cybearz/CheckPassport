@@ -26,13 +26,14 @@
 						Назад
 					</v-btn>
 				</div>
-
+				<!--TODO: Как использовать 1 компонент PassportForm? -->
 				<PassportForm
-					:value="employee"
+					:employee="employee"
 					:isBtnDisabled="isBtnDisabled"
 					:status-text="statusText"
 					@saveEmp="saveEmp"
 					@removeEmp="removeEmp"
+					@fieldFocus="isBtnDisabled = false"
 				/>
 			</div>
 		</v-col>
@@ -44,7 +45,7 @@
 			sm="7"
 		>
 			<PassportForm
-				:value="employee"
+				:employee="employee"
 				:isBtnDisabled="isBtnDisabled"
 				:status-text="statusText"
 				@saveEmp="saveEmp"

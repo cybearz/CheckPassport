@@ -10,7 +10,7 @@
 			sm="7"
 		>
 			<PassportForm
-				:value="profileInner"
+				:employee="profileInner"
 				:status-text="statusText"
 				@saveEmp="saveProfile"
 				@removeEmp="removeProfile"

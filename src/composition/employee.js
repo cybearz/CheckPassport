@@ -4,18 +4,18 @@ import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 
 export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabledInner) {
-	const { value } = toRefs(props)
+	const { employee } = toRefs(props)
 
-	let employee = ref(cleanEmp)
+	let employeeInner = ref(cleanEmp)
 
 	onMounted(() => {
-			employee.value = _.cloneDeep(value.value)
+			employeeInner.value = _.cloneDeep(employee.value)
 		},
 	)
 
-	watch(value, v => {
+	watch(employee, v => {
 			refs.passportFrom.resetValidation()
-			employee.value = _.cloneDeep(v)
+			employeeInner.value = _.cloneDeep(v)
 		},
 		{ deep: true },
 	)
@@ -24,7 +24,7 @@ export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled
 
 	const updateIcon = iconConfig => {
 		const { icon, color } = iconConfig
-		employee.value.avatar = {
+		employeeInner.value.avatar = {
 			icon,
 			color,
 		}
@@ -44,22 +44,22 @@ export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled
 			return //^
 		}
 
-		_.forIn(employee.value, (value, key) => {
+		_.forIn(employeeInner.value, (value, key) => {
 			//TODO Оптимизировать?
-			if (key !== "avatar") employee.value[key] = _.trim(_.replace(value, /\s+/g, " "))
+			if (key !== "avatar") employeeInner.value[key] = _.trim(_.replace(value, /\s+/g, " "))
 		})
 
-		employee.value.pass_dt = moment(employee.value.pass_dt).format("YYYY-MM-DDThh:mm:ssZ")
+		employeeInner.value.pass_dt = moment(employeeInner.value.pass_dt).format("YYYY-MM-DDThh:mm:ssZ")
 		isBtnDisabledInner.value = true
-		emit("saveEmp", employee.value)
+		emit("saveEmp", employeeInner.value)
 		showSnackbar()
 	}
 
 	const removeEmp = () => {
-		employee.value = cleanEmp
+		employeeInner.value = cleanEmp
 		emit("removeEmp")
 		showSnackbar()
 	}
 
-	return { employee, iconDialog, updateIcon, saveEmp, removeEmp }
+	return { employeeInner, iconDialog, updateIcon, saveEmp, removeEmp }
 }

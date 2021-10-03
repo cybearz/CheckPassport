@@ -17,9 +17,9 @@
 					<div class="mb-4">
 						<v-avatar color="grey">
 							<v-icon
-								:color="employee.avatar.color"
+								:color="employeeInner.avatar.color"
 							>
-								{{ `mdi-${ employee.avatar.icon }` }}
+								{{ `mdi-${ employeeInner.avatar.icon }` }}
 							</v-icon>
 						</v-avatar>
 						<v-btn
@@ -33,14 +33,14 @@
 				</template>
 
 				<IconForm
-					:iconData="employee.avatar"
+					:iconData="employeeInner.avatar"
 					btnLabel="Сохранить"
 					@save="updateIcon"
 				/>
 			</v-dialog>
 
 			<v-text-field
-				v-model="employee.fio"
+				v-model="employeeInner.fio"
 				label="ФИО"
 				outlined
 				:rules="nameRules"
@@ -48,7 +48,7 @@
 			/>
 			<div class="d-flex align-center">
 				<v-text-field
-					v-model="employee.pass_ser"
+					v-model="employeeInner.pass_ser"
 					label="Серия"
 					outlined
 					class="flex-grow-0"
@@ -56,7 +56,7 @@
 					@focus="$emit('fieldFocus')"
 				/>
 				<v-text-field
-					v-model="employee.pass_no"
+					v-model="employeeInner.pass_no"
 					label="Номер"
 					outlined
 					class="flex-grow-1"
@@ -65,8 +65,8 @@
 				/>
 			</div>
 			<Calendar
-				v-model="employee.pass_dt"
-				:date="employee.pass_dt"
+				v-model="employeeInner.pass_dt"
+				:date="employeeInner.pass_dt"
 				:rules="dtRules"
 			/>
 
@@ -119,7 +119,7 @@ export default {
 		isBtnDisabled: {
 			type: Boolean,
 		},
-		value: {
+		employee: {
 			type: Object,
 			required: true,
 		},
