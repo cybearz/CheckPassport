@@ -73,7 +73,6 @@
 
 <script>
 import _ from "lodash"
-import { mapGetters, mapMutations } from "vuex"
 import { iconStorage, hasIcon } from "@/utils/api"
 
 const iconColors = [
@@ -122,8 +121,6 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "iconConfig" ]),
-
 		iconColors: () => iconColors,
 
 		isPageIconForm() {
@@ -133,9 +130,8 @@ export default {
 
 	watch: {
 		pIconConfig: {
-			deep: true,
+			immediate: true,
 			handler: function(v) {
-				if (this.isPageIconForm) return
 				this.values = _.clone(v)
 			},
 		},
@@ -146,12 +142,10 @@ export default {
 			this.iconNameRules[1] = v => (hasIcon(v)) ? true : `Иконка "${ v }" не существует` //^
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.classList.add(`${ this.iconColors[ndx] }--text`))
-		this.values = this.isPageIconForm ? _.clone(this.iconConfig) : _.clone(this.pIconConfig)
 		await iconStorage.init()
 	},
 
 	methods: {
-		...mapMutations([ "updatedIconConfig" ]),
 
 		changeColorArr() {
 			iconColors.splice(-1)
@@ -168,19 +162,7 @@ export default {
 				})
 				return //^
 			}
-
-			if (this.isPageIconForm) {
-				this.updatedIconConfig(this.values)
-				const { icon, size, color } = this.values
-
-				this.$router.push({
-					name: "PageIcon",
-					params: { icon },
-					query: { size, color },
-				})
-			} else {
-				this.$emit("save", this.values)
-			}
+			this.$emit("save", this.values)
 		},
 
 	},

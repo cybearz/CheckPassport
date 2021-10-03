@@ -27,15 +27,21 @@ export default {
 
 	data() {
 		return {
-			icon: {},
+			icon: this.$store.state.icons.iconConfig,
 		}
 	},
 
 	methods: {
-		saveIcon(v) {
-			console.log(">>>", v) //D
-		}
-	}
+		saveIcon(values) {
+			const { icon, size, color } = values
+
+			this.$router.push({
+				name: "PageIcon",
+				params: { icon },
+				query: { size, color },
+			})
+		},
+	},
 }
 </script>
 
