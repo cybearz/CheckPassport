@@ -17,10 +17,10 @@
 				v-model="values.icon"
 				label="Имя"
 				outlined
-				:rules="iconNameRules"
+				:rules="rulesIconName"
 			/>
 			<v-slider
-				v-if="isPageIconForm"
+				v-if="multiple"
 				v-model="values.size"
 				label="Размер"
 				step="20"
@@ -59,7 +59,7 @@
 				{{ btnLabel }}
 			</v-btn>
 			<v-btn
-				v-if="isPageIconForm"
+				v-if="multiple"
 				text
 				small
 				color="primary"
@@ -96,6 +96,7 @@ export default {
 			type: String,
 			default: "ОК",
 		},
+		multiple: Boolean,
 	},
 
 	data() {
@@ -106,7 +107,7 @@ export default {
 				color: "",
 			},
 
-			iconNameRules: [
+			rulesIconName: [
 				v => !!v || "Введите имя",
 				v => {
 					for (let icon of v.split(",")) {
@@ -122,10 +123,6 @@ export default {
 
 	computed: {
 		iconColors: () => iconColors,
-
-		isPageIconForm() {
-			return this.$route.name === "PageIconForm"
-		},
 	},
 
 	watch: {
@@ -138,8 +135,11 @@ export default {
 	},
 
 	async mounted() {
-		if (!this.isPageIconForm)
-			this.iconNameRules[1] = v => (hasIcon(v)) ? true : `Иконка "${ v }" не существует` //^
+		if (!this.multiple)
+			this.rulesIconName.splice(1, 1, v => hasIcon(v)
+				? true
+				: `Иконка "${ v }" не существует`
+			)
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.classList.add(`${ this.iconColors[ndx] }--text`))
 		await iconStorage.init()

@@ -1,7 +1,7 @@
 import { hasIcon } from "@/utils/api"
 
 const RULES = {
-	iconNameRules: [
+	rulesIconName: [
 		v => !!v || "Введите имя",
 		v => ( v && !hasIcon(v) )
 			? `Иконка "${ v }" не существует`

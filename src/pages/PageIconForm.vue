@@ -9,7 +9,7 @@
 			md="7"
 			sm="7"
 		>
-			<IconForm
+			<IconForm multiple
 				:pIconConfig="icon"
 				@save="saveIcon"
 				btnLabel="Показать"
