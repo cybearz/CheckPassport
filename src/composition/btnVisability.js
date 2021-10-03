@@ -1,12 +1,13 @@
 import { ref, watch, toRefs } from "@vue/composition-api"
 
 export function useBtnVisability(props) {
-	const { btn } = toRefs(props)
-	const isBtnDisabled = ref(btn.value)
+	const { isBtnDisabled } = toRefs(props)
+	const isBtnDisabledInner = ref(isBtnDisabled.value)
 
-	watch(btn, s => {
-		isBtnDisabled.value = s
+	watch(isBtnDisabled, v => {
+		console.log(">>>watch", v) //D
+		isBtnDisabledInner.value = v
 	})
 
-	return { isBtnDisabled }
+	return { isBtnDisabledInner }
 }

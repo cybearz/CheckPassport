@@ -3,22 +3,21 @@ import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 
-export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled) {
+export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabledInner) {
 	const { value } = toRefs(props)
 
 	let employee = ref(cleanEmp)
 
 	onMounted(() => {
-		employee.value = _.cloneDeep(value.value)
-	},
+			employee.value = _.cloneDeep(value.value)
+		},
 	)
 
 	watch(value, v => {
-		refs.passportFrom.resetValidation()
-
-		employee.value = _.cloneDeep(v)
-	},
-	{ deep: true },
+			refs.passportFrom.resetValidation()
+			employee.value = _.cloneDeep(v)
+		},
+		{ deep: true },
 	)
 
 	let iconDialog = ref(false)
@@ -30,7 +29,7 @@ export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled
 			color,
 		}
 		iconDialog.value = false
-		isBtnDisabled.value = false
+		isBtnDisabledInner.value = false
 	}
 
 	const saveEmp = () => {
@@ -51,11 +50,8 @@ export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled
 		})
 
 		employee.value.pass_dt = moment(employee.value.pass_dt).format("YYYY-MM-DDThh:mm:ssZ")
-
-		isBtnDisabled.value = true
-
+		isBtnDisabledInner.value = true
 		emit("saveEmp", employee.value)
-
 		showSnackbar()
 	}
 

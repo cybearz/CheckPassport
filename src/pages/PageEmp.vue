@@ -1,5 +1,5 @@
 <template>
-	<PageNotFound v-if="isNotFound" />
+	<PageNotFound v-if="isNotFound"/>
 	<v-row
 		v-else
 		no-gutters
@@ -29,7 +29,7 @@
 
 				<PassportForm
 					:value="employee"
-					:btn="isBtnDisabled"
+					:isBtnDisabled="isBtnDisabled"
 					:status-text="statusText"
 					@saveEmp="saveEmp"
 					@removeEmp="removeEmp"
@@ -45,10 +45,11 @@
 		>
 			<PassportForm
 				:value="employee"
-				:btn="isBtnDisabled"
+				:isBtnDisabled="isBtnDisabled"
 				:status-text="statusText"
 				@saveEmp="saveEmp"
 				@removeEmp="removeEmp"
+				@fieldFocus="isBtnDisabled = false"
 			/>
 		</v-col>
 	</v-row>

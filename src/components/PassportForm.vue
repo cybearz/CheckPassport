@@ -44,7 +44,7 @@
 				label="ФИО"
 				outlined
 				:rules="nameRules"
-				@focus="isBtnDisabled=false"
+				@focus="$emit('fieldFocus')"
 			/>
 			<div class="d-flex align-center">
 				<v-text-field
@@ -53,7 +53,7 @@
 					outlined
 					class="flex-grow-0"
 					:rules="serRules"
-					@focus="isBtnDisabled=false"
+					@focus="$emit('fieldFocus')"
 				/>
 				<v-text-field
 					v-model="employee.pass_no"
@@ -61,7 +61,7 @@
 					outlined
 					class="flex-grow-1"
 					:rules="nomRules"
-					@focus="isBtnDisabled=false"
+					@focus="$emit('fieldFocus')"
 				/>
 			</div>
 			<Calendar
@@ -71,7 +71,7 @@
 			/>
 
 			<v-btn
-				:disabled="isBtnDisabled"
+				:disabled="isBtnDisabledInner"
 				type="submit"
 				color="primary"
 			>
@@ -116,7 +116,7 @@ export default {
 		Calendar, IconForm,
 	},
 	props: {
-		btn: {
+		isBtnDisabled: {
 			type: Boolean,
 		},
 		value: {
@@ -142,12 +142,12 @@ export default {
 		].sort((prev, next) => prev[0] > next[0] ? 1 : -1)
 
 		let { snackbar, text, showSnackbar } = useSnackbar(props)
-		const { isBtnDisabled } = useBtnVisability(props)
+		const { isBtnDisabledInner } = useBtnVisability(props)
 
 		return {
 			iconColorsArr, snackbar, text,
-			isBtnDisabled,
-			...useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled),
+			isBtnDisabledInner,
+			...useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabledInner),
 			...useRules(),
 		}
 	},
