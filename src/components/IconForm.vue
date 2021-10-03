@@ -106,23 +106,31 @@ export default {
 				size: "",
 				color: "",
 			},
-
-			rulesIconName: [
-				v => !!v || "Введите имя",
-				v => {
-					for (let icon of v.split(",")) {
-						if (icon && !hasIcon(icon))
-							return `Иконка "${ icon }" не существует` //^
-					}
-					return true
-				},
-			],
 			errMsg: "",
 		}
 	},
 
 	computed: {
+
 		iconColors: () => iconColors,
+
+		rulesIconName() {
+			const ruleIcon = v => hasIcon(v)
+				? true
+				: `Иконка "${ v }" не существует`
+			return [
+				v => !!v || "Введите имя",
+				this.multiple
+					? v => {
+						for (let icon of v.split(",")) {
+							const b = ruleIcon(icon)
+							if (b !== true) return b
+						}
+						return true
+					}
+					: ruleIcon,
+			]
+		},
 	},
 
 	watch: {
@@ -135,11 +143,6 @@ export default {
 	},
 
 	async mounted() {
-		if (!this.multiple)
-			this.rulesIconName.splice(1, 1, v => hasIcon(v)
-				? true
-				: `Иконка "${ v }" не существует`
-			)
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.classList.add(`${ this.iconColors[ndx] }--text`))
 		await iconStorage.init()
