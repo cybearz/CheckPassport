@@ -41,11 +41,13 @@ export default {
 		},
 	},
 
-	data: () => ({
-		dateInner: "",
-		curDate: moment().format("YYYY-MM-DD"),
-		menu: false,
-	}),
+	data() {
+		return {
+			dateInner: "",
+			curDate: moment().format("YYYY-MM-DD"),
+			menu: false,
+		}
+	},
 
 	computed: {
 		rusDate() {

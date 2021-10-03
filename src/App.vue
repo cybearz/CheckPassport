@@ -25,9 +25,11 @@ export default {
 
 	components: { AppBar, MyFooter },
 
-	data: () => ({
-		profile: undefined,
-	}),
+	data() {
+		return {
+			profile: undefined,
+		}
+	},
 
 	created() {
 		const p = getEmpProfile()

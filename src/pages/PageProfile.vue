@@ -38,10 +38,12 @@ export default {
 		},
 	},
 
-	data: () => ({
-		profileInner: cleanEmp,
-		statusText: "",
-	}),
+	data() {
+		return {
+			profileInner: cleanEmp,
+			statusText: "",
+		}
+	},
 
 	mounted() {
 		if (this.profile) this.profileInner = _.cloneDeep(this.profile)

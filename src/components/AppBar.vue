@@ -17,7 +17,7 @@
 			</div>
 		</v-btn>
 
-		<v-spacer />
+		<v-spacer/>
 
 		<v-btn
 			v-if="isIconBtnVisible"
@@ -49,7 +49,7 @@
 			CheckPassport
 		</div>
 
-		<v-spacer />
+		<v-spacer/>
 
 		<v-dialog
 			v-model="dialog"
@@ -70,7 +70,7 @@
 						CheckPassport
 					</div>
 
-					<v-spacer />
+					<v-spacer/>
 
 					<v-app-bar-nav-icon @click="dialog = false">
 						<v-icon size="40">
@@ -130,6 +130,7 @@
 	</v-app-bar>
 </template>
 
+
 <script>
 import { getShortName } from "@/utils/getShortName"
 import { cleanEmp } from "@/utils/api"
@@ -144,10 +145,12 @@ export default {
 		},
 	},
 
-	data: () => ({
-		dialog: false,
-		isIconBtnVisible: true,
-	}),
+	data() {
+		return {
+			dialog: false,
+			isIconBtnVisible: true,
+		}
+	},
 
 	computed: {
 		isMobile() {
