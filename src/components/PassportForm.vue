@@ -33,7 +33,7 @@
 				</template>
 
 				<IconForm
-					:p-icon-config="employee.avatar"
+					:iconData="employee.avatar"
 					btnLabel="Сохранить"
 					@save="updateIcon"
 				/>

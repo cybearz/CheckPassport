@@ -9,10 +9,11 @@
 			md="7"
 			sm="7"
 		>
-			<IconForm multiple
-				:pIconConfig="icon"
-				@save="saveIcon"
+			<IconForm
+				multiple
+				:iconData="icon"
 				btnLabel="Показать"
+				@save="saveIcon"
 			/>
 		</v-col>
 	</v-row>

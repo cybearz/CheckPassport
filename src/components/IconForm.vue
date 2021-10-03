@@ -88,7 +88,7 @@ export default {
 	name: "IconForm",
 
 	props: {
-		pIconConfig: {
+		iconData: {
 			type: Object,
 			default: undefined,
 		},
@@ -134,7 +134,7 @@ export default {
 	},
 
 	watch: {
-		pIconConfig: {
+		iconData: {
 			immediate: true,
 			handler: function(v) {
 				this.values = _.clone(v)
