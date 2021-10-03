@@ -10,7 +10,7 @@
 			sm="7"
 		>
 			<PassportForm
-				:value="profile"
+				:value="profileInner"
 				:status-text="statusText"
 				@saveEmp="saveProfile"
 				@removeEmp="removeProfile"
@@ -32,37 +32,37 @@ export default {
 	},
 
 	props: {
-		recvProfile: {
+		profile: {
 			type: Object,
 			required: true,
 		},
 	},
 
 	data: () => ({
-		profile: cleanEmp,
+		profileInner: cleanEmp,
 		statusText: "",
 	}),
 
 	mounted() {
-		if (this.recvProfile) this.profile = _.cloneDeep(this.recvProfile)
+		if (this.profile) this.profileInner = _.cloneDeep(this.profile)
 	},
 
 	methods: {
 		saveProfile(newEmp) {
-			_.assign(this.profile, newEmp)
+			_.assign(this.profileInner, newEmp)
 			this.uploadProfile()
-			this.$emit("updateProfile", this.profile)
+			this.$emit("updateProfile", this.profileInner)
 			this.statusText = "Данные сохранены"
 		},
 
 		removeProfile() {
-			this.profile = cleanEmp
+			this.profileInner = cleanEmp
 			this.uploadProfile()
 			this.statusText = "Данные удалены"
 		},
 
 		uploadProfile() {
-			const p = this.profile
+			const p = this.profileInner
 			setEmpProfile(p)
 			this.$emit("updateProfile", p)
 		},

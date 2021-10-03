@@ -1,17 +1,17 @@
 <template>
 	<v-app>
-		<AppBar :profile="profile" />
+		<AppBar :profile="profile"/>
 
 		<v-main>
 			<v-container class="fill-height">
 				<router-view
-					:recv-profile="profile"
+					:profile="profile"
 					@updateProfile="updateProfile"
 				/>
 			</v-container>
 		</v-main>
 
-		<MyFooter />
+		<MyFooter/>
 	</v-app>
 </template>
 
