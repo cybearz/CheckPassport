@@ -31,11 +31,14 @@
 						</v-btn>
 					</div>
 				</template>
+
 				<IconForm
 					:p-icon-config="employee.avatar"
+					btnLabel="Сохранить"
 					@save="updateIcon"
 				/>
 			</v-dialog>
+
 			<v-text-field
 				v-model="employee.fio"
 				label="ФИО"
@@ -66,6 +69,7 @@
 				:received-date="employee.pass_dt"
 				:rules="dtRules"
 			/>
+
 			<v-btn
 				:disabled="isBtnDisabled"
 				type="submit"

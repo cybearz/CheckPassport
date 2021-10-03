@@ -11,13 +11,13 @@ export default {
 
 	getters: {
 		iconConfig(state) {
-			return state.iconConfig
+			return _.clone(state.iconConfig)
 		},
 	},
 
 	mutations: {
 		updatedIconConfig(state, v) {
-			state.iconConfig = _.clone(v)
+			state.iconConfig = v
 		},
 	},
 

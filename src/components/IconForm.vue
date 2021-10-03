@@ -29,7 +29,7 @@
 				thumb-label
 			/>
 
-			<v-divider />
+			<v-divider/>
 
 			<v-radio-group
 				v-model="values.color"
@@ -56,7 +56,7 @@
 				type="submit"
 				color="primary"
 			>
-				{{ btnText }}
+				{{ btnLabel }}
 			</v-btn>
 			<v-btn
 				v-if="isPageIconForm"
@@ -93,6 +93,10 @@ export default {
 			type: Object,
 			default: undefined,
 		},
+		btnLabel: {
+			type: String,
+			default: "ОК",
+		},
 	},
 
 	data() {
@@ -124,10 +128,6 @@ export default {
 
 		isPageIconForm() {
 			return this.$route.name === "PageIconForm"
-		},
-
-		btnText() {
-			return this.isPageIconForm ? "Показать" : "Сохранить"
 		},
 	},
 
