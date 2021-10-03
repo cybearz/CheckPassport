@@ -74,7 +74,7 @@
 <script>
 import _ from "lodash"
 import { mapGetters, mapMutations } from "vuex"
-import { cleanEmp, iconStorage, hasIcon } from "@/utils/api"
+import { iconStorage, hasIcon } from "@/utils/api"
 
 const iconColors = [
 	"red", "pink", "purple", "deep-purple",
@@ -91,7 +91,7 @@ export default {
 	props: {
 		pIconConfig: {
 			type: Object,
-			default: cleanEmp,
+			default: undefined,
 		},
 	},
 
@@ -144,7 +144,6 @@ export default {
 	async mounted() {
 		if (!this.isPageIconForm)
 			this.iconNameRules[1] = v => (hasIcon(v)) ? true : `Иконка "${ v }" не существует` //^
-		//TODO maybe on class ???
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.classList.add(`${ this.iconColors[ndx] }--text`))
 		this.values = this.isPageIconForm ? _.clone(this.iconConfig) : _.clone(this.pIconConfig)
