@@ -9,25 +9,25 @@ export function useEmployee(props, showSnackbar, emit, refs, root, isBtnDisabled
 	let employee = ref(cleanEmp)
 
 	onMounted(() => {
-			employee.value = _.cloneDeep(value.value)
-		},
+		employee.value = _.cloneDeep(value.value)
+	},
 	)
 
 	watch(value, v => {
-			refs.passportFrom.resetValidation()
+		refs.passportFrom.resetValidation()
 
-			employee.value = _.cloneDeep(v)
-		},
-		{ deep: true },
+		employee.value = _.cloneDeep(v)
+	},
+	{ deep: true },
 	)
 
 	let iconDialog = ref(false)
 
 	const updateIcon = iconConfig => {
-		const {icon, color} = iconConfig
+		const { icon, color } = iconConfig
 		employee.value.avatar = {
 			icon,
-			color
+			color,
 		}
 		iconDialog.value = false
 		isBtnDisabled.value = false
