@@ -156,11 +156,9 @@ export default {
 		...mapMutations([ "updateEmpListArr", "updateEmp", "pushEmpListArr", "changeEmpListArrEl", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
-			if (!this.empId && this.findEmpByName(newEmp.fio) !== -1) {
+			if ((newEmp.fio !== this.employee.fio) && this.findEmpByName(newEmp.fio) !== -1) {
 				this.statusText = "ОШИБКА: Пользователь с таким именем уже существует"
-				return
-			} else {
-				this.statusText = "Данные сохранены"
+				return //^
 			}
 
 			if (!this.empId) {
@@ -175,7 +173,7 @@ export default {
 					this.changeEmpListArrEl({ ind, key: "avatar", value: newEmp.avatar })
 				}
 			}
-
+			this.statusText = "Данные сохранены"
 			this.isBtnDisabled = true
 			this.updateEmp(newEmp)
 			this.empStore[this.empId] = _.assign({}, newEmp)
