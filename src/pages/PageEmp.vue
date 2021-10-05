@@ -1,5 +1,5 @@
 <template>
-	<PageNotFound v-if="isNotFound"/>
+	<PageNotFound v-if="isNotFound" />
 	<v-row
 		v-else
 		no-gutters
@@ -29,7 +29,7 @@
 				<!--TODO: Как использовать 1 компонент PassportForm? -->
 				<PassportForm
 					:employee="employee"
-					:isBtnDisabled="isBtnDisabled"
+					:is-btn-disabled="isBtnDisabled"
 					:status-text="statusText"
 					@saveEmp="saveEmp"
 					@removeEmp="removeEmp"
@@ -46,7 +46,7 @@
 		>
 			<PassportForm
 				:employee="employee"
-				:isBtnDisabled="isBtnDisabled"
+				:is-btn-disabled="isBtnDisabled"
 				:status-text="statusText"
 				@saveEmp="saveEmp"
 				@removeEmp="removeEmp"
@@ -60,7 +60,7 @@
 import _ from "lodash"
 import { mapGetters, mapMutations } from "vuex"
 import { v1 as uuidv1 } from "uuid"
-import { getEmpStore, setEmpStore } from "@/utils/api"
+import { cleanEmp, getEmpStore, setEmpStore } from "@/utils/api"
 
 import PassportForm from "@/components/PassportForm"
 import EmpList from "@/components/EmpList"
@@ -99,17 +99,30 @@ export default {
 	},
 
 	watch: {
-		empId(newEmpId) {
-			if (this.empId) {
-				this.updateEmp(this.empStore[newEmpId])
-				this.isBtnDisabled = true
-			} else {
-				this.updateEmp()
-				this.isBtnDisabled = false
-			}
-		},
-		// Для переключения между сотрудниками в списке
 		urlId(v) {
+			this.urlIdHook(v)
+		},
+	},
+
+	created() {
+		const es = getEmpStore()
+		this.empStore = es
+
+		const empListArr = []
+		_.forEach(es, (v, k) => {
+			empListArr.push({ id: k, avatar: v.avatar, fullName: v.fio })
+		})
+		this.updateEmpListArr(empListArr)
+
+		this.urlIdHook(this.urlId)
+	},
+
+	methods: {
+		...mapMutations([ "updateEmpListArr", "updateEmp", "pushEmpListArr", "changeEmpListArrEl", "deleteNamesAndIdsEl" ]),
+		// Этот хук нужен для того, чтобы реагировать на изменения в urlId и не дублировать код в watch и в created.
+		urlIdHook(v) {
+			let newEmp = cleanEmp
+
 			if (!v) {
 				this.isEmpListActive = true
 				this.isNotFound = false
@@ -120,40 +133,18 @@ export default {
 				this.isNotFound = false
 				this.isBtnDisabled = false
 				this.empId = ""
+			} else if (this.findEmpById(this.urlId) === -1) {
+				this.isNotFound = true
 			} else {
 				this.isEmpListActive = false
 				this.isNotFound = false
 				this.isBtnDisabled = true
 				this.empId = v
+				newEmp = this.empStore[v]
 			}
+
+			this.updateEmp(newEmp)
 		},
-	},
-
-	mounted() {
-		const es = getEmpStore()
-		this.empStore = es
-
-		const empListArr = []
-		_.forEach(es, (v, k) => {
-			empListArr.push({ id: k, avatar: v.avatar, fullName: v.fio })
-		})
-		this.updateEmpListArr(empListArr)
-
-		if (!this.urlId) {
-			this.isBtnDisabled = false
-		} else if (this.urlId === "new-emp") {
-			this.isEmpListActive = false
-			this.isBtnDisabled = false
-		} else if (this.findEmpById(this.urlId) === -1) {
-			this.isNotFound = true
-		} else {
-			this.isEmpListActive = false
-			this.empId = this.urlId
-		}
-	},
-
-	methods: {
-		...mapMutations([ "updateEmpListArr", "updateEmp", "pushEmpListArr", "changeEmpListArrEl", "deleteNamesAndIdsEl" ]),
 
 		saveEmp(newEmp) {
 			if ((newEmp.fio !== this.employee.fio) && this.findEmpByName(newEmp.fio) !== -1) {
