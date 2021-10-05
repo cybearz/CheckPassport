@@ -86,15 +86,22 @@ export default {
 			isEmpListActive: true,
 			isNotFound: false,
 			isBtnDisabled: true,
-			empId: "",
 			statusText: "",
 		}
 	},
 
 	computed: {
 		...mapGetters([ "empListArr", "employee" ]),
+
 		isMobile() {
 			return this.$vuetify.breakpoint.name === "xs"
+		},
+
+		empId() {
+			const urlId = this.urlId
+			return (urlId === "new-emp" || !urlId)
+				? ""
+				: urlId
 		},
 	},
 
@@ -127,19 +134,16 @@ export default {
 				this.isEmpListActive = true
 				this.isNotFound = false
 				this.isBtnDisabled = false
-				this.empId = ""
 			} else if (v === "new-emp") {
 				this.isEmpListActive = false
 				this.isNotFound = false
 				this.isBtnDisabled = false
-				this.empId = ""
 			} else if (this.findEmpById(this.urlId) === -1) {
 				this.isNotFound = true
 			} else {
 				this.isEmpListActive = false
 				this.isNotFound = false
 				this.isBtnDisabled = true
-				this.empId = v
 				newEmp = this.empStore[v]
 			}
 
@@ -152,12 +156,13 @@ export default {
 				return //^
 			}
 
-			if (!this.empId) {
-				this.empId = uuidv1()
-				this.pushEmpListArr({ id: this.empId, avatar: newEmp.avatar, fullName: newEmp.fio })
-				this.$router.push({ name: "PageEmp", params: { urlId: this.empId } })
+			let empId = this.empId
+			if (!empId) {
+				empId = uuidv1()
+				this.pushEmpListArr({ id: empId, avatar: newEmp.avatar, fullName: newEmp.fio })
+				this.$router.push({ name: "PageEmp", params: { urlId: empId } })
 			} else {
-				const ind = this.findEmpById(this.empId)
+				const ind = this.findEmpById(empId)
 				if (newEmp.fio !== this.employee.fio) {
 					this.changeEmpListArrEl({ ind, key: "fullName", value: newEmp.fio })
 				}
@@ -167,15 +172,17 @@ export default {
 			}
 
 			this.statusText = "Данные сохранены"
-			this.empStore[this.empId] = _.clone(newEmp)
+			this.empStore[empId] = _.clone(newEmp)
 			setEmpStore(this.empStore)
 		},
 
 		removeEmp() {
 			this.statusText = "Данные удалены"
-
+			
+			if (!this.empId) return //^
 			delete this.empStore[this.empId]
 			const ind = this.findEmpById(this.empId)
+			console.log(ind) //D
 			this.deleteNamesAndIdsEl(ind)
 
 			setEmpStore(this.empStore)
