@@ -45,8 +45,8 @@ export default {
 			state.empListArr.splice(ind, 1)
 		},
 
-		updateEmp(state, newEmp = cleanEmp) {
-			state.employee = newEmp
+		updateEmp(state, newEmp) {
+			state.employee = _.clone(newEmp)
 		},
 	},
 }
