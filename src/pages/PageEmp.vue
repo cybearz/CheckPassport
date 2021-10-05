@@ -155,6 +155,7 @@ export default {
 			if (!this.empId) {
 				this.empId = uuidv1()
 				this.pushEmpListArr({ id: this.empId, avatar: newEmp.avatar, fullName: newEmp.fio })
+				this.$router.push({ name: "PageEmp", params: { urlId: this.empId } })
 			} else {
 				const ind = this.findEmpById(this.empId)
 				if (newEmp.fio !== this.employee.fio) {
@@ -164,10 +165,9 @@ export default {
 					this.changeEmpListArrEl({ ind, key: "avatar", value: newEmp.avatar })
 				}
 			}
+
 			this.statusText = "Данные сохранены"
-			this.isBtnDisabled = true
-			this.updateEmp(newEmp)
-			this.empStore[this.empId] = _.assign({}, newEmp)
+			this.empStore[this.empId] = _.clone(newEmp)
 			setEmpStore(this.empStore)
 		},
 
