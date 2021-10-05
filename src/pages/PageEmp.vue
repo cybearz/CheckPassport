@@ -173,17 +173,13 @@ export default {
 
 		removeEmp() {
 			this.statusText = "Данные удалены"
-			const empStoreId = this.empId
 
-			delete this.empStore[empStoreId]
-			const ind = this.findEmpById(empStoreId)
-
+			delete this.empStore[this.empId]
+			const ind = this.findEmpById(this.empId)
 			this.deleteNamesAndIdsEl(ind)
-			this.empId = ""
-
 
 			setEmpStore(this.empStore)
-			this.updateEmp()
+			this.$router.push({ name: "PageEmp", params: { urlId: "new-emp" } })
 		},
 
 		findEmpById(id) {
