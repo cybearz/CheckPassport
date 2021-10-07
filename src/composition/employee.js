@@ -24,8 +24,8 @@ export function useEmployee(props, showSnackbar, emit, refs, root) {
 
 	let iconDialog = ref(false)
 
-	const updateIcon = iconConfig => {
-		const { icon, color } = iconConfig
+	const updateIcon = iconData => {
+		const { icon, color } = iconData
 		employeeInner.value.avatar = {
 			icon,
 			color,

@@ -4,22 +4,20 @@ export default {
 	namespaced: true,
 
 	state: {
-		iconConfig: {
-			icon: "",
-			size: "400",
-			color: "white",
-		},
+		icon: "",
+		size: "400",
+		color: "white",
 	},
 
 	getters: {
-		iconConfig(state) {
-			return _.clone(state.iconConfig)
+		data(state) {
+			return _.clone(state)
 		},
 	},
 
 	mutations: {
 		set(state, v) {
-			state.iconConfig = v
+			_.assign(state, v)
 		},
 	},
 

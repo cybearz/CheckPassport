@@ -28,7 +28,7 @@ export default {
 
 	data() {
 		return {
-			icon: this.$store.state.icons.iconConfig,
+			icon: this.$store.getters["icons/data"],
 		}
 	},
 

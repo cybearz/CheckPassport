@@ -12,8 +12,8 @@
 					:key="i"
 				>
 					<v-icon
-						:size="iconConfig.size"
-						:class="[`${iconConfig.color}--text`, 'd-flex']"
+						:size="iconData.size"
+						:class="[`${iconData.color}--text`, 'd-flex']"
 					>
 						{{ `mdi-${ iconsEl }` }}
 					</v-icon>
@@ -50,7 +50,9 @@ export default {
 	},
 
 	computed: {
-		...mapGetters("icons", [ "iconConfig" ]),
+		iconData() {
+			return this.$store.getters["icons/data"]
+		},
 	},
 
 	async mounted() {
