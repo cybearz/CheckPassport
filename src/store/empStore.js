@@ -1,52 +1,44 @@
 import _ from "lodash"
 
 import { getShortName } from "@/utils/getShortName"
-import { cleanEmp } from "@/utils/api"
 
 export default {
+	namespaced: true,
+
 	state: {
-		empListArr: [],
-		employee: cleanEmp,
+		empList: [],
 	},
 
 	getters: {
-		empListArr(state) {
-			return state.empListArr
+		empList(state) {
+			return state.empList
 		},
 
-		sortedNamesAndIds(state) {
-			let sortedNamesAndIds = _.cloneDeep(state.empListArr).sort((curr, next) => curr.fullName?.localeCompare(next.fullName))
-			_.forEach(sortedNamesAndIds, value => {
+		sortedEmpList(state) {
+			let sortedEmpList = _.cloneDeep(state.empList).sort((curr, next) => curr.fullName?.localeCompare(next.fullName))
+			_.forEach(sortedEmpList, value => {
 				value.fullName = getShortName(value.fullName)
 			})
-			return sortedNamesAndIds
-		},
-
-		employee(state) {
-			return state.employee
+			return sortedEmpList
 		},
 	},
 
 	mutations: {
 
-		updateEmpListArr(state, v) {
-			state.empListArr = _.cloneDeep(v)
+		set(state, v) {
+			state.empList = _.cloneDeep(v)
 		},
 
-		pushEmpListArr(state, v) {
-			state.empListArr.push(v)
+		pushEmpList(state, v) {
+			state.empList.push(v)
 		},
 
-		changeEmpListArrEl(state, { ind, key, value }) {
-			state.empListArr[ind][key] = value
+		setEmpListEl(state, { ind, key, value }) {
+			state.empList[ind][key] = value
 		},
 
-		deleteNamesAndIdsEl(state, ind) {
-			state.empListArr.splice(ind, 1)
-		},
-
-		updateEmp(state, newEmp) {
-			state.employee = _.clone(newEmp)
+		remove(state, ind) {
+			state.empList.splice(ind, 1)
 		},
 	},
 }

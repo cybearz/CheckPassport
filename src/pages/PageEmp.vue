@@ -58,7 +58,7 @@
 
 <script>
 import _ from "lodash"
-import { mapGetters, mapMutations } from "vuex"
+import { mapMutations } from "vuex"
 import { v1 as uuidv1 } from "uuid"
 import { cleanEmp, getEmpStore, setEmpStore } from "@/utils/api"
 
@@ -82,6 +82,7 @@ export default {
 
 	data() {
 		return {
+			employee: cleanEmp,
 			empStore: {},
 			isEmpListActive: true,
 			isNotFound: false,
@@ -91,7 +92,9 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "empListArr", "employee" ]),
+		empList() {
+			return this.$store.getters["empStore/empList"]
+		},
 
 		isMobile() {
 			return this.$vuetify.breakpoint.name === "xs"
@@ -115,17 +118,17 @@ export default {
 		const es = getEmpStore()
 		this.empStore = es
 
-		const empListArr = []
+		const empList = []
 		_.forEach(es, (v, k) => {
-			empListArr.push({ id: k, avatar: v.avatar, fullName: v.fio })
+			empList.push({ id: k, avatar: v.avatar, fullName: v.fio })
 		})
-		this.updateEmpListArr(empListArr)
+		this.set(empList)
 
 		this.urlIdHook(this.urlId)
 	},
 
 	methods: {
-		...mapMutations([ "updateEmpListArr", "updateEmp", "pushEmpListArr", "changeEmpListArrEl", "deleteNamesAndIdsEl" ]),
+		...mapMutations("empStore", [ "set", "pushEmpList", "setEmpListEl", "remove" ]),
 		// Этот хук нужен для того, чтобы реагировать на изменения в urlId и не дублировать код в watch и в created.
 		urlIdHook(v) {
 			let newEmp = cleanEmp
@@ -147,7 +150,7 @@ export default {
 				newEmp = this.empStore[v]
 			}
 
-			this.updateEmp(newEmp)
+			this.employee = _.clone(newEmp)
 		},
 
 		saveEmp(newEmp) {
@@ -159,42 +162,42 @@ export default {
 			let empId = this.empId
 			if (!empId) {
 				empId = uuidv1()
-				this.pushEmpListArr({ id: empId, avatar: newEmp.avatar, fullName: newEmp.fio })
+				this.pushEmpList({ id: empId, avatar: newEmp.avatar, fullName: newEmp.fio })
 				this.$router.push({ name: "PageEmp", params: { urlId: empId } })
 			} else {
 				const ind = this.findEmpById(empId)
 				if (newEmp.fio !== this.employee.fio) {
-					this.changeEmpListArrEl({ ind, key: "fullName", value: newEmp.fio })
+					this.setEmpListEl({ ind, key: "fullName", value: newEmp.fio })
 				}
 				if (!_.isEqual(newEmp.avatar, this.employee.avatar)) {
-					this.changeEmpListArrEl({ ind, key: "avatar", value: newEmp.avatar })
+					this.setEmpListEl({ ind, key: "avatar", value: newEmp.avatar })
 				}
 			}
 
 			this.statusText = "Данные сохранены"
 			this.empStore[empId] = _.clone(newEmp)
 			setEmpStore(this.empStore)
+			this.employee = _.clone(newEmp)
 		},
 
 		removeEmp() {
 			this.statusText = "Данные удалены"
-			
+
 			if (!this.empId) return //^
 			delete this.empStore[this.empId]
 			const ind = this.findEmpById(this.empId)
-			console.log(ind) //D
-			this.deleteNamesAndIdsEl(ind)
+			this.remove(ind)
 
 			setEmpStore(this.empStore)
 			this.$router.push({ name: "PageEmp", params: { urlId: "new-emp" } })
 		},
 
 		findEmpById(id) {
-			return _.findIndex(this.empListArr, el => el.id === id)
+			return _.findIndex(this.empList, el => el.id === id)
 		},
 
 		findEmpByName(name) {
-			return _.findIndex(this.empListArr, el => el.fullName === name)
+			return _.findIndex(this.empList, el => el.fullName === name)
 		},
 
 	},

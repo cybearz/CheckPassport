@@ -27,7 +27,7 @@
 				color="primary"
 			>
 				<v-list-item
-					v-if="sortedNamesAndIds.length === 0"
+					v-if="sortedEmpList.length === 0"
 					inactive
 				>
 					<v-list-item-content>
@@ -37,7 +37,7 @@
 					</v-list-item-content>
 				</v-list-item>
 				<router-link
-					v-for="i in sortedNamesAndIds"
+					v-for="i in sortedEmpList"
 					:key="i.id"
 					style="text-decoration: none; color: inherit;"
 					:to="{name: 'PageEmp', params: {urlId: i.id}}"
@@ -66,8 +66,8 @@ export default {
 	name: "EmpList",
 
 	computed: {
-		sortedNamesAndIds() {
-			return this.$store.getters.sortedNamesAndIds
+		sortedEmpList() {
+			return this.$store.getters["empStore/sortedEmpList"]
 		},
 	},
 
