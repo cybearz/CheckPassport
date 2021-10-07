@@ -50,7 +50,7 @@ export default {
 	},
 
 	computed: {
-		...mapGetters([ "iconConfig" ]),
+		...mapGetters("icons", [ "iconConfig" ]),
 	},
 
 	async mounted() {
@@ -60,7 +60,7 @@ export default {
 		let iconsArr = []
 
 		for (let icon of icon.split(",")) {
-			if (!await hasIcon(icon)) {
+			if (!hasIcon(icon)) {
 				this.isNotFound = true
 				return //^
 			}
@@ -70,20 +70,15 @@ export default {
 		this.iconsArr = iconsArr
 
 		const { size = "400", color = "white" } = this.$route.query || {}
-		this.updatedIconConfig({
+		this.$store.commit("icons/set", {
 			icon,
 			size,
 			color,
 		})
 	},
 
-	methods: {
-		...mapMutations([ "updatedIconConfig" ]),
-	},
-
 }
 </script>
 
 <style scoped>
-
 </style>

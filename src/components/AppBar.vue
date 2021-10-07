@@ -1,9 +1,5 @@
 <template>
-	<v-app-bar
-		v-if="!isMobile"
-		app
-		dark
-	>
+	<v-app-bar v-if="!isMobile" app>
 		<v-btn
 			class="px-0"
 			plain
@@ -41,10 +37,9 @@
 		</v-btn>
 	</v-app-bar>
 
-	<v-app-bar
-		v-else
-		app
-	>
+	<!-- mobile -->
+
+	<v-app-bar v-else app>
 		<div class="text-uppercase text-h4">
 			CheckPassport
 		</div>

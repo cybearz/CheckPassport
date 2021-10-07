@@ -9,15 +9,17 @@ export function useEmployee(props, showSnackbar, emit, refs, root) {
 	let employeeInner = ref(cleanEmp)
 
 	onMounted(() => {
-			employeeInner.value = _.cloneDeep(employee.value)
-		},
-	)
+		employeeInner.value = _.cloneDeep(employee.value)
+	})
 
-	watch(employee, v => {
+	watch(employee,
+		v => {
 			refs.passportFrom.resetValidation()
 			employeeInner.value = _.cloneDeep(v)
 		},
-		{ deep: true },
+		{
+			deep: true,
+		},
 	)
 
 	let iconDialog = ref(false)
@@ -29,7 +31,7 @@ export function useEmployee(props, showSnackbar, emit, refs, root) {
 			color,
 		}
 		iconDialog.value = false
-		emit('fieldFocus')
+		emit("fieldFocus")
 	}
 
 	const saveEmp = () => {

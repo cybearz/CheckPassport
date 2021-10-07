@@ -1,6 +1,8 @@
 import _ from "lodash"
 
 export default {
+	namespaced: true,
+
 	state: {
 		iconConfig: {
 			icon: "",
@@ -16,7 +18,7 @@ export default {
 	},
 
 	mutations: {
-		updatedIconConfig(state, v) {
+		set(state, v) {
 			state.iconConfig = v
 		},
 	},
