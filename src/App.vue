@@ -16,13 +16,12 @@
 </template>
 
 <script>
+import { getEmpProfile } from "@/utils/api"
 import AppBar from "@/components/AppBar"
 import MyFooter from "@/components/MyFooter"
-import { getEmpProfile } from "@/utils/api"
 
 export default {
 	name: "App",
-
 	components: { AppBar, MyFooter },
 
 	data() {

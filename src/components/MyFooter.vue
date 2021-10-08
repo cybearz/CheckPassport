@@ -11,11 +11,23 @@
 </template>
 
 <script>
-import { ref, computed } from "@vue/composition-api"
+import { ref, computed, reactive } from "@vue/composition-api"
+
+// vuex analog
+
+let theState
+
+export function getTheState() {
+	return theState || reactive({ v: 1 })
+}
+
+// composition api sample
 
 function useYear(cur) {
+	theState = getTheState()
 	const year = ref(cur)
 	return {
+		theState,
 		year,
 		isFuture: computed(() => year.value > cur + 1),
 		isPast: computed(() => year.value < cur - 1),

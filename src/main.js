@@ -1,12 +1,13 @@
 import Vue from "vue"
+import VueCompositionAPI from "@vue/composition-api"
+
+Vue.use(VueCompositionAPI)
+Vue.config.productionTip = false
+
 import App from "./App.vue"
 import vuetify from "./plugins/vuetify"
 import router from "./router"
 import { store } from "@/store"
-import VueCompositionAPI from "@vue/composition-api"
-
-Vue.config.productionTip = false
-Vue.use(VueCompositionAPI)
 
 new Vue({
 	store,
