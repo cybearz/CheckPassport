@@ -99,12 +99,12 @@
 </template>
 
 <script>
-import { useBtnVisability } from "@/composition/btnVisability"
 import { useEmployee } from "@/composition/employee"
 import { useRules } from "@/composition/rules"
 
 import Calendar from "@/components/Calendar"
 import IconForm from "@/components/IconForm"
+import { ref, toRefs, watch } from "@vue/composition-api"
 
 export default {
 	name: "PassportForm",
@@ -126,12 +126,17 @@ export default {
 		},
 	},
 
-	setup(props, { emit, refs, root }) {
-		const { isBtnDisabledInner } = useBtnVisability(props)
+	setup(props) {
+		const { isBtnDisabled } = toRefs(props)
+		const isBtnDisabledInner = ref(isBtnDisabled.value)
+
+		watch(isBtnDisabled, v => {
+			isBtnDisabledInner.value = v
+		})
 
 		return {
 			isBtnDisabledInner,
-			...useEmployee(props, emit, refs, root),
+			...useEmployee(props),
 			...useRules(),
 		}
 	},

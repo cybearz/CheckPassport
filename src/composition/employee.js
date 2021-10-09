@@ -1,15 +1,14 @@
-import { ref, watch, toRefs, onMounted } from "@vue/composition-api"
+import { ref, watch, toRefs, onMounted, getCurrentInstance } from "@vue/composition-api"
 import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 
 import { useSnackbar } from "@/composition/snackbar"
 
-export function useEmployee(props, emit, refs, root) {
+export function useEmployee(props) {
 	let { snackbar, statusTextInner, showSnackbar } = useSnackbar(props)
-
+	const { emit, refs, root } = getCurrentInstance()
 	const { employee } = toRefs(props)
-
 	let employeeInner = ref(cleanEmp)
 
 	onMounted(() => {
