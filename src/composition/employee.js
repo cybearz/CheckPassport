@@ -3,7 +3,11 @@ import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 
-export function useEmployee(props, showSnackbar, emit, refs, root) {
+import { useSnackbar } from "@/composition/snackbar"
+
+export function useEmployee(props, emit, refs, root) {
+	let { snackbar, statusTextInner, showSnackbar } = useSnackbar(props)
+
 	const { employee } = toRefs(props)
 
 	let employeeInner = ref(cleanEmp)
@@ -62,5 +66,5 @@ export function useEmployee(props, showSnackbar, emit, refs, root) {
 		showSnackbar()
 	}
 
-	return { employeeInner, iconDialog, updateIcon, saveEmp, removeEmp }
+	return { employeeInner, iconDialog, updateIcon, saveEmp, removeEmp, snackbar, statusTextInner}
 }

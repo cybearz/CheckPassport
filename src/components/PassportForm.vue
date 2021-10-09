@@ -99,11 +99,8 @@
 </template>
 
 <script>
-import { onMounted } from "@vue/composition-api"
-import { iconStorage } from "@/utils/api"
 import { useBtnVisability } from "@/composition/btnVisability"
 import { useEmployee } from "@/composition/employee"
-import { useSnackbar } from "@/composition/snackbar"
 import { useRules } from "@/composition/rules"
 
 import Calendar from "@/components/Calendar"
@@ -130,15 +127,11 @@ export default {
 	},
 
 	setup(props, { emit, refs, root }) {
-		onMounted(() => iconStorage.init())
-
-		let { snackbar, statusTextInner, showSnackbar } = useSnackbar(props)
 		const { isBtnDisabledInner } = useBtnVisability(props)
 
 		return {
-			snackbar, statusTextInner,
 			isBtnDisabledInner,
-			...useEmployee(props, showSnackbar, emit, refs, root),
+			...useEmployee(props, emit, refs, root),
 			...useRules(),
 		}
 	},
