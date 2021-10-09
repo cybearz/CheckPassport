@@ -5,6 +5,7 @@ import PageProfile from "@/pages/PageProfile"
 import PageNotFound from "@/pages/PageNotFound"
 import PageIcon from "@/pages/PageIcon"
 import PageIconForm from "@/pages/PageIconForm"
+import PagePosts from "@/pages/PagePosts"
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,12 @@ const routes = [
 		path: "/profile",
 		name: "PageProfile",
 		component: PageProfile,
+	},
+
+	{
+		path: "/board",
+		name: "PagePosts",
+		component: PagePosts,
 	},
 
 	{
