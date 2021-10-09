@@ -86,7 +86,7 @@
 		<!-- snackbar -->
 
 		<v-snackbar v-model="snackbar">
-			{{ statusTextInner }}
+			OLD: {{ statusTextInner }}
 			<template v-slot:action="{ attrs }">
 				<v-btn
 					color="blue"

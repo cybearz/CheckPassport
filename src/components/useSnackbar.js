@@ -1,6 +1,6 @@
 import { ref, toRefs, watch } from "@vue/composition-api"
 
-export function useSnackbar(props) {
+export function useSnackbar(props, timeout = 3500) {
 	const { statusText } = toRefs(props)
 	let snackbar = ref(false)
 	let statusTextInner = ref("")
@@ -13,7 +13,7 @@ export function useSnackbar(props) {
 		snackbar.value = true
 		setTimeout(() => {
 			snackbar.value = false
-		}, 1000)
+		}, timeout)
 	}
 
 	return { snackbar, statusTextInner, showSnackbar }

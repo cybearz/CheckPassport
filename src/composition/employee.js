@@ -3,7 +3,7 @@ import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 
-import { useSnackbar } from "@/composition/snackbar"
+import { useSnackbar } from "@/components/useSnackbar"
 
 export function useEmployee(props) {
 	let { snackbar, statusTextInner, showSnackbar } = useSnackbar(props)
