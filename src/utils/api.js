@@ -30,21 +30,18 @@ class LocalStorageData {
 
 class IconStorage {
 
-	txt = ""
+	allIcons = []
 
 	async init() {
 		let response = await fetch("https://pictogrammers.github.io/@mdi/font/6.1.95/")
-		this.txt = await response.text()
+		const txt = await response.text()
+		this.allIcons = txt
+			.match(/name:"[\w\-]*"/g)
+			.map( i => i.slice(6, -1))
 	}
 
 	has(v) {
-		return this.txt.indexOf(`name:"${ v }"`) !== -1
-	}
-
-	match(v) {
-		const str = _.escapeRegExp(v)
-		const regexp = new RegExp(`name:"${str}[\\w\-]*"`)
-		return !!this.txt.match(regexp)
+		return this.allIcons.indexOf(v) !== -1
 	}
 }
 
@@ -80,12 +77,12 @@ export function setEmpProfile(v) {
 	empProfile.set(v)
 }
 
-export function hasIcon(v) {
-	return iconStorage.has(v)
+export function getAllIcons() {
+	return iconStorage.allIcons
 }
 
-export function matchIcon(v) {
-	return iconStorage.match(v)
+export function hasIcon(v) {
+	return iconStorage.has(v)
 }
 
 

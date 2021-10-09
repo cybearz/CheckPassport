@@ -14,10 +14,19 @@
 			@submit.prevent="submit"
 		>
 			<v-text-field
+				v-if="multiple"
 				v-model="values.icon"
 				label="Имя"
 				outlined
 				:rules="rulesIconName"
+			/>
+			<v-autocomplete
+				v-else
+				v-model="values.icon"
+				:items="allIcons"
+				dense
+				filled
+				label="Имя"
 			/>
 			<v-slider
 				v-if="multiple"
@@ -84,6 +93,12 @@ const iconColors = [
 	"white",
 ].sort()
 
+let allIcons
+iconStorage.init().then( () => {
+	allIcons = iconStorage.allIcons
+	iconStorage.allIcons
+})
+
 export default {
 	name: "IconForm",
 
@@ -113,7 +128,7 @@ export default {
 	computed: {
 
 		iconColors: () => iconColors,
-
+		allIcons: () => allIcons,
 		rulesIconName() {
 			const ruleIcon = v => hasIcon(v)
 				? true
@@ -145,7 +160,6 @@ export default {
 	async mounted() {
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.classList.add(`${ this.iconColors[ndx] }--text`))
-		await iconStorage.init()
 	},
 
 	methods: {
