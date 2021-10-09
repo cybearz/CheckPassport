@@ -1,7 +1,6 @@
 <template>
 	<PageNotFound v-if="isNotFound" />
-	<v-row
-		v-else
+	<v-row v-else
 		no-gutters
 		justify="center"
 	>
@@ -37,8 +36,10 @@
 				/>
 			</div>
 		</v-col>
-		<v-col
-			v-if="!isMobile"
+
+		<!-- mobile -->
+
+		<v-col v-if="!isMobile"
 			xl="4"
 			lg="4"
 			md="7"

@@ -1,6 +1,6 @@
 import { hasIcon } from "@/utils/api"
 
-const RULES = {
+export const RULES = Object.freeze({
 	rulesIconName: [
 		v => !!v || "Введите имя",
 		v => ( v && !hasIcon(v) )
@@ -22,8 +22,4 @@ const RULES = {
 	dtRules: [
 		v => !!v || "Введите дату",
 	],
-}
-
-export function useRules() {
-	return RULES
-}
+})

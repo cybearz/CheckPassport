@@ -70,6 +70,7 @@
 				:rules="dtRules"
 			/>
 
+			<!-- actions -->
 			<v-btn
 				:disabled="isBtnDisabledInner"
 				type="submit"
@@ -80,38 +81,38 @@
 			<v-btn @click="removeEmp">
 				Удалить
 			</v-btn>
-
-			<v-snackbar v-model="snackbar">
-				{{ statusTextInner }}
-				<template v-slot:action="{ attrs }">
-					<v-btn
-						color="blue"
-						text
-						v-bind="attrs"
-						@click="snackbar = false"
-					>
-						Close
-					</v-btn>
-				</template>
-			</v-snackbar>
 		</v-form>
+
+		<!-- snackbar -->
+
+		<v-snackbar v-model="snackbar">
+			{{ statusTextInner }}
+			<template v-slot:action="{ attrs }">
+				<v-btn
+					color="blue"
+					text
+					v-bind="attrs"
+					@click="snackbar = false"
+				>
+					Close
+				</v-btn>
+			</template>
+		</v-snackbar>
 	</v-card>
 </template>
 
 <script>
+import { ref, toRefs, watch } from "@vue/composition-api"
 import { useEmployee } from "@/composition/employee"
-import { useRules } from "@/composition/rules"
+import { RULES } from "@/utils/rules"
 
 import Calendar from "@/components/Calendar"
 import IconForm from "@/components/IconForm"
-import { ref, toRefs, watch } from "@vue/composition-api"
 
 export default {
 	name: "PassportForm",
+	components: { Calendar, IconForm },
 
-	components: {
-		Calendar, IconForm,
-	},
 	props: {
 		employee: {
 			type: Object,
@@ -137,7 +138,7 @@ export default {
 		return {
 			isBtnDisabledInner,
 			...useEmployee(props),
-			...useRules(),
+			...RULES,
 		}
 	},
 }

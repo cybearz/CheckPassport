@@ -13,20 +13,17 @@
 			class="pa-3"
 			@submit.prevent="submit"
 		>
-			<v-text-field
-				v-if="multiple"
+			<v-text-field v-if="multiple"
 				v-model="values.icon"
 				label="Имя"
 				outlined
 				:rules="rulesIconName"
 			/>
-			<v-autocomplete
-				v-else
+			<v-autocomplete v-else
 				v-model="values.icon"
 				:items="allIcons"
-				dense
-				filled
 				label="Имя"
+				outlined
 			/>
 			<v-slider
 				v-if="multiple"
