@@ -9,24 +9,32 @@
 			md="7"
 			sm="7"
 		>
-			<v-card>
-				<v-card-title>Баг</v-card-title>
-				<v-card-text>"quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"</v-card-text>
+			<v-card
+				v-for="post in posts"
+				:key="post.id"
+				class="mb-4"
+			>
+				<v-card-title>{{ post.title }}</v-card-title>
+				<v-card-text>{{ post.body }}</v-card-text>
 			</v-card>
 		</v-col>
 	</v-row>
 </template>
+
 <script>
-import axios from "axios"
+import { getPosts } from "@/utils/api"
 export default {
 	name: "PagePosts",
 
 	data() {
 		return {
-
+			posts: [],
 		}
 	},
 
+	async mounted() {
+		this.posts = await getPosts()
+	}
 
 }
 </script>
