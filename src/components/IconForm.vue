@@ -27,9 +27,38 @@
 				:filter="iconFilter"
 				:rules="rulesIconName"
 				label="Имя"
+				chips
 				outlined
 				auto-select-first
-			/>
+			>
+				<template v-slot:selection="data">
+					<v-chip
+						v-bind="data.attrs"
+						:input-value="data.selected"
+						close
+						@click="data.select"
+						@click:close="values.icon = ''"
+					>
+						<v-icon
+							:class="values.color + '--text'"
+							left
+						>
+							{{ "mdi-" + data.item }}
+						</v-icon>
+						{{ data.item }}
+					</v-chip>
+				</template>
+				<template v-slot:item="data">
+					<v-list-item-avatar>
+						<v-icon left>
+							{{ "mdi-" + data.item }}
+						</v-icon>
+					</v-list-item-avatar>
+					<v-list-item-content>
+						<v-list-item-subtitle>{{ data.item }}</v-list-item-subtitle>
+					</v-list-item-content>
+				</template>
+			</v-autocomplete>
 			<v-slider
 				v-if="multiple"
 				v-model="values.size"
