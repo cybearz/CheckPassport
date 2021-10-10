@@ -85,33 +85,26 @@
 
 		<!-- snackbar -->
 
-		<v-snackbar v-model="snackbar">
-			OLD: {{ statusTextInner }}
-			<template v-slot:action="{ attrs }">
-				<v-btn
-					color="blue"
-					text
-					v-bind="attrs"
-					@click="snackbar = false"
-				>
-					Close
-				</v-btn>
-			</template>
-		</v-snackbar>
+		<TheSnackbar
+			v-model="snackbar"
+			:text="snackbarText"
+		/>
 	</v-card>
 </template>
 
 <script>
-import { ref, toRefs, watch } from "@vue/composition-api"
-import { useEmployee } from "@/composition/employee"
+import { ref, toRefs, watch, computed } from "@vue/composition-api"
 import { RULES } from "@/utils/rules"
+import { useSnackbar } from "@/components/useSnackbar"
+import { useEmployee } from "@/composition/employee"
 
+import TheSnackbar from "@/components/TheSnackbar"
 import Calendar from "@/components/Calendar"
 import IconForm from "@/components/IconForm"
 
 export default {
 	name: "PassportForm",
-	components: { Calendar, IconForm },
+	components: { Calendar, IconForm, TheSnackbar },
 
 	props: {
 		employee: {
@@ -128,7 +121,9 @@ export default {
 	},
 
 	setup(props) {
-		const { isBtnDisabled } = toRefs(props)
+		const { snackbar, text: snackbarText, showSnackbar } = useSnackbar()
+
+		const { employee, isBtnDisabled } = toRefs(props)
 		const isBtnDisabledInner = ref(isBtnDisabled.value)
 
 		watch(isBtnDisabled, v => {
@@ -136,9 +131,12 @@ export default {
 		})
 
 		return {
-			isBtnDisabledInner,
-			...useEmployee(props),
 			...RULES,
+			snackbar,
+			snackbarText,
+
+			isBtnDisabledInner,
+			...useEmployee(employee, showSnackbar),
 		}
 	},
 }

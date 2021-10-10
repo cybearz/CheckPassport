@@ -1,14 +1,16 @@
 <template>
-	<v-snackbar v-model="snackbar"
+	<v-snackbar
+		:value="value"
 		:color="color"
+		@input="b => $emit('input', b)"
 	>
 		{{ text }}
 		<template v-slot:action="{ attrs }">
 			<v-btn
-				color="blue"
+				color="white"
 				text
 				v-bind="attrs"
-				@click="snackbar = false"
+				@click="$emit('input', false)"
 			>
 				Close
 			</v-btn>
@@ -17,13 +19,11 @@
 </template>
 
 <script>
-import { ref } from "@vue/composition-api"
-// import { useSnackbar } from "./useSnackbar"
-
 export default {
 	name: "TheSnackbar",
 
 	props: {
+		value: Boolean,
 		text: String,
 
 		timeout: {
@@ -37,11 +37,6 @@ export default {
 		},
 	},
 
-	setup() {
-		return {
-			snackbar: ref(false),
-		}
-	},
 }
 </script>
 

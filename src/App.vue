@@ -13,7 +13,6 @@
 
 		<MyFooter/>
 		<TheSnackbar
-			v-bind="snackbarAttrs"
 			color="red"
 		/>
 	</v-app>
@@ -33,7 +32,7 @@ export default {
 
 	setup() {
 		return {
-			snackbarAttrs: useSnackbar(reactive({ statusText: "!!!" })),
+			snackbarAttrs: useSnackbar(),
 		}
 	},
 

@@ -3,12 +3,8 @@ import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 
-import { useSnackbar } from "@/components/useSnackbar"
-
-export function useEmployee(props) {
-	let { snackbar, statusTextInner, showSnackbar } = useSnackbar(props)
+export function useEmployee(employee, notify) {
 	const { emit, refs, root } = getCurrentInstance()
-	const { employee } = toRefs(props)
 	let employeeInner = ref(cleanEmp)
 
 	onMounted(() => {
@@ -56,14 +52,14 @@ export function useEmployee(props) {
 
 		employeeInner.value.pass_dt = moment(employeeInner.value.pass_dt).format("YYYY-MM-DDThh:mm:ssZ")
 		emit("saveEmp", employeeInner.value)
-		showSnackbar()
+		notify("Saved")
 	}
 
 	const removeEmp = () => {
 		employeeInner.value = cleanEmp
 		emit("removeEmp")
-		showSnackbar()
+		notify("Deleted")
 	}
 
-	return { employeeInner, iconDialog, updateIcon, saveEmp, removeEmp, snackbar, statusTextInner}
+	return { employeeInner, iconDialog, updateIcon, saveEmp, removeEmp }
 }
