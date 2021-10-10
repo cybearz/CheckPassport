@@ -13,17 +13,22 @@
 			class="pa-3"
 			@submit.prevent="submit"
 		>
-			<v-text-field v-if="multiple"
+			<v-text-field
+				v-if="multiple"
 				v-model="values.icon"
 				label="Имя"
 				outlined
 				:rules="rulesIconName"
 			/>
-			<v-autocomplete v-else
+			<v-autocomplete
+				v-else
 				v-model="values.icon"
 				:items="allIcons"
+				:filter="iconFilter"
+				:rules="rulesIconName"
 				label="Имя"
 				outlined
+				auto-select-first
 			/>
 			<v-slider
 				v-if="multiple"
@@ -35,7 +40,7 @@
 				thumb-label
 			/>
 
-			<v-divider/>
+			<v-divider />
 
 			<v-radio-group
 				v-model="values.color"
@@ -164,6 +169,11 @@ export default {
 		changeColorArr() {
 			iconColors.splice(-1)
 			this.$forceUpdate()
+		},
+
+		iconFilter(item, querryText) {
+			const regexp = new RegExp(`^${querryText}[\\w\-]*`)
+			return regexp.test(item)
 		},
 
 		submit() {
