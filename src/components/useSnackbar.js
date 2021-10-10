@@ -1,6 +1,12 @@
 import { ref } from "@vue/composition-api"
 
-export function useSnackbar(timeout = 3500) {
+let snackbar
+
+export function useSnackbar(timeout) {
+	return snackbar = snackbar ?? newSnackbar(timeout)
+}
+
+export function newSnackbar(timeout = 3500) {
 	let snackbar = ref(false)
 	const text = ref("---")
 
@@ -12,5 +18,11 @@ export function useSnackbar(timeout = 3500) {
 		return close
 	}
 
-	return { snackbar, text, showSnackbar }
+	return {
+		// private
+		snackbar,
+		text,
+		// public
+		showSnackbar,
+	}
 }

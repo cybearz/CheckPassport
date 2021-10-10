@@ -12,14 +12,16 @@
 		</v-main>
 
 		<MyFooter/>
+
 		<TheSnackbar
+			v-model="snackbar"
+			:text="snackbarText"
 			color="red"
 		/>
 	</v-app>
 </template>
 
 <script>
-import { reactive } from "@vue/composition-api"
 import { getEmpProfile } from "@/utils/api"
 import AppBar from "@/components/AppBar"
 import MyFooter from "@/components/MyFooter"
@@ -31,8 +33,10 @@ export default {
 	components: { AppBar, MyFooter, TheSnackbar },
 
 	setup() {
+		const { snackbar, text: snackbarText } = useSnackbar()
 		return {
-			snackbarAttrs: useSnackbar(),
+			snackbar,
+			snackbarText,
 		}
 	},
 

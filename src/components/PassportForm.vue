@@ -82,20 +82,12 @@
 				Удалить
 			</v-btn>
 		</v-form>
-
-		<!-- snackbar -->
-
-		<TheSnackbar
-			v-model="snackbar"
-			:text="snackbarText"
-		/>
 	</v-card>
 </template>
 
 <script>
 import { ref, toRefs, watch, computed } from "@vue/composition-api"
 import { RULES } from "@/utils/rules"
-import { useSnackbar } from "@/components/useSnackbar"
 import { useEmployee } from "@/composition/employee"
 
 import TheSnackbar from "@/components/TheSnackbar"
@@ -121,8 +113,6 @@ export default {
 	},
 
 	setup(props) {
-		const { snackbar, text: snackbarText, showSnackbar } = useSnackbar()
-
 		const { employee, isBtnDisabled } = toRefs(props)
 		const isBtnDisabledInner = ref(isBtnDisabled.value)
 
@@ -132,11 +122,8 @@ export default {
 
 		return {
 			...RULES,
-			snackbar,
-			snackbarText,
-
 			isBtnDisabledInner,
-			...useEmployee(employee, showSnackbar),
+			...useEmployee(employee),
 		}
 	},
 }

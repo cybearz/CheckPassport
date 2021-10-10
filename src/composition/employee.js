@@ -2,8 +2,10 @@ import { ref, watch, toRefs, onMounted, getCurrentInstance } from "@vue/composit
 import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
+import { useSnackbar } from "@/components/useSnackbar"
 
-export function useEmployee(employee, notify) {
+export function useEmployee(employee) {
+	const { showSnackbar: notify } = useSnackbar()
 	const { emit, refs, root } = getCurrentInstance()
 	let employeeInner = ref(cleanEmp)
 
