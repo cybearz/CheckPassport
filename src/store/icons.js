@@ -4,14 +4,14 @@ export default {
 	namespaced: true,
 
 	state: {
-		icon: "",
+		icon: [],
 		size: "400",
 		color: "white",
 	},
 
 	getters: {
 		data(state) {
-			return _.clone(state)
+			return _.cloneDeep(state)
 		},
 	},
 

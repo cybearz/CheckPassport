@@ -11,8 +11,8 @@
 		>
 			<IconForm
 				multiple
-				:iconData="icon"
-				btnLabel="Показать"
+				:icon-data="iconsArr"
+				btn-label="Показать"
 				@save="saveIcon"
 			/>
 		</v-col>
@@ -28,7 +28,7 @@ export default {
 
 	data() {
 		return {
-			icon: this.$store.getters["icons/data"],
+			iconsArr: this.$store.getters["icons/data"],
 		}
 	},
 
@@ -38,7 +38,7 @@ export default {
 
 			this.$router.push({
 				name: "PageIcon",
-				params: { icon },
+				params: { icon: icon.join(",") },
 				query: { size, color },
 			})
 		},

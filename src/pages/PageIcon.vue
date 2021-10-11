@@ -58,10 +58,9 @@ export default {
 	async mounted() {
 		await getMdiIcons()
 
-		const icon = this.icon
 		let iconsArr = []
 
-		for (let icon of icon.split(",")) {
+		for (let icon of this.icon.split(",")) {
 			if (!hasIcon(icon)) {
 				this.isNotFound = true
 				return //^
@@ -73,7 +72,7 @@ export default {
 
 		const { size = "400", color = "white" } = this.$route.query || {}
 		this.$store.commit("icons/set", {
-			icon,
+			icon: iconsArr,
 			size,
 			color,
 		})

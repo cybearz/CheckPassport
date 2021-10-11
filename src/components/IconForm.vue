@@ -13,16 +13,10 @@
 			class="pa-3"
 			@submit.prevent="submit"
 		>
-			<v-text-field
-				v-if="multiple"
-				v-model="values.icon"
-				label="Имя"
-				outlined
-				:rules="rulesIconName"
-			/>
 			<v-autocomplete
 				v-else
 				v-model="values.icon"
+				:multiple="multiple"
 				:items="allIcons"
 				:filter="iconFilter"
 				:rules="rulesIconName"
@@ -162,7 +156,7 @@ export default {
 				v => !!v || "Введите имя",
 				this.multiple
 					? v => {
-						for (let icon of v.split(",")) {
+						for (let icon of v) {
 							const b = ruleIcon(icon)
 							if (b !== true) return b
 						}
