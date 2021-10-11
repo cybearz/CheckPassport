@@ -31,7 +31,7 @@
 						:input-value="data.selected"
 						close
 						@click="data.select"
-						@click:close="values.icon = ''"
+						@click:close="removeIcon(data.item)"
 					>
 						<v-icon left>
 							{{ "mdi-" + data.item }}
@@ -149,18 +149,21 @@ export default {
 			const ruleIcon = v => hasIcon(v)
 				? true
 				: `Иконка "${ v }" не существует`
-			return [
-				v => !!v || "Введите имя",
-				this.multiple
-					? v => {
+			return this.multiple
+				? [
+					v => !_.isEmpty(v) || "Введите имя",
+					v => {
 						for (let icon of v) {
 							const b = ruleIcon(icon)
 							if (b !== true) return b
 						}
 						return true
 					}
-					: ruleIcon,
-			]
+				]
+				: [
+					v => !!v || "Введите имя",
+					ruleIcon
+				]
 		},
 	},
 
@@ -193,6 +196,15 @@ export default {
 		iconFilter(item, querryText) {
 			const regexp = new RegExp(`^${querryText}[\\w\-]*`)
 			return regexp.test(item)
+		},
+
+		removeIcon(v) {
+			if (this.multiple) {
+				const index = this.values.icon.indexOf(v)
+				if (index >= 0) this.values.icon.splice(index, 1)
+			} else {
+				this.values.icon = ""
+			}
 		},
 
 		submit() {
