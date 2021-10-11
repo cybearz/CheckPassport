@@ -33,10 +33,7 @@
 						@click="data.select"
 						@click:close="values.icon = ''"
 					>
-						<v-icon
-							:class="values.color + '--text'"
-							left
-						>
+						<v-icon left>
 							{{ "mdi-" + data.item }}
 						</v-icon>
 						{{ data.item }}

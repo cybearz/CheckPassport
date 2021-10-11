@@ -11,7 +11,7 @@
 		>
 			<IconForm
 				multiple
-				:icon-data="iconsArr"
+				:icon-data="icon"
 				btn-label="Показать"
 				@save="saveIcon"
 			/>
@@ -28,7 +28,7 @@ export default {
 
 	data() {
 		return {
-			iconsArr: this.$store.getters["icons/data"],
+			icon: this.$store.getters["icons/data"],
 		}
 	},
 

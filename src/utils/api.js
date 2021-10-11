@@ -40,12 +40,7 @@ async function newAllIcons() {
 let allIcons
 
 export async function getMdiIcons() {
-	console.log("getMdiIcons() start:", allIcons) //D
-
-	allIcons = allIcons ?? await newAllIcons()
-
-	console.log("getMdiIcons() end:", allIcons) //D
-	return allIcons
+	return allIcons = allIcons ?? await newAllIcons()
 }
 
 export function hasIcon(v) {
