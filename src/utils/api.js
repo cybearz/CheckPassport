@@ -28,28 +28,33 @@ class LocalStorageData {
 	}
 }
 
-class IconStorage {
+async function newAllIcons() {
+	console.log(">>> fetch AllIcons") //D
+	let response = await fetch("https://pictogrammers.github.io/@mdi/font/6.1.95/")
+	const txt = await response.text()
+	return txt
+		.match(/name:"[\w\-]*"/g)
+		.map( i => i.slice(6, -1))
+}
 
-	allIcons = []
+let allIcons
 
-	async init() {
-		let response = await fetch("https://pictogrammers.github.io/@mdi/font/6.1.95/")
-		const txt = await response.text()
-		this.allIcons = txt
-			.match(/name:"[\w\-]*"/g)
-			.map( i => i.slice(6, -1))
-	}
+export async function getMdiIcons() {
+	console.log("getMdiIcons() start:", allIcons) //D
 
-	has(v) {
-		return this.allIcons.indexOf(v) !== -1
-	}
+	allIcons = allIcons ?? await newAllIcons()
+
+	console.log("getMdiIcons() end:", allIcons) //D
+	return allIcons
+}
+
+export function hasIcon(v) {
+	return allIcons?.indexOf(v) !== -1
 }
 
 function createAvatar(emp) {
 	if (!emp.avatar) emp.avatar = { icon: "account", color: "white" }
 }
-
-export const iconStorage = new IconStorage()
 
 const empStore = new LocalStorageData("empStore")
 const empProfile = new LocalStorageData("empProfile")
@@ -76,38 +81,3 @@ export function getEmpProfile() {
 export function setEmpProfile(v) {
 	empProfile.set(v)
 }
-
-export function getAllIcons() {
-	return iconStorage.allIcons
-}
-
-export function hasIcon(v) {
-	return iconStorage.has(v)
-}
-
-
-//TODO??? cache
-
-class LocalStorage {
-	cache = {}
-
-	constructor(keys) {
-		keys.forEach(key => {
-			const store = new LocalStorageData(key)
-
-			Object.defineProperty(this, key, {
-				get() {
-					const v = this.cache[key]
-					if (v) return v //^
-					return this.cache[key] = store.get()
-				},
-
-				set(value) {
-					this.cache[key] = store.set(value)
-				},
-			})
-		})
-	}
-}
-
-export const myLocalStorage = new LocalStorage([ "empStore", "empProfile" ])

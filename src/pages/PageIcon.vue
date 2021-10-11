@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex"
-import { iconStorage, hasIcon } from "@/utils/api"
+
+import { getMdiIcons, hasIcon } from "@/utils/api"
 import PageNotFound from "@/pages/PageNotFound"
 
 export default {
@@ -56,7 +56,7 @@ export default {
 	},
 
 	async mounted() {
-		await iconStorage.init()
+		await getMdiIcons()
 
 		const icon = this.icon
 		let iconsArr = []

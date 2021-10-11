@@ -113,7 +113,7 @@
 
 <script>
 import _ from "lodash"
-import { iconStorage, hasIcon } from "@/utils/api"
+import { getMdiIcons, hasIcon } from "@/utils/api"
 
 const iconColors = [
 	"red", "pink", "purple", "deep-purple",
@@ -123,12 +123,6 @@ const iconColors = [
 	"brown", "blue-grey", "grey", "black",
 	"white",
 ].sort()
-
-let allIcons
-iconStorage.init().then( () => {
-	allIcons = iconStorage.allIcons
-	iconStorage.allIcons
-})
 
 export default {
 	name: "IconForm",
@@ -152,6 +146,7 @@ export default {
 				size: "",
 				color: "",
 			},
+			allIconsReady: false,
 			errMsg: "",
 		}
 	},
@@ -159,7 +154,6 @@ export default {
 	computed: {
 
 		iconColors: () => iconColors,
-		allIcons: () => allIcons,
 		rulesIconName() {
 			const ruleIcon = v => hasIcon(v)
 				? true
@@ -188,7 +182,12 @@ export default {
 		},
 	},
 
-	async mounted() {
+	async created() {
+		this.allIcons = await getMdiIcons()
+		this.allIconsReady = true
+	},
+
+	mounted() {
 		document.querySelectorAll(".v-radio .v-icon")
 			.forEach((el, ndx) => el.classList.add(`${ this.iconColors[ndx] }--text`))
 	},
