@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { ref, toRefs, watch, computed } from "@vue/composition-api"
+import { ref, toRefs, watch } from "@vue/composition-api"
 import { RULES } from "@/utils/rules"
 import { useEmployee } from "@/composition/employee"
 
@@ -112,7 +112,7 @@ export default {
 		},
 	},
 
-	setup(props) {
+	setup(props, { emit, refs, root }) {
 		const { employee, isBtnDisabled } = toRefs(props)
 		const isBtnDisabledInner = ref(isBtnDisabled.value)
 
@@ -123,7 +123,7 @@ export default {
 		return {
 			...RULES,
 			isBtnDisabledInner,
-			...useEmployee(employee),
+			...useEmployee(employee, emit, refs, root),
 		}
 	},
 }

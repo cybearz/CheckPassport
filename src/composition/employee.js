@@ -1,12 +1,11 @@
-import { ref, watch, toRefs, onMounted, getCurrentInstance } from "@vue/composition-api"
+import { ref, watch, onMounted, nextTick } from "@vue/composition-api"
 import _ from "lodash"
 import moment from "moment"
 import { cleanEmp } from "@/utils/api"
 import { useSnackbar } from "@/components/useSnackbar"
 
-export function useEmployee(employee) {
+export function useEmployee(employee, emit, refs, root) {
 	const { showSnackbar: notify } = useSnackbar()
-	const { emit, refs, root } = getCurrentInstance()
 	let employeeInner = ref(cleanEmp)
 
 	onMounted(() => {
@@ -39,7 +38,7 @@ export function useEmployee(employee) {
 		const isValid = refs.passportFrom.validate()
 		if (!isValid) {
 			// TODO Допустимо ли обращение через $root?
-			root.$nextTick(() => {
+			nextTick(() => {
 				const errorEl = document.querySelector(".v-messages__message:first-of-type")
 				const inputEl = errorEl.parentNode.parentNode.parentNode.parentNode
 				root.$vuetify.goTo(inputEl)
