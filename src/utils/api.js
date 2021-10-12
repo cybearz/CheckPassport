@@ -91,11 +91,19 @@ export function matchIcon(v) {
 	return iconStorage.match(v)
 }
 
-export async function getPosts(n) {
-	const response = await axios.get("https://jsonplaceholder.typicode.com/posts?_limit=10")
-	return response.data
+export async function getPosts(_page, _limit) {
+	const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
+		params: {
+			_page,
+			_limit
+		}
+	})
+	const totalPages = Math.ceil(response.headers["x-total-count"] / _limit)
+	return {
+		posts: response.data,
+		totalPages
+	}
 }
-
 
 //TODO??? cache
 

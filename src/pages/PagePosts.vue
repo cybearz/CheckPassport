@@ -17,6 +17,9 @@
 				<v-card-title>{{ post.title }}</v-card-title>
 				<v-card-text>{{ post.body }}</v-card-text>
 			</v-card>
+			<div
+				v-intersect="onIntersect"
+			/>
 		</v-col>
 	</v-row>
 </template>
@@ -29,13 +32,27 @@ export default {
 	data() {
 		return {
 			posts: [],
+			page: 0,
+			limit: 10,
+			totalPages: 1,
 		}
 	},
 
-	async mounted() {
-		this.posts = await getPosts()
-	}
+	methods: {
+		async fetchPosts() {
+			const { posts, totalPages } = await getPosts(this.page, this.limit)
+			console.log(posts, totalPages) //D
+			this.posts = [...this.posts, ...posts]
+			this.totalPages = totalPages
+		},
 
+		onIntersect(entries) {
+			if (this.page < this.totalPages && entries[0].isIntersecting) {
+				this.page++
+				this.fetchPosts()
+			}
+		},
+	}
 }
 </script>
 
