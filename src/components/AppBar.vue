@@ -16,6 +16,13 @@
 		<v-spacer/>
 
 		<v-btn
+			plain
+			:to="{ name: 'PagePosts' }"
+		>
+			Посты
+		</v-btn>
+
+		<v-btn
 			v-if="isIconBtnVisible"
 			plain
 			:to="{ name: 'PageIconForm' }"
@@ -99,6 +106,22 @@
 							</v-list-item-icon>
 							<v-list-item-content>
 								<v-list-item-title>{{ login }}</v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>
+					</router-link>
+
+					<router-link
+						style="text-decoration: none; color: inherit;"
+						:to="{ name: 'PagePosts' }"
+					>
+						<v-list-item
+							@click="dialog = false"
+						>
+							<v-list-item-icon>
+								<v-icon>mdi-post</v-icon>
+							</v-list-item-icon>
+							<v-list-item-content>
+								<v-list-item-title>Посты</v-list-item-title>
 							</v-list-item-content>
 						</v-list-item>
 					</router-link>

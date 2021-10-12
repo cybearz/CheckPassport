@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"@vue/composition-api": "^1.1.4",
+		"axios": "^0.22.0",
 		"core-js": "^3.6.5",
 		"lodash": "^4.17.21",
 		"moment": "^2.29.1",
@@ -38,7 +39,8 @@
 			"node": true
 		},
 		"extends": [
-			"plugin:vue/recommended", "eslint:recommended"
+			"plugin:vue/recommended",
+			"eslint:recommended"
 		],
 		"parserOptions": {
 			"parser": "babel-eslint"
@@ -53,11 +55,19 @@
 			"vue/no-unused-components": 0,
 			"vue/no-side-effects-in-computed-properties": 0,
 			"vue/no-useless-escape": 0,
-			"vue/html-indent": [ "warn", "tab" ],
-			"indent": [ "warn", "tab" ]
+			"vue/html-indent": [
+				"warn",
+				"tab"
+			],
+			"indent": [
+				"warn",
+				"tab"
+			]
 		}
 	},
 	"browserslist": [
-		"> 1%", "last 2 versions", "not dead"
+		"> 1%",
+		"last 2 versions",
+		"not dead"
 	]
 }

@@ -1,4 +1,5 @@
 import _ from "lodash"
+import axios from "axios"
 
 export const cleanEmp = {
 	fio: "",
@@ -56,6 +57,8 @@ const empProfile = new LocalStorageData("empProfile")
 
 // api
 
+// try catch для всех методов API?
+
 export function getEmpStore() {
 	const es = empStore.get()
 	return _.forEach(es, createAvatar)
@@ -75,4 +78,18 @@ export function getEmpProfile() {
 
 export function setEmpProfile(v) {
 	empProfile.set(v)
+}
+
+export async function getPosts(_page, _limit) {
+	const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
+		params: {
+			_page,
+			_limit
+		}
+	})
+	const totalPages = Math.ceil(response.headers["x-total-count"] / _limit)
+	return {
+		posts: response.data,
+		totalPages
+	}
 }
