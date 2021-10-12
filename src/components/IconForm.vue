@@ -105,6 +105,7 @@
 <script>
 import _ from "lodash"
 import { getMdiIcons, hasIcon } from "@/utils/api"
+import IconFormAutocomplete from "@/components/IconFormAutocomplete"
 
 const iconColors = [
 	"red", "pink", "purple", "deep-purple",
@@ -117,6 +118,7 @@ const iconColors = [
 
 export default {
 	name: "IconForm",
+	components: { IconFormAutocomplete },
 
 	props: {
 		iconData: {
@@ -191,11 +193,6 @@ export default {
 		changeColorArr() {
 			iconColors.splice(-1)
 			this.$forceUpdate()
-		},
-
-		iconFilter(item, querryText) {
-			const regexp = new RegExp(`^${querryText}[\\w\-]*`)
-			return regexp.test(item)
 		},
 
 		removeIcon(v) {
