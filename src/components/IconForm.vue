@@ -13,43 +13,14 @@
 			class="pa-3"
 			@submit.prevent="submit"
 		>
-			<v-autocomplete
-				v-else
+			<IconFormAutocomplete
+				v-if="allIconsReady"
 				v-model="values.icon"
 				:multiple="multiple"
 				:items="allIcons"
-				:filter="iconFilter"
 				:rules="rulesIconName"
-				label="Имя"
-				chips
-				outlined
-				auto-select-first
-			>
-				<template v-slot:selection="data">
-					<v-chip
-						v-bind="data.attrs"
-						:input-value="data.selected"
-						close
-						@click="data.select"
-						@click:close="removeIcon(data.item)"
-					>
-						<v-icon left>
-							{{ "mdi-" + data.item }}
-						</v-icon>
-						{{ data.item }}
-					</v-chip>
-				</template>
-				<template v-slot:item="data">
-					<v-list-item-avatar>
-						<v-icon left>
-							{{ "mdi-" + data.item }}
-						</v-icon>
-					</v-list-item-avatar>
-					<v-list-item-content>
-						<v-list-item-subtitle>{{ data.item }}</v-list-item-subtitle>
-					</v-list-item-content>
-				</template>
-			</v-autocomplete>
+				@click:closeIcon="removeIcon"
+			/>
 			<v-slider
 				v-if="multiple"
 				v-model="values.size"
