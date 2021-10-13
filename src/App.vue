@@ -1,6 +1,6 @@
 <template>
 	<v-app>
-		<AppBar :profile="profile"/>
+		<AppBar :profile="profile" />
 
 		<v-main>
 			<v-container class="fill-height">
@@ -11,7 +11,7 @@
 			</v-container>
 		</v-main>
 
-		<MyFooter/>
+		<MyFooter />
 
 		<TheSnackbar
 			v-model="snackbar"

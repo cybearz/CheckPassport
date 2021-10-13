@@ -13,8 +13,7 @@
 			class="pa-3"
 			@submit.prevent="submit"
 		>
-			<IconFormAutocomplete
-				v-if="allIconsReady"
+			<IconFormAutocomplete v-if="allIconsReady"
 				v-model="values.icon"
 				:multiple="multiple"
 				:items="allIcons"

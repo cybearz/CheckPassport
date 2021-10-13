@@ -4,8 +4,12 @@
 			class="text-center"
 			cols="12"
 		>
-			<span class="pointer-cursor" @click="incYear">{{ year }}</span> —
-			<strong :class="['pointer-cursor', titleClass]" @click="decYear">CheckPassport</strong>
+			<span class="pointer-cursor"
+				@click="incYear"
+			>{{ year }}</span> —
+			<strong :class="['pointer-cursor', titleClass]"
+				@click="decYear"
+			>CheckPassport</strong>
 		</v-col>
 	</v-footer>
 </template>

@@ -1,5 +1,5 @@
 <template>
-	<PageNotFound v-if="isNotFound"/>
+	<PageNotFound v-if="isNotFound" />
 	<v-row
 		v-else
 		no-gutters

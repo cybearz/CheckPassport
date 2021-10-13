@@ -1,5 +1,7 @@
 <template>
-	<v-app-bar v-if="!isMobile" app>
+	<v-app-bar v-if="!isMobile"
+		app
+	>
 		<v-btn
 			class="px-0"
 			plain
@@ -13,7 +15,7 @@
 			</div>
 		</v-btn>
 
-		<v-spacer/>
+		<v-spacer />
 
 		<v-btn
 			plain
@@ -46,12 +48,14 @@
 
 	<!-- mobile -->
 
-	<v-app-bar v-else app>
+	<v-app-bar v-else
+		app
+	>
 		<div class="text-uppercase text-h4">
 			CheckPassport
 		</div>
 
-		<v-spacer/>
+		<v-spacer />
 
 		<v-dialog
 			v-model="dialog"
@@ -72,7 +76,7 @@
 						CheckPassport
 					</div>
 
-					<v-spacer/>
+					<v-spacer />
 
 					<v-app-bar-nav-icon @click="dialog = false">
 						<v-icon size="40">

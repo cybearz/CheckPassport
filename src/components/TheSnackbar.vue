@@ -24,7 +24,10 @@ export default {
 
 	props: {
 		value: Boolean,
-		text: String,
+		text: {
+			type: String,
+			default: "ok"
+		},
 
 		timeout: {
 			type: [ String, Number ],

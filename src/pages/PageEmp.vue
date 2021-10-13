@@ -10,8 +10,7 @@
 			md="5"
 			sm="5"
 		>
-			<EmpList
-				v-if="!isMobile || (isMobile && isEmpListActive)"
+			<EmpList v-if="!isMobile || (isMobile && isEmpListActive)"
 				@addEmp="isEmpListActive = false"
 			/>
 			<div v-else>

@@ -62,7 +62,13 @@
 			"indent": [
 				"warn",
 				"tab"
-			]
+			],
+			"vue/max-attributes-per-line": ["warn", {
+				"multiline": {
+					"max": 1,
+					"allowFirstLine": true
+				}
+			}]
 		}
 	},
 	"browserslist": [
