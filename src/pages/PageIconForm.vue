@@ -10,7 +10,6 @@
 			sm="7"
 		>
 			<IconForm
-				multiple
 				:icon-data="icon"
 				btn-label="Показать"
 				@save="saveIcon"

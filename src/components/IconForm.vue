@@ -99,7 +99,6 @@ export default {
 			type: String,
 			default: "ОК",
 		},
-		multiple: Boolean,
 	},
 
 	data() {
@@ -115,8 +114,12 @@ export default {
 	},
 
 	computed: {
-
 		iconColors: () => iconColors,
+
+		multiple() {
+			return _.isArray(this.values.icon)
+		},
+
 		rulesIconName() {
 			const ruleIcon = v => hasIcon(v)
 				? true
