@@ -58,13 +58,11 @@ export default {
 		},
 		items: {
 			type: Array,
-			// eslint-disable-next-line vue/require-valid-default-prop
-			default: [],
+			default: () => [],
 		},
 		rules: {
 			type: Array,
-			// eslint-disable-next-line vue/require-valid-default-prop
-			default: [],
+			default: () => [],
 		}
 	},
 

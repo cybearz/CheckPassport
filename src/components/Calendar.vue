@@ -35,8 +35,7 @@ export default {
 		rules: {
 			type: Array,
 			required: true,
-			// eslint-disable-next-line vue/require-valid-default-prop
-			default: []
+			default: () => [],
 		},
 		date: {
 			type: String,
