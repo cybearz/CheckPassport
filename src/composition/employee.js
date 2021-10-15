@@ -39,9 +39,8 @@ export function useEmployee(employee, emit, refs, root) {
 		if (!isValid) {
 			// TODO Допустимо ли обращение через $root?
 			nextTick(() => {
-				const errorEl = document.querySelector(".v-messages__message:first-of-type")
-				const inputEl = errorEl.parentNode.parentNode.parentNode.parentNode
-				root.$vuetify.goTo(inputEl)
+				const k = _.findKey(refs.passportFrom.errorBag, v => !!v)
+				root.$vuetify.goTo(`#input-${k}`)
 			})
 			return //^
 		}

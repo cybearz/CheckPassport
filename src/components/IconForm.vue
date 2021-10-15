@@ -179,14 +179,13 @@ export default {
 
 		submit() {
 			const isValid = this.$refs.theForm.validate()
-			// if (!isValid) {
-			// 	this.$nextTick(() => {
-			// 		const errorEl = document.querySelector(".v-messages__message:first-of-type")
-			// 		const inputEl = errorEl.parentNode.parentNode.parentNode.parentNode
-			// 		this.$vuetify.goTo(inputEl)
-			// 	})
-			// 	return //^
-			// }
+			if (!isValid) {
+				this.$nextTick(() => {
+					const k = _.findKey(this.$refs.theForm.errorBag, v => !!v)
+					this.$vuetify.goTo(`#input-${k}`)
+				})
+				return //^
+			}
 			this.$emit("save", this.values)
 		},
 
