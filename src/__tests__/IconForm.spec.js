@@ -6,9 +6,13 @@ import * as api from "@/utils/api"
 import IconForm from "@/components/IconForm"
 
 const localVue = createLocalVue()
+// localVue.use(Vuetify) - так нельзя
 Vue.use(Vuetify)
 
 describe("IconForm.vue", () => {
+	test("sanity test", () => {
+		console.log(IconForm)
+	})
 	//FIXME поискать другой способ мокать функцию
 	api.getMdiIcons = jest.fn(() =>
 		Promise.resolve(["passport", "alert", "dog"])
@@ -19,7 +23,8 @@ describe("IconForm.vue", () => {
 	const createWrapper = iconData => mount(IconForm, {
 		localVue,
 		vuetify,
-		propsData: { iconData }
+		propsData: { iconData },
+		attachToDocument: true
 	})
 
 	it("renders chip for each icon in props.iconData.icon", async () => {
