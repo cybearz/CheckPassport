@@ -121,24 +121,9 @@ export default {
 		},
 
 		rulesIconName() {
-			const ruleIcon = v => hasIcon(v)
-				? true
-				: `Иконка "${ v }" не существует`
 			return this.multiple
-				? [
-					v => !_.isEmpty(v) || "Введите имя",
-					v => {
-						for (let icon of v) {
-							const b = ruleIcon(icon)
-							if (b !== true) return b
-						}
-						return true
-					}
-				]
-				: [
-					v => !!v || "Введите имя",
-					ruleIcon
-				]
+				? [ v => !_.isEmpty(v) || "Введите имя" ]
+				: [ v => !!v || "Введите имя" ]
 		},
 	},
 
