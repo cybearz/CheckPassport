@@ -13,10 +13,9 @@
 			class="pa-3"
 			@submit.prevent="submit"
 		>
-			<IconFormAutocomplete v-if="allIconsReady"
+			<IconFormAutocomplete
 				v-model="values.icon"
 				:multiple="multiple"
-				:items="allIcons"
 				:rules="rulesIconName"
 				@click:closeIcon="removeIcon"
 			/>
@@ -74,7 +73,6 @@
 
 <script>
 import _ from "lodash"
-import { getMdiIcons, hasIcon } from "@/utils/api"
 import IconFormAutocomplete from "@/components/IconFormAutocomplete"
 
 const iconColors = [
@@ -134,11 +132,6 @@ export default {
 				this.values = _.clone(v)
 			},
 		},
-	},
-
-	async created() {
-		this.allIcons = await getMdiIcons()
-		this.allIconsReady = true
 	},
 
 	mounted() {

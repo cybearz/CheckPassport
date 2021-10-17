@@ -5,6 +5,8 @@
 		:items="items"
 		:filter="iconFilter"
 		:rules="rules"
+		:search-input.sync="search"
+		:loading="loading"
 		label="Имя"
 		chips
 		outlined
@@ -39,6 +41,8 @@
 </template>
 
 <script>
+import { getMdiIcons } from "@/utils/api"
+
 export default {
 	name: "IconFormAutocomplete",
 
@@ -56,10 +60,6 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		items: {
-			type: Array,
-			default: () => [],
-		},
 		rules: {
 			type: Array,
 			default: () => [],
@@ -68,8 +68,16 @@ export default {
 
 	data() {
 		return {
-
+			items: [],
+			search: "",
+			loading: false,
 		}
+	},
+
+	async mounted() {
+		this.loading = true
+		this.items = await getMdiIcons()
+		this.loading = false
 	},
 
 	methods: {
