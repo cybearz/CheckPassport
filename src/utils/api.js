@@ -44,8 +44,9 @@ export async function getMdiIcons() {
 	return allIcons = allIcons ?? await newAllIcons()
 }
 
-export function hasIcon(v) {
-	return allIcons?.indexOf(v) !== -1
+export async function hasIcon(v) {
+	if (!allIcons) allIcons = await newAllIcons()
+	return allIcons.indexOf(v) !== -1
 }
 
 function createAvatar(emp) {

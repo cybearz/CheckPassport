@@ -25,7 +25,7 @@
 
 <script>
 
-import { getMdiIcons, hasIcon } from "@/utils/api"
+import { hasIcon } from "@/utils/api"
 import PageNotFound from "@/pages/PageNotFound"
 
 export default {
@@ -56,12 +56,10 @@ export default {
 	},
 
 	async mounted() {
-		await getMdiIcons()
-
 		let iconsArr = []
 
 		for (let icon of this.icon.split(",")) {
-			if (!hasIcon(icon)) {
+			if (! await hasIcon(icon)) {
 				this.isNotFound = true
 				return //^
 			}
