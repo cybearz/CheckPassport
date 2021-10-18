@@ -20,10 +20,14 @@ describe("IconForm.vue", () => {
 		const localVue = createLocalVue()
 		const vuetify = new Vuetify()
 
-		let node = document.createElement("div")
-		node.setAttribute("id", "app")
+		const node = document.createElement("div")
 		node.setAttribute("data-app", "true")
-		console.log("outer:\n", node.outerHTML) //D
+
+		const VApp = document.createElement("div")
+		VApp.classList.add("v-application--wrap")
+		VApp.setAttribute("id", "app")
+
+		node.appendChild(VApp)
 		document.body.appendChild(node)
 
 		wrapper = mount(IconForm, {
@@ -101,10 +105,8 @@ describe("IconForm.vue", () => {
 		expect(error.exists()).toBe(true)
 	})
 
-	it("emits 'save' when form is submitted", async () => {
-		console.log(wrapper.html()) //D
+	it("emits 'save' when form is submitted", () => {
 		const form =  wrapper.find(".v-form")
-
 		form.trigger('submit.prevent')
 		expect(wrapper.emitted("save")).toHaveLength(1)
 	})
