@@ -8,7 +8,7 @@ import IconForm from "@/components/IconForm"
 // localVue.use(Vuetify) - так нельзя
 Vue.use(Vuetify)
 
-describe("IconForm.vue: multiple=true", () => {
+describe("IconForm.vue", () => {
 	let wrapper
 	const iconData = {
 		icon: ["passport", "alert"],
@@ -47,11 +47,42 @@ describe("IconForm.vue: multiple=true", () => {
 		console.log(IconForm)
 	})
 
-	it("renders chip for each icon in props.iconData.icon", async () => {
-		const autocomplete = wrapper.find(".v-autocomplete")
-		const chips = autocomplete.findAll(".v-chip")
+	it("renders header", () => {
+		const header = wrapper.find(".v-subheader")
+		expect(header.text()).toBe("Иконки")
+	})
 
-		expect(chips).toHaveLength(iconData.icon.length)
+	it("renders v-autocomplete", () => {
+		const VAutocomplete = wrapper.find(".v-autocomplete")
+		expect(VAutocomplete.exists()).toBe(true)
+	})
+
+	it("renders v-slider", () => {
+		const VSlider = wrapper.find(".v-slider")
+		expect(VSlider.exists()).toBe(true)
+	})
+
+	it("doesn't render v-slider if icon is a String", async () => {
+		const iconData = {
+			icon: "alert",
+			size: "60",
+			color: "white",
+		}
+		wrapper.setProps({iconData})
+		await flushPromises()
+
+		const VSlider = wrapper.find(".v-slider")
+		expect(VSlider.exists()).toBe(false)
+	})
+
+	it("renders v-input--radio-group", () => {
+		const VRadio = wrapper.find(".v-input--radio-group")
+		expect(VRadio.exists()).toBe(true)
+	})
+
+	it("renders submit v-btn", () => {
+		const VBtn = wrapper.find(".v-btn[type='submit']")
+		expect(VBtn.exists()).toBe(true)
 	})
 
 	it("renders an error message on form submit if the icon's name input is empty", async () => {
@@ -65,15 +96,22 @@ describe("IconForm.vue: multiple=true", () => {
 		const form =  wrapper.find(".v-form")
 		form.trigger('submit.prevent')
 		await flushPromises()
-		const error = wrapper.find(".v-messages__message")
 
+		const error = wrapper.find(".v-messages__message")
 		expect(error.exists()).toBe(true)
 	})
 
 	it("emits 'save' when form is submitted", async () => {
+		console.log(wrapper.html()) //D
 		const form =  wrapper.find(".v-form")
-		form.trigger('submit.prevent')
 
+		form.trigger('submit.prevent')
 		expect(wrapper.emitted("save")).toHaveLength(1)
+	})
+
+	it("renders chip for each icon in props.iconData.icon", async () => {
+		const autocomplete = wrapper.find(".v-autocomplete")
+		const chips = autocomplete.findAll(".v-chip")
+		expect(chips).toHaveLength(iconData.icon.length)
 	})
 })
